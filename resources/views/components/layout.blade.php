@@ -21,6 +21,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @unless(config('app.indexable'))<meta name="robots" content="noindex, nofollow">@endunless
     <title>{{ $pageTitle }}</title>
     @if($pageDesc)<meta name="description" content="{{ $pageDesc }}">@endif
     <meta property="og:title" content="{{ $pageTitle }}">

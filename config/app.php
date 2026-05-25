@@ -56,6 +56,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Search Engine Indexing
+    |--------------------------------------------------------------------------
+    |
+    | When this is disabled, every response is served with a "noindex" robots
+    | directive (both an X-Robots-Tag header and a meta tag) so the site stays
+    | out of search results while it is under construction. Set SITE_INDEXABLE
+    | to true once the site is ready to be indexed.
+    |
+    */
+
+    'indexable' => (bool) env('SITE_INDEXABLE', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |
