@@ -14,9 +14,9 @@ class HomeController extends Controller
     public function __invoke()
     {
         $categories = ProductCategory::active()->ordered()->limit(8)->get();
-        $featured = Product::published()->featured()->ordered()->with('category')->limit(8)->get();
+        $featured = Product::published()->featured()->ordered()->with('category', 'images')->limit(8)->get();
         if ($featured->count() === 0) {
-            $featured = Product::published()->ordered()->with('category')->limit(8)->get();
+            $featured = Product::published()->ordered()->with('category', 'images')->limit(8)->get();
         }
         $posts = Post::published()->latest('published_at')->limit(3)->get();
         $faqs = Faq::active()->homepage()->ordered()->limit(5)->get();
