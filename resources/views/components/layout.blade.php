@@ -65,7 +65,7 @@
             <nav class="hidden lg:flex flex-1 items-center justify-center gap-1">
                 @php
                     $links = [
-                        ['products.index', 'Treats'],
+                        ['products.index', 'Products'],
                         ['about', 'About'],
                         ['blog.index', 'Blog'],
                         ['stores', 'Stores'],

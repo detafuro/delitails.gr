@@ -2,7 +2,7 @@
     $titleParts = [];
     if ($activeCategory) $titleParts[] = $activeCategory->name;
     if (!empty($activeType) && isset($types[$activeType])) $titleParts[] = $types[$activeType];
-    $title = (count($titleParts) ? implode(' · ', $titleParts).' — ' : '').'Treats — '.($site['site_name'] ?? config('app.name'));
+    $title = (count($titleParts) ? implode(' · ', $titleParts).' — ' : '').'Products — '.($site['site_name'] ?? config('app.name'));
     $description = $activeCategory?->seo_description ?? ($site['seo_default_description'] ?? null);
 
     $linkBase = fn(array $extra = []) => route('products.index', array_filter(array_merge(

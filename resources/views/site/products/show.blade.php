@@ -7,7 +7,7 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <nav class="text-xs uppercase tracking-widest text-ink/60 mb-6">
                 <a class="hover:text-fire" href="{{ route('home') }}">Home</a> /
-                <a class="hover:text-fire" href="{{ route('products.index') }}">Treats</a>
+                <a class="hover:text-fire" href="{{ route('products.index') }}">Products</a>
                 @if($product->category)
                     / <a class="hover:text-fire" href="{{ route('products.index', ['category' => $product->category->slug]) }}">{{ $product->category->name }}</a>
                 @endif
