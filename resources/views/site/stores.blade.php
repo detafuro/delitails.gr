@@ -28,29 +28,30 @@
             @else
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     @foreach($stores as $store)
-                        <div class="brush-card bg-bone p-5 {{ $loop->iteration % 3 === 0 ? 'rotate-tilt-2' : '' }}">
+                        <div class="brush-card bg-bone p-5">
                             <div class="flex items-center justify-between">
-                                <span class="ribbon text-[10px]">{{ $store->city }}</span>
+                                <span class="ribbon bg-ink text-[10px]">{{ $store->city }}</span>
                                 @if($store->postcode)<span class="text-xs uppercase tracking-widest text-ink/50">{{ $store->postcode }}</span>@endif
                             </div>
                             <h3 class="mt-3 font-display text-2xl font-black uppercase">{{ $store->name }}</h3>
-                            <p class="mt-2 text-ink/75">{{ $store->address }}</p>
-                            @if($store->phone)<p class="mt-1 text-sm">📞 {{ $store->phone }}</p>@endif
-                            @if($store->email)<p class="mt-0.5 text-sm">✉ {{ $store->email }}</p>@endif
-
-                            @if($store->opening_hours)
-                                <div class="mt-3 border-t-2 border-dashed border-ink/30 pt-3">
-                                    <div class="text-xs uppercase tracking-widest text-ink/60 mb-1">Opening hours</div>
-                                    <pre class="font-sans text-sm whitespace-pre-wrap text-ink/80">{{ $store->opening_hours }}</pre>
-                                </div>
+                            <p class="mt-2 flex items-start gap-1.5 text-ink/75">
+                                <svg class="mt-0.5 h-4 w-4 shrink-0 text-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c-3.866 0-7 3.134-7 7 0 4.97 7 13 7 13s7-8.03 7-13c0-3.866-3.134-7-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                                <span>{{ $store->address }}</span>
+                            </p>
+                            @if($store->phone)
+                                <p class="mt-1 flex items-center gap-1.5 text-sm">
+                                    <svg class="h-4 w-4 shrink-0 text-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+                                    <span>{{ $store->phone }}</span>
+                                </p>
                             @endif
+                            @if($store->email)<p class="mt-0.5 text-sm">✉ {{ $store->email }}</p>@endif
 
                             <div class="mt-4 flex flex-wrap gap-2">
                                 @if($store->map_link)
-                                    <a href="{{ $store->map_link }}" target="_blank" rel="noopener" class="btn-rough is-bone is-sm">View map</a>
+                                    <a href="{{ $store->map_link }}" target="_blank" rel="noopener" class="btn-rough is-grass is-sm">View map</a>
                                 @endif
                                 @if($store->phone)
-                                    <a href="tel:{{ preg_replace('/[^+\d]/','',$store->phone) }}" class="btn-rough is-ghost is-sm">Call</a>
+                                    <a href="tel:{{ preg_replace('/[^+\d]/','',$store->phone) }}" class="btn-rough is-fire is-sm">Call</a>
                                 @endif
                             </div>
                         </div>
