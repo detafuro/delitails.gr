@@ -64,10 +64,10 @@
                     Loud, on purpose
                 </h2>
                 <p class="mt-5 font-editorial italic text-xl md:text-2xl text-bone/80 leading-relaxed">
-                    Pet food is full of beige labels and bland promises. We went the other way. Bright, brash, unmissable — because the treats inside are the real deal and they deserved a wrapper to match.
+                    We are not just another brand—we are a brand created by a producer. Every Delitails product is crafted by us, giving us full control over quality, consistency, and sourcing. This means complete transparency in everything we offer, from the first ingredient to the final treat.
                 </p>
                 <p class="mt-4 text-bone/70 leading-relaxed">
-                    Every batch is made in small runs. Every ingredient earns its spot. Every recipe is tested by an army of unimpressed pets and the humans who love them.
+                    Our philosophy is simple: better treats lead to happier, healthier dogs—and you can see the difference in every wag.
                 </p>
             </div>
             <div class="relative">
