@@ -2,18 +2,6 @@ import Alpine from 'alpinejs';
 import collapse from '@alpinejs/collapse';
 import Quill from 'quill';
 
-const ListFormat = Quill.import('formats/list');
-class BulletList extends ListFormat {
-  static blotName = 'bullet';
-  static tagName = 'ul';
-}
-class OrderedList extends ListFormat {
-  static blotName = 'ordered';
-  static tagName = 'ol';
-}
-Quill.register(BulletList);
-Quill.register(OrderedList);
-
 window.Alpine = Alpine;
 window.Quill = Quill;
 Alpine.plugin(collapse);
@@ -37,12 +25,43 @@ document.addEventListener('DOMContentLoaded', () => {
       placeholder: 'Enter content...'
     });
 
+    // Load existing content and preserve list types
     if (hiddenInput.value) {
+      const container = document.createElement('div');
+      container.innerHTML = hiddenInput.value;
       quill.root.innerHTML = hiddenInput.value;
     }
 
     quill.on('text-change', () => {
-      hiddenInput.value = quill.root.innerHTML;
+      let html = quill.root.innerHTML;
+
+      // Fix lists: ensure bullet lists use <ul> and ordered lists use <ol>
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+
+      // Process all list items to fix list types based on their attributes
+      tempDiv.querySelectorAll('li').forEach(li => {
+        const parent = li.parentElement;
+        const listType = li.getAttribute('data-list');
+
+        if (listType === 'bullet' && parent.tagName === 'OL') {
+          // Convert <ol> to <ul> for bullet lists
+          const ul = document.createElement('ul');
+          while (parent.firstChild) {
+            ul.appendChild(parent.firstChild);
+          }
+          parent.replaceWith(ul);
+        } else if (listType === 'ordered' && parent.tagName === 'UL') {
+          // Convert <ul> to <ol> for ordered lists
+          const ol = document.createElement('ol');
+          while (parent.firstChild) {
+            ol.appendChild(parent.firstChild);
+          }
+          parent.replaceWith(ol);
+        }
+      });
+
+      hiddenInput.value = tempDiv.innerHTML;
     });
   });
 });
