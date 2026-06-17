@@ -40,11 +40,19 @@
                     Just carefully crafted treats you can trust.
                 </h2>
                 <p class="mt-5 font-editorial italic text-xl md:text-2xl text-ink/80 leading-relaxed">
-                    We were tired of squinting at ingredient lists nobody could pronounce. So we put on aprons, set the oven to whatever felt right, and started baking treats we'd actually feed our own animals.
+                    We believe dogs are more than pets—they are family. And just like every member of the family, they deserve the very best.
                 </p>
                 <p class="mt-4 text-ink/75 leading-relaxed">
-                    The first batch was eaten faster than we could photograph it. The second batch went to neighbours. The third went to a tiny pet store down the road. The rest is in the cupboards of pets across the country.
+                    That belief is what inspired Delitails.
                 </p>
+                <p class="mt-4 text-ink/75 leading-relaxed">
+                    We create premium single-protein chews, training treats, and natural sausages made with simplicity, honesty, and quality at the heart of everything we do.
+                </p>
+                <div class="mt-4 text-ink/75 leading-relaxed space-y-2">
+                    <p>No unnecessary fillers.</p>
+                    <p>No confusing ingredient lists.</p>
+                    <p>Just carefully crafted treats you can trust.</p>
+                </div>
             </div>
         </div>
     </section>
