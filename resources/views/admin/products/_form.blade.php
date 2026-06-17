@@ -61,6 +61,6 @@
 </div>
 
 <div class="mt-6 flex gap-3">
-    <button type="submit" class="btn-rough is-fire">{{ $product->exists ? 'Update product' : 'Create product' }}</button>
+    <button type="submit" class="btn-rough is-fire" onclick="console.log('Button clicked'); console.log('Form:', this.form); if(this.form) { console.log('Submitting...'); this.form.submit(); }">{{ $product->exists ? 'Update product' : 'Create product' }}</button>
     <a href="{{ route('admin.products.index') }}" class="btn-rough is-bone">Cancel</a>
 </div>
