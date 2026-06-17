@@ -5,7 +5,7 @@
             <div class="lg:col-span-3">
                 <div class="text-ink/70 text-sm font-bold uppercase tracking-[0.3em]">About us</div>
                 <h1 class="mt-3 font-display text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9]">
-                    Hand-baked. <br><span class="text-fire">Loud-mouthed.</span><br>Pet-obsessed.
+                    You know that dogs love it, <span class="text-fire">'cause tails</span> show it!
                 </h1>
             </div>
             <div class="lg:col-span-2">
