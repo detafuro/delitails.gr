@@ -4,7 +4,7 @@
         <x-admin.form-input name="title" label="Title" :value="$post->title" required/>
         <x-admin.form-input name="slug" label="Slug" :value="$post->slug" hint="Leave blank to auto-generate."/>
         <x-admin.textarea name="excerpt" label="Excerpt" :value="$post->excerpt" rows="3"/>
-        <x-admin.textarea name="body" label="Body" :value="$post->body" rows="14" hint="Plain text or HTML."/>
+        <x-admin.rich-textarea name="body" label="Body" :value="$post->body" hint="Use formatting tools or paste HTML."/>
         <div class="border-t-2 border-dashed border-ink/30 pt-4">
             <h3 class="font-display text-lg font-extrabold uppercase mb-2">SEO</h3>
             <x-admin.form-input name="seo_title" label="SEO title" :value="$post->seo_title"/>
