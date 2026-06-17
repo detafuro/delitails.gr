@@ -271,9 +271,15 @@
     .quill-content h1 { font-size: 2em; }
     .quill-content h2 { font-size: 1.6em; }
     .quill-content h3 { font-size: 1.3em; }
-    .quill-content ol, .quill-content ul {
+    .quill-content ol {
         margin: 0.4em 0;
         padding-left: 2em;
+        list-style: decimal;
+    }
+    .quill-content ul {
+        margin: 0.4em 0;
+        padding-left: 2em;
+        list-style: disc;
     }
     .quill-content li {
         margin: 0.2em 0;
