@@ -24,14 +24,8 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
             <div class="relative order-2 lg:order-1">
                 <div class="absolute -inset-4 -rotate-[3deg] bg-fire/15 border-2 border-ink"></div>
-                <div class="relative aspect-square border-2 border-ink bg-ink overflow-hidden">
-                    <div class="absolute inset-0 halftone opacity-60"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="font-display text-6xl md:text-8xl font-black uppercase text-bone">2018</div>
-                            <div class="text-bone/70 font-display text-xs uppercase tracking-[0.4em] mt-2">Year zero</div>
-                        </div>
-                    </div>
+                <div class="relative aspect-square border-2 border-ink overflow-hidden">
+                    <img src="{{ asset('storage/our-history.png') }}" alt="Our history" class="h-full w-full object-cover">
                 </div>
             </div>
             <div class="order-1 lg:order-2">
