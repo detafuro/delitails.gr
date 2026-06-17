@@ -72,10 +72,8 @@
             </div>
             <div class="relative">
                 <div class="absolute -inset-4 rotate-[3deg] bg-grass/20 border-2 border-bone"></div>
-                <div class="relative aspect-square border-2 border-bone bg-fire overflow-hidden flex items-center justify-center">
-                    <div class="font-editorial italic text-bone text-3xl md:text-5xl text-center px-6 leading-tight">
-                        "Better treats. <br>Louder packs."
-                    </div>
+                <div class="relative aspect-square border-2 border-bone overflow-hidden">
+                    <img src="{{ asset('storage/our-story-feat.jpg') }}" alt="Our philosophy" class="h-full w-full object-cover">
                 </div>
             </div>
         </div>
