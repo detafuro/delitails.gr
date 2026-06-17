@@ -7,6 +7,6 @@
     <x-admin.toggle name="is_active" label="Active" :value="$blog_category->is_active ?? true"/>
 </div>
 <div class="mt-6 flex gap-3">
-    <button class="btn-rough is-fire">{{ $blog_category->exists ? 'Update' : 'Create' }}</button>
+    <button type="submit" class="btn-rough is-fire">{{ $blog_category->exists ? 'Update' : 'Create' }}</button>
     <a href="{{ route('admin.blog-categories.index') }}" class="btn-rough is-bone">Cancel</a>
 </div>

@@ -90,7 +90,7 @@
         </section>
 
         <div class="flex gap-3">
-            <button class="btn-rough is-fire">Save settings</button>
+            <button type="submit" class="btn-rough is-fire">Save settings</button>
         </div>
     </form>
 </x-admin.layout>

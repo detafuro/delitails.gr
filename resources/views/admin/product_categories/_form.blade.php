@@ -28,6 +28,6 @@
 </div>
 
 <div class="mt-6 flex gap-3">
-    <button class="btn-rough is-fire">{{ $category->exists ? 'Update category' : 'Create category' }}</button>
+    <button type="submit" class="btn-rough is-fire">{{ $category->exists ? 'Update category' : 'Create category' }}</button>
     <a href="{{ route('admin.product-categories.index') }}" class="btn-rough is-bone">Cancel</a>
 </div>

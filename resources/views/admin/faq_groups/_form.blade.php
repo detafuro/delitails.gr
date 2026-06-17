@@ -6,6 +6,6 @@
     <x-admin.toggle name="is_active" label="Active" :value="$group->is_active ?? true"/>
 </div>
 <div class="mt-6 flex gap-3">
-    <button class="btn-rough is-fire">{{ $group->exists ? 'Update group' : 'Create group' }}</button>
+    <button type="submit" class="btn-rough is-fire">{{ $group->exists ? 'Update group' : 'Create group' }}</button>
     <a href="{{ route('admin.faq-groups.index') }}" class="btn-rough is-bone">Cancel</a>
 </div>

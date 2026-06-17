@@ -22,6 +22,6 @@
     </div>
 </div>
 <div class="mt-6 flex gap-3">
-    <button class="btn-rough is-fire">{{ $faq->exists ? 'Update FAQ' : 'Create FAQ' }}</button>
+    <button type="submit" class="btn-rough is-fire">{{ $faq->exists ? 'Update FAQ' : 'Create FAQ' }}</button>
     <a href="{{ route('admin.faqs.index') }}" class="btn-rough is-bone">Cancel</a>
 </div>
