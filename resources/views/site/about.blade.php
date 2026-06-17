@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="order-1 lg:order-2">
-                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Chapter one</div>
+                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">What we do</div>
                 <h2 class="mt-3 font-display text-4xl md:text-5xl font-black uppercase leading-tight">
                     It started in a kitchen
                 </h2>
