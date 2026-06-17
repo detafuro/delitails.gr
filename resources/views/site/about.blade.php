@@ -10,7 +10,7 @@
             </div>
             <div class="lg:col-span-2">
                 <p class="font-editorial italic text-2xl md:text-3xl text-ink/80 leading-relaxed">
-                    A small kitchen, a stubborn dog, and a strong opinion about what pets deserve. That's the whole pitch.
+                    What makes Delitails different is simple: we are not just another brand—we are a brand created by a producer.
                 </p>
             </div>
         </div>
