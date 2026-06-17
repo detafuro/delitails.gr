@@ -17,7 +17,7 @@
         <div class="text-xs uppercase tracking-wider text-ink/55">
             {{ $post->published_at?->format('M j, Y') }} @if($post->author) · {{ $post->author }} @endif
         </div>
-        <h3 class="mt-1 font-display text-xl md:text-2xl font-black uppercase leading-tight">{{ $post->title }}</h3>
+        <h3 class="mt-1 font-display text-xl md:text-2xl font-black uppercase leading-tight text-ink">{{ $post->title }}</h3>
         @if($post->excerpt)
             <p class="mt-2 text-sm text-ink/70">{{ Str::limit($post->excerpt, 120) }}</p>
         @endif
