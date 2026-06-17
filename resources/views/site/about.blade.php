@@ -48,11 +48,9 @@
                 <p class="mt-4 text-ink/75 leading-relaxed">
                     We create premium single-protein chews, training treats, and natural sausages made with simplicity, honesty, and quality at the heart of everything we do.
                 </p>
-                <div class="mt-4 text-ink/75 leading-relaxed space-y-2">
-                    <p>No unnecessary fillers.</p>
-                    <p>No confusing ingredient lists.</p>
-                    <p>Just carefully crafted treats you can trust.</p>
-                </div>
+                <p class="mt-4 text-ink/75 leading-relaxed">
+                    No unnecessary fillers. No confusing ingredient lists. Just carefully crafted treats you can trust.
+                </p>
             </div>
         </div>
     </section>
