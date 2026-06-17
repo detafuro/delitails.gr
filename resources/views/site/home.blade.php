@@ -113,7 +113,7 @@
             <div>
                 <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Our story</div>
                 <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase leading-[0.95]">
-                    A <span class="underline-brush">brand</span> created by a producer
+                    A brand created by a <span class="underline-brush">producer</span>
                 </h2>
                 <p class="mt-5 font-editorial text-xl md:text-2xl text-ink/80 leading-relaxed italic">
                     Delitails creates natural, single-protein chews, training treats, and sausages designed with care, simplicity, and quality at their core. Our approach is built on honesty: clean ingredients, no unnecessary additives, and products you can trust.
