@@ -72,7 +72,7 @@
                         <a href="{{ route('home') }}" class="text-xs font-bold uppercase tracking-wider text-bone/80 hover:text-bone">View site</a>
                         <form method="POST" action="{{ route('logout') }}" class="ml-auto">
                             @csrf
-                            <button class="text-xs font-bold uppercase tracking-wider text-fire-light hover:text-fire">Logout</button>
+                            <button type="submit" class="text-xs font-bold uppercase tracking-wider text-fire-light hover:text-fire">Logout</button>
                         </form>
                     </div>
                 </div>
