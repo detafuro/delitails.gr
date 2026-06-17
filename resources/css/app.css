@@ -281,6 +281,12 @@
         padding-left: 2em;
         list-style: disc;
     }
+    .quill-content ul li::marker {
+        color: var(--color-fire);
+    }
+    .quill-content ol li::marker {
+        color: var(--color-fire);
+    }
     .quill-content li {
         margin: 0.2em 0;
     }
