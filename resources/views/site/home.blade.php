@@ -12,8 +12,8 @@
     <section class="relative overflow-hidden bg-grass paper">
         <div class="absolute inset-0 halftone-light opacity-30 pointer-events-none"></div>
 
-        <div class="relative mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
-            <div class="relative z-10">
+        <div class="relative mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-24 grid lg:grid-cols-3 gap-10 items-center">
+            <div class="relative z-10 lg:col-span-2">
                 <div class="inline-flex items-center gap-2 ribbon mb-5">
                     <span>★ New batch dropped</span>
                 </div>
