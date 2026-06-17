@@ -37,7 +37,7 @@
             <div class="order-1 lg:order-2">
                 <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">What we do</div>
                 <h2 class="mt-3 font-display text-4xl md:text-5xl font-black uppercase leading-tight">
-                    It started in a kitchen
+                    Just carefully crafted treats you can trust.
                 </h2>
                 <p class="mt-5 font-editorial italic text-xl md:text-2xl text-ink/80 leading-relaxed">
                     We were tired of squinting at ingredient lists nobody could pronounce. So we put on aprons, set the oven to whatever felt right, and started baking treats we'd actually feed our own animals.
