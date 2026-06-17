@@ -59,7 +59,7 @@
     <x-site.torn-section bg="ink" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
             <div>
-                <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">Chapter two</div>
+                <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">Our philosophy</div>
                 <h2 class="mt-3 font-display text-4xl md:text-5xl font-black uppercase leading-tight text-bone">
                     Loud, on purpose
                 </h2>
