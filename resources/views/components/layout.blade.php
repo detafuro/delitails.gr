@@ -68,7 +68,7 @@
                         ['products.index', 'Products'],
                         ['about', 'About'],
                         ['blog.index', 'Blog'],
-                        {{-- ['stores', 'Stores'], --}}
+                        // ['stores', 'Stores'],
                         ['faq', 'FAQ'],
                         ['contact', 'Contact'],
                     ];
