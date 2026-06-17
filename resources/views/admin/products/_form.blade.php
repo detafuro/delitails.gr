@@ -47,10 +47,7 @@
                     @foreach($product->images as $img)
                         <div class="relative group border border-ink/30">
                             <img src="{{ asset('storage/'.$img->path) }}" class="h-24 w-full object-cover">
-                            <form method="POST" action="{{ route('admin.products.images.destroy', [$product, $img]) }}" class="absolute inset-0 hidden group-hover:flex items-center justify-center bg-ink/70">
-                                @csrf @method('DELETE')
-                                <button class="text-bone text-xs font-bold uppercase">Remove</button>
-                            </form>
+                            <button onclick="if(confirm('Remove this image?')) { fetch('{{ route('admin.products.images.destroy', [$product, $img]) }}', { method: 'DELETE', headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' } }).then(() => location.reload()); }" class="absolute inset-0 hidden group-hover:flex items-center justify-center bg-ink/70 text-bone text-xs font-bold uppercase">Remove</button>
                         </div>
                     @endforeach
                 </div>
