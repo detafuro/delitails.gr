@@ -17,9 +17,9 @@
                 <div class="inline-flex items-center gap-2 ribbon mb-5">
                     <span>★ New batch dropped</span>
                 </div>
-                <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tight">
+                <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tight text-ink">
                     @foreach(explode(' ', $heroHeading) as $i => $word)
-                        <span @if($i % 2 === 1) class="text-fire" @endif>{{ $word }}</span>{{ $i < count(explode(' ', $heroHeading)) - 1 ? ' ' : '' }}
+                        <span @if(strtolower(str_replace('.', '', str_replace(',', '', $word))) === 'dogs' || strtolower(str_replace('.', '', str_replace(',', '', $word))) === 'tails') class="text-fire" @endif>{{ $word }}</span>{{ $i < count(explode(' ', $heroHeading)) - 1 ? ' ' : '' }}
                     @endforeach
                 </h1>
                 <p class="mt-6 max-w-xl text-xl md:text-2xl text-ink/80 font-editorial italic">
