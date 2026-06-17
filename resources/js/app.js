@@ -2,6 +2,18 @@ import Alpine from 'alpinejs';
 import collapse from '@alpinejs/collapse';
 import Quill from 'quill';
 
+const ListFormat = Quill.import('formats/list');
+class BulletList extends ListFormat {
+  static blotName = 'bullet';
+  static tagName = 'ul';
+}
+class OrderedList extends ListFormat {
+  static blotName = 'ordered';
+  static tagName = 'ol';
+}
+Quill.register(BulletList);
+Quill.register(OrderedList);
+
 window.Alpine = Alpine;
 window.Quill = Quill;
 Alpine.plugin(collapse);
@@ -17,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toolbar: [
           ['bold', 'italic', 'underline', 'strike'],
           ['blockquote', 'code-block'],
-          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'list': 'bullet'}, { 'list': 'ordered' }],
           ['link', 'image'],
           ['clean']
         ]
