@@ -146,8 +146,9 @@
         </div>
     </x-site.torn-section>
 
+    @if(false)
     {{-- STORE LOCATOR PREVIEW (HIDDEN) --}}
-    {{-- <x-site.torn-section bg="fire" :top="true">
+    <x-site.torn-section bg="fire" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
@@ -175,7 +176,8 @@
                 @endforelse
             </div>
         </div>
-    </x-site.torn-section> --}}
+    </x-site.torn-section>
+    @endif
 
     {{-- FAQ PREVIEW --}}
     <x-site.torn-section bg="bone" :top="true">
