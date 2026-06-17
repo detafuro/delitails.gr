@@ -119,7 +119,7 @@
             <div>
                 <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Our story</div>
                 <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase leading-[0.95]">
-                    You know that dogs love it, <span class="underline-brush">'cause</span> tails show it!
+                    You know that dogs love it, 'cause <span class="underline-brush">tails</span> show it!
                 </h2>
                 <p class="mt-5 font-editorial text-xl md:text-2xl text-ink/80 leading-relaxed italic">
                     We started at the kitchen table with one good dog and a stubborn belief that pets deserve better than the bland stuff. Every recipe is small-batch, every ingredient is one we'd happily eat ourselves.
