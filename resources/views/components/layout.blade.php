@@ -68,7 +68,7 @@
                         ['products.index', 'Products'],
                         ['about', 'About'],
                         ['blog.index', 'Blog'],
-                        ['stores', 'Stores'],
+                        {{-- ['stores', 'Stores'], --}}
                         ['faq', 'FAQ'],
                         ['contact', 'Contact'],
                     ];
@@ -91,10 +91,10 @@
                 </button>
 
                 {{-- Stockists CTA --}}
-                <a href="{{ route('stores') }}" class="relative inline-flex h-10 items-center gap-1 border-2 border-ink bg-fire text-bone px-3 font-bold uppercase tracking-wider text-xs hover:rotate-tilt-1" aria-label="Find a store">
+                {{-- <a href="{{ route('stores') }}" class="relative inline-flex h-10 items-center gap-1 border-2 border-ink bg-fire text-bone px-3 font-bold uppercase tracking-wider text-xs hover:rotate-tilt-1" aria-label="Find a store">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2c-3.866 0-7 3.134-7 7 0 4.97 7 13 7 13s7-8.03 7-13c0-3.866-3.134-7-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>
                     <span class="hidden sm:inline">Find a store</span>
-                </a>
+                </a> --}}
 
                 {{-- Mobile menu --}}
                 <button @click="mobile=true" class="lg:hidden inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-bone hover:bg-grass" aria-label="Menu">
@@ -177,7 +177,7 @@
                     <li><a class="hover:text-grass" href="{{ route('products.index') }}">All treats</a></li>
                     <li><a class="hover:text-grass" href="{{ route('products.index') }}?sort=newest">New drops</a></li>
                     <li><a class="hover:text-grass" href="{{ route('products.index') }}?sort=price_asc">By price</a></li>
-                    <li><a class="hover:text-grass" href="{{ route('stores') }}">Find a store</a></li>
+                    {{-- <li><a class="hover:text-grass" href="{{ route('stores') }}">Find a store</a></li> --}}
                 </ul>
             </div>
 

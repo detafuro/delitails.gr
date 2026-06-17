@@ -29,9 +29,9 @@
                     <x-site.rough-button href="{{ $heroCtaLink }}" variant="ink">
                         {{ $heroCtaText }} <span class="wiggle inline-block">→</span>
                     </x-site.rough-button>
-                    <x-site.rough-button href="{{ route('stores') }}" variant="fire">
+                    {{-- <x-site.rough-button href="{{ route('stores') }}" variant="fire">
                         Find a store
-                    </x-site.rough-button>
+                    </x-site.rough-button> --}}
                 </div>
 
                 <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-bold uppercase tracking-widest text-ink/70">
@@ -146,8 +146,8 @@
         </div>
     </x-site.torn-section>
 
-    {{-- STORE LOCATOR PREVIEW --}}
-    <x-site.torn-section bg="fire" :top="true">
+    {{-- STORE LOCATOR PREVIEW (HIDDEN) --}}
+    {{-- <x-site.torn-section bg="fire" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
@@ -175,7 +175,7 @@
                 @endforelse
             </div>
         </div>
-    </x-site.torn-section>
+    </x-site.torn-section> --}}
 
     {{-- FAQ PREVIEW --}}
     <x-site.torn-section bg="bone" :top="true">
