@@ -19,7 +19,7 @@
                 </div>
                 <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tight">
                     @foreach(explode(' ', $heroHeading) as $i => $word)
-                        <span class="block @if($i % 2 === 1) text-fire @endif">{{ $word }}</span>
+                        <span @if($i % 2 === 1) class="text-fire" @endif>{{ $word }}</span>{{ $i < count(explode(' ', $heroHeading)) - 1 ? ' ' : '' }}
                     @endforeach
                 </h1>
                 <p class="mt-6 max-w-xl text-xl md:text-2xl text-ink/80 font-editorial italic">
