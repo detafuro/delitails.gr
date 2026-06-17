@@ -122,7 +122,7 @@
                     You know that dogs love it, 'cause <span class="underline-brush">tails</span> show it!
                 </h2>
                 <p class="mt-5 font-editorial text-xl md:text-2xl text-ink/80 leading-relaxed italic">
-                    We started at the kitchen table with one good dog and a stubborn belief that pets deserve better than the bland stuff. Every recipe is small-batch, every ingredient is one we'd happily eat ourselves.
+                    Delitails creates natural, single-protein chews, training treats, and sausages designed with care, simplicity, and quality at their core. Our approach is built on honesty: clean ingredients, no unnecessary additives, and products you can trust.
                 </p>
                 <p class="mt-4 text-ink/75 leading-relaxed">
                     Today we're still small, still loud, and still obsessed with the wag.
