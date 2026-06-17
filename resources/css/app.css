@@ -278,13 +278,8 @@
     }
     .quill-content ul {
         margin: 0.4em 0;
-        padding-left: 0;
+        padding-left: 2em;
         list-style: disc;
-    }
-    .quill-content ol {
-        margin: 0.4em 0;
-        padding-left: 0;
-        list-style: decimal;
     }
     .quill-content ul li::marker {
         color: var(--color-fire);
