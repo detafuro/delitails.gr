@@ -240,6 +240,84 @@
         background-size: 100% 0.55em;
         padding-bottom: 0.2em;
     }
+
+    /* Styles for Quill-generated content */
+    .quill-content p {
+        margin: 1em 0;
+    }
+    .quill-content p:first-child {
+        margin-top: 0;
+    }
+    .quill-content p:last-child {
+        margin-bottom: 0;
+    }
+    .quill-content strong {
+        font-weight: 700;
+    }
+    .quill-content em {
+        font-style: italic;
+    }
+    .quill-content u {
+        text-decoration: underline;
+    }
+    .quill-content s {
+        text-decoration: line-through;
+    }
+    .quill-content h1, .quill-content h2, .quill-content h3, .quill-content h4, .quill-content h5, .quill-content h6 {
+        font-family: var(--font-display);
+        font-weight: 800;
+        margin: 1.2em 0 0.5em 0;
+    }
+    .quill-content h1 { font-size: 2em; }
+    .quill-content h2 { font-size: 1.6em; }
+    .quill-content h3 { font-size: 1.3em; }
+    .quill-content ol, .quill-content ul {
+        margin: 1em 0;
+        padding-left: 2em;
+    }
+    .quill-content li {
+        margin: 0.5em 0;
+    }
+    .quill-content blockquote {
+        border-left: 4px solid var(--color-fire);
+        margin: 1em 0;
+        padding-left: 1em;
+        font-style: italic;
+        color: var(--color-ink-700);
+    }
+    .quill-content code {
+        background: var(--color-ink-100);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: monospace;
+        font-size: 0.9em;
+    }
+    .quill-content pre {
+        background: var(--color-ink-100);
+        border: 1px solid var(--color-ink-200);
+        border-radius: 4px;
+        padding: 1em;
+        margin: 1em 0;
+        overflow-x: auto;
+    }
+    .quill-content pre code {
+        background: none;
+        padding: 0;
+        border-radius: 0;
+    }
+    .quill-content a {
+        color: var(--color-fire);
+        text-decoration: underline;
+    }
+    .quill-content a:hover {
+        color: var(--color-fire-dark);
+    }
+    .quill-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 1em 0;
+        border: 2px solid var(--color-ink);
+    }
 }
 
 @layer utilities {
