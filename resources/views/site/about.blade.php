@@ -64,10 +64,10 @@
                     Loud, on purpose
                 </h2>
                 <p class="mt-5 font-editorial italic text-xl md:text-2xl text-bone/80 leading-relaxed">
-                    We are not just another brand—we are a brand created by a producer. Every Delitails product is crafted by us, giving us full control over quality, consistency, and sourcing. This means complete transparency in everything we offer, from the first ingredient to the final treat.
+                    Our philosophy is simple: better treats lead to happier, healthier dogs—and you can see the difference in every wag.
                 </p>
                 <p class="mt-4 text-bone/70 leading-relaxed">
-                    Our philosophy is simple: better treats lead to happier, healthier dogs—and you can see the difference in every wag.
+                    We are not just another brand—we are a brand created by a producer. Every Delitails product is crafted by us, giving us full control over quality, consistency, and sourcing. This means complete transparency in everything we offer, from the first ingredient to the final treat.
                 </p>
             </div>
             <div class="relative">
