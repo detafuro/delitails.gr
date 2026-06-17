@@ -124,9 +124,6 @@
                 <p class="mt-5 font-editorial text-xl md:text-2xl text-ink/80 leading-relaxed italic">
                     Delitails creates natural, single-protein chews, training treats, and sausages designed with care, simplicity, and quality at their core. Our approach is built on honesty: clean ingredients, no unnecessary additives, and products you can trust.
                 </p>
-                <p class="mt-4 text-ink/75 leading-relaxed">
-                    Today we're still small, still loud, and still obsessed with the wag.
-                </p>
                 <div class="mt-7">
                     <x-site.rough-button href="{{ route('about') }}" variant="fire">Read our story</x-site.rough-button>
                 </div>
