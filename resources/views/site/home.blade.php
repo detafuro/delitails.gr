@@ -106,14 +106,8 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6 py-20 md:py-28 grid lg:grid-cols-2 gap-12 items-center">
             <div class="relative">
                 <div class="absolute -inset-4 rotate-[2deg] bg-ink/10 border-2 border-ink"></div>
-                <div class="relative aspect-[4/5] border-2 border-ink bg-fire halftone-light overflow-hidden">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="text-center text-bone px-6">
-                            <div class="font-editorial italic text-2xl md:text-3xl">"For the dogs that bark first,</div>
-                            <div class="font-editorial italic text-2xl md:text-3xl">apologise never."</div>
-                            <div class="mt-4 font-display text-sm font-extrabold uppercase tracking-widest">— Our motto</div>
-                        </div>
-                    </div>
+                <div class="relative aspect-[4/5] border-2 border-ink bg-fire overflow-hidden">
+                    <img src="{{ asset('storage/our-story-feat.jpg') }}" alt="Our story" class="h-full w-full object-cover">
                 </div>
             </div>
             <div>
