@@ -77,6 +77,7 @@
                     [
                         'number' => '01',
                         'badge' => 'Chews',
+                        'word' => 'CHEWS',
                         'title' => 'Natural Single-Protein Chews',
                         'text' => 'Wholesome, simple yet delicious — our single-protein chews are made from carefully selected natural ingredients with no additives or fillers. Perfect for sensitive dogs, they support dental health, satisfy chewing instincts, and offer a healthy snack you can trust.',
                         'link' => route('products.index', ['type' => \App\Models\Product::TYPE_NATURAL_CHEWS]),
@@ -85,6 +86,7 @@
                     [
                         'number' => '02',
                         'badge' => 'Treats',
+                        'word' => 'TREATS',
                         'title' => 'Training Treats',
                         'text' => 'Make every training session a success! Our grain-free treats are bite-sized, delicious, and crafted from natural ingredients, making them the ideal reward to motivate your dog while keeping them healthy and happy.',
                         'link' => route('products.index', ['type' => \App\Models\Product::TYPE_TRAINING_TREATS]),
@@ -93,6 +95,7 @@
                     [
                         'number' => '03',
                         'badge' => 'Sausages',
+                        'word' => 'SAUSAGES',
                         'title' => 'Natural Sausages',
                         'text' => 'Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.',
                         'link' => route('products.index'),
@@ -101,18 +104,30 @@
                 ];
             @endphp
 
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="space-y-16 md:space-y-24">
                 @foreach($lineup as $i => $cat)
-                    <div class="brush-card bg-bone p-6 md:p-7 text-ink flex flex-col {{ $i === 1 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">
-                        <div class="flex items-start justify-between">
-                            <span class="font-display text-5xl font-black text-fire leading-none">{{ $cat['number'] }}</span>
-                            <span class="inline-flex items-center border-2 border-ink bg-grass px-2 py-0.5 text-[10px] font-bold uppercase">{{ $cat['badge'] }}</span>
+                    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                        <div class="relative {{ $i % 2 === 1 ? 'lg:order-2' : '' }}">
+                            <div class="absolute -inset-4 {{ $i % 2 === 1 ? 'rotate-[2deg]' : 'rotate-[-2deg]' }} bg-ink/15 border-2 border-ink"></div>
+                            <div class="relative aspect-[4/3] border-2 border-ink bg-bone sticker-shadow overflow-hidden">
+                                <div class="h-full w-full halftone-light flex items-center justify-center">
+                                    <span class="font-display text-5xl md:text-7xl font-black uppercase text-ink/25 {{ $i % 2 === 1 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">{{ $cat['word'] }}</span>
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-6 {{ $i % 2 === 1 ? '-right-5' : '-left-5' }} stamp bg-bone {{ $i % 2 === 1 ? 'rotate-tilt-1' : 'rotate-tilt-2' }}">
+                                <span class="font-display text-lg font-black">{{ $cat['number'] }}</span>
+                            </div>
                         </div>
-                        <h3 class="mt-4 font-display text-2xl font-extrabold uppercase leading-tight">{{ $cat['title'] }}</h3>
-                        <p class="mt-3 font-editorial italic text-lg text-ink/80 leading-relaxed">{{ $cat['text'] }}</p>
-                        <a href="{{ $cat['link'] }}" class="mt-auto pt-6 inline-flex items-center gap-1 font-display text-sm font-extrabold uppercase tracking-wider text-fire hover:text-ink">
-                            {{ $cat['cta'] }} <span aria-hidden="true" class="wiggle inline-block">→</span>
-                        </a>
+                        <div class="{{ $i % 2 === 1 ? 'lg:order-1' : '' }}">
+                            <span class="inline-flex items-center border-2 border-ink bg-grass px-2.5 py-1 text-xs font-bold uppercase tracking-widest text-ink">{{ $cat['badge'] }}</span>
+                            <h3 class="mt-4 font-display text-3xl md:text-5xl font-black uppercase leading-[0.95] text-bone">{{ $cat['title'] }}</h3>
+                            <p class="mt-4 font-editorial italic text-lg md:text-xl text-bone/85 leading-relaxed">{{ $cat['text'] }}</p>
+                            <div class="mt-7">
+                                <x-site.rough-button href="{{ $cat['link'] }}" variant="ink">
+                                    {{ $cat['cta'] }} <span aria-hidden="true" class="wiggle inline-block">→</span>
+                                </x-site.rough-button>
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>
