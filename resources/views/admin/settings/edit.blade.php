@@ -53,7 +53,7 @@
             <x-admin.form-input name="hero_heading" label="Hero heading" :value="$settings['hero_heading'] ?? ''"/>
             <x-admin.textarea name="hero_subheading" label="Hero subheading" :value="$settings['hero_subheading'] ?? ''" rows="2"/>
             <div class="grid sm:grid-cols-2 gap-5">
-                <x-admin.form-input name="hero_cta_text" label="CTA text" :value="$settings['hero_cta_text'] ?? 'Shop the pack'"/>
+                <x-admin.form-input name="hero_cta_text" label="CTA text" :value="$settings['hero_cta_text'] ?? 'Explore the pack'"/>
                 <x-admin.form-input name="hero_cta_link" label="CTA link" :value="$settings['hero_cta_link'] ?? '/products'"/>
             </div>
             <div class="border-t-2 border-dashed border-ink/30 pt-5 mt-2">

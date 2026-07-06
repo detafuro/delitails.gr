@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
             'announcement_messages' => "Free shipping over €40 — let them eat treats.\nHand-baked. Small-batch. Loud as hell.\nNew treats just landed. Sink your teeth in.",
             'hero_heading' => 'TREATS WITH ATTITUDE',
             'hero_subheading' => 'Loud little snacks for picky pets and the humans who feed them. Small-batch, big personality, zero filler.',
-            'hero_cta_text' => 'Shop the pack',
+            'hero_cta_text' => 'Explore the pack',
             'hero_cta_link' => '/products',
             'seo_default_title' => 'Delitails — Premium pet treats with attitude',
             'seo_default_description' => 'Small-batch, hand-baked treats for the loudest, best-behaved (and not so) pets around.',

@@ -2,7 +2,7 @@
     $siteName = $site['site_name'] ?? config('app.name', 'Delitails');
     $heroHeading = $site['hero_heading'] ?? 'TREATS WITH ATTITUDE.';
     $heroSub = $site['hero_subheading'] ?? 'Loud little snacks for picky pets and the humans who feed them. Small-batch, big personality.';
-    $heroCtaText = $site['hero_cta_text'] ?? 'Shop the pack';
+    $heroCtaText = $site['hero_cta_text'] ?? 'Explore the pack';
     $heroCtaLink = $site['hero_cta_link'] ?? route('products.index');
     $title = ($site['seo_default_title'] ?? null) ?: $siteName.' — Premium pet treats';
     $description = $site['seo_default_description'] ?? $heroSub;
