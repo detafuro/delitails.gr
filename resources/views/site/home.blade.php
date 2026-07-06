@@ -64,6 +64,61 @@
         </div>
     </section>
 
+    {{-- CATEGORY LINEUP --}}
+    <x-site.torn-section bg="fire" :top="true">
+        <div class="mx-auto max-w-7xl px-4 md:px-6">
+            <div class="text-center mb-12">
+                <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">Three ways to treat</div>
+                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">Choose your chew</h2>
+            </div>
+
+            @php
+                $lineup = [
+                    [
+                        'number' => '01',
+                        'badge' => 'Chews',
+                        'title' => 'Natural Single-Protein Chews',
+                        'text' => 'Wholesome, simple yet delicious — our single-protein chews are made from carefully selected natural ingredients with no additives or fillers. Perfect for sensitive dogs, they support dental health, satisfy chewing instincts, and offer a healthy snack you can trust.',
+                        'link' => route('products.index', ['type' => \App\Models\Product::TYPE_NATURAL_CHEWS]),
+                        'cta' => 'Shop chews',
+                    ],
+                    [
+                        'number' => '02',
+                        'badge' => 'Treats',
+                        'title' => 'Training Treats',
+                        'text' => 'Make every training session a success! Our grain-free treats are bite-sized, delicious, and crafted from natural ingredients, making them the ideal reward to motivate your dog while keeping them healthy and happy.',
+                        'link' => route('products.index', ['type' => \App\Models\Product::TYPE_TRAINING_TREATS]),
+                        'cta' => 'Shop treats',
+                    ],
+                    [
+                        'number' => '03',
+                        'badge' => 'Sausages',
+                        'title' => 'Natural Sausages',
+                        'text' => 'Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.',
+                        'link' => route('products.index'),
+                        'cta' => 'Shop sausages',
+                    ],
+                ];
+            @endphp
+
+            <div class="grid md:grid-cols-3 gap-6">
+                @foreach($lineup as $i => $cat)
+                    <div class="brush-card bg-bone p-6 md:p-7 text-ink flex flex-col {{ $i === 1 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">
+                        <div class="flex items-start justify-between">
+                            <span class="font-display text-5xl font-black text-fire leading-none">{{ $cat['number'] }}</span>
+                            <span class="inline-flex items-center border-2 border-ink bg-grass px-2 py-0.5 text-[10px] font-bold uppercase">{{ $cat['badge'] }}</span>
+                        </div>
+                        <h3 class="mt-4 font-display text-2xl font-extrabold uppercase leading-tight">{{ $cat['title'] }}</h3>
+                        <p class="mt-3 font-editorial italic text-lg text-ink/80 leading-relaxed">{{ $cat['text'] }}</p>
+                        <a href="{{ $cat['link'] }}" class="mt-auto pt-6 inline-flex items-center gap-1 font-display text-sm font-extrabold uppercase tracking-wider text-fire hover:text-ink">
+                            {{ $cat['cta'] }} <span aria-hidden="true" class="wiggle inline-block">→</span>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </x-site.torn-section>
+
     {{-- FEATURED PRODUCTS --}}
     <x-site.torn-section bg="bone" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
