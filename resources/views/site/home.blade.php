@@ -65,11 +65,11 @@
     </section>
 
     {{-- CATEGORY LINEUP --}}
-    <x-site.torn-section bg="fire" :top="true">
+    <x-site.torn-section bg="bone" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="text-center mb-16 md:mb-24">
-                <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">Three ways to treat</div>
-                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">Choose your chew</h2>
+                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Three ways to treat</div>
+                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">Choose your chew</h2>
             </div>
 
             @php
@@ -110,8 +110,8 @@
                         <div class="relative {{ $i % 2 === 1 ? 'lg:order-2' : '' }}">
                             <div class="absolute -inset-4 {{ $i % 2 === 1 ? 'rotate-[2deg]' : 'rotate-[-2deg]' }} bg-ink/15 border-2 border-ink"></div>
                             <div class="relative aspect-[4/3] border-2 border-ink bg-bone sticker-shadow overflow-hidden">
-                                <div class="h-full w-full halftone-light flex items-center justify-center">
-                                    <span class="font-display text-5xl md:text-7xl font-black uppercase text-ink/25 {{ $i % 2 === 1 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">{{ $cat['word'] }}</span>
+                                <div class="h-full w-full halftone-fire flex items-center justify-center">
+                                    <span class="font-display text-5xl md:text-7xl font-black uppercase text-ink/30 {{ $i % 2 === 1 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">{{ $cat['word'] }}</span>
                                 </div>
                             </div>
                             <div class="absolute -bottom-6 {{ $i % 2 === 1 ? '-right-5' : '-left-5' }} stamp bg-bone {{ $i % 2 === 1 ? 'rotate-tilt-1' : 'rotate-tilt-2' }}">
@@ -120,8 +120,8 @@
                         </div>
                         <div class="{{ $i % 2 === 1 ? 'lg:order-1' : '' }}">
                             <span class="inline-flex items-center border-2 border-ink bg-grass px-2.5 py-1 text-xs font-bold uppercase tracking-widest text-ink">{{ $cat['badge'] }}</span>
-                            <h3 class="mt-4 font-display text-3xl md:text-5xl font-black uppercase leading-[0.95] text-bone">{{ $cat['title'] }}</h3>
-                            <p class="mt-4 font-editorial italic text-lg md:text-xl text-bone/85 leading-relaxed">{{ $cat['text'] }}</p>
+                            <h3 class="mt-4 font-display text-3xl md:text-5xl font-black uppercase leading-[0.95]">{{ $cat['title'] }}</h3>
+                            <p class="mt-4 font-editorial italic text-lg md:text-xl text-ink/80 leading-relaxed">{{ $cat['text'] }}</p>
                             <div class="mt-7">
                                 <x-site.rough-button href="{{ $cat['link'] }}" variant="ink">
                                     {{ $cat['cta'] }} <span aria-hidden="true" class="wiggle inline-block">→</span>
@@ -135,12 +135,12 @@
     </x-site.torn-section>
 
     {{-- FEATURED PRODUCTS --}}
-    <x-site.torn-section bg="bone" :top="true">
+    <x-site.torn-section bg="fire" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
-                    <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Customer favourites</div>
-                    <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">The hot picks</h2>
+                    <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">Customer favourites</div>
+                    <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">The hot picks</h2>
                 </div>
                 <x-site.rough-button href="{{ route('products.index') }}" variant="ink">View everything</x-site.rough-button>
             </div>
@@ -149,7 +149,7 @@
                 @forelse($featured as $product)
                     <x-site.product-card :product="$product"/>
                 @empty
-                    <div class="col-span-full text-center text-ink/60 py-10">No products yet. Stand by.</div>
+                    <div class="col-span-full text-center text-bone/70 py-10">No products yet. Stand by.</div>
                 @endforelse
             </div>
         </div>
