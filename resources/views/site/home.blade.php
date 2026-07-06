@@ -216,8 +216,8 @@
         </div>
     </x-site.torn-section>
 
-    @if(false)
-    {{-- STORE LOCATOR PREVIEW (HIDDEN) --}}
+    @if(($site['stores_page_status'] ?? 'draft') === 'public')
+    {{-- STORE LOCATOR PREVIEW (hidden while stockists page is draft) --}}
     <x-site.torn-section bg="fire" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
@@ -286,16 +286,9 @@
                             @endfor
                         </div>
                         <p class="font-editorial italic text-xl leading-relaxed">"{{ $t->quote }}"</p>
-                        <div class="mt-4 flex items-center gap-3">
-                            @if($t->avatar)
-                                <img src="{{ asset('storage/'.$t->avatar) }}" alt="" class="h-12 w-12 rounded-full object-cover border-2 border-ink">
-                            @else
-                                <div class="h-12 w-12 rounded-full border-2 border-ink bg-fire halftone-light"></div>
-                            @endif
-                            <div>
-                                <div class="font-display font-extrabold uppercase">{{ $t->author }}</div>
-                                @if($t->pet_name)<div class="text-xs uppercase tracking-widest text-ink/60">w/ {{ $t->pet_name }}</div>@endif
-                            </div>
+                        <div class="mt-4">
+                            <div class="font-display font-extrabold uppercase">{{ $t->author }}</div>
+                            @if($t->pet_name)<div class="text-xs uppercase tracking-widest text-ink/60">w/ {{ $t->pet_name }}</div>@endif
                         </div>
                     </div>
                 @empty

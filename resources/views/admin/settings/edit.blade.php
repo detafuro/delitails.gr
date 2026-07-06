@@ -13,6 +13,7 @@
                     'announcement' => 'Announcement',
                     'seo' => 'SEO & scripts',
                     'footer' => 'Footer',
+                    'pages' => 'Pages',
                 ];
             @endphp
             @foreach($tabs as $key => $label)
@@ -87,6 +88,21 @@
         {{-- Footer --}}
         <section x-show="tab==='footer'" x-cloak class="brush-card p-6 space-y-5">
             <x-admin.textarea name="footer_text" label="Footer text" :value="$settings['footer_text'] ?? ''" rows="3"/>
+        </section>
+
+        {{-- Pages --}}
+        <section x-show="tab==='pages'" x-cloak class="brush-card p-6 space-y-5">
+            <div class="grid sm:grid-cols-2 gap-5">
+                <x-admin.select name="stores_page_status" label="Stockists page"
+                    :options="['draft' => 'Draft (hidden)', 'public' => 'Public']"
+                    :value="$settings['stores_page_status'] ?? 'draft'"/>
+            </div>
+            <p class="text-xs text-ink/60">
+                Draft hides the stockists page (404 for visitors — admins can still preview it at /stores)
+                and removes every stockist link across the site: header button, nav item, footer link,
+                the homepage stockists band, and the "Find a stockist" button on products.
+                Switch to Public to restore everything once stockists exist.
+            </p>
         </section>
 
         <div class="flex gap-3">

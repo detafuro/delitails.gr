@@ -58,6 +58,7 @@ class DatabaseSeeder extends Seeder
             'hero_heading' => 'TREATS WITH ATTITUDE',
             'hero_subheading' => 'Loud little snacks for picky pets and the humans who feed them. Small-batch, big personality, zero filler.',
             'hero_cta_text' => 'Explore the pack',
+            'stores_page_status' => 'draft',
             'hero_cta_link' => '/products',
             'seo_default_title' => 'Delitails — Premium pet treats with attitude',
             'seo_default_description' => 'Small-batch, hand-baked treats for the loudest, best-behaved (and not so) pets around.',

@@ -107,7 +107,9 @@
                     @endif
 
                     <div class="mt-6 flex flex-wrap items-center gap-3">
-                        <x-site.rough-button href="{{ route('stores') }}" variant="fire">Find a stockist</x-site.rough-button>
+                        @if(($site['stores_page_status'] ?? 'draft') === 'public')
+                            <x-site.rough-button href="{{ route('stores') }}" variant="fire">Find a stockist</x-site.rough-button>
+                        @endif
                         <x-site.rough-button href="{{ route('products.index') }}" variant="grass">Keep browsing</x-site.rough-button>
                     </div>
 
