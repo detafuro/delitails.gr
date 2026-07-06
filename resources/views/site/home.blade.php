@@ -68,7 +68,7 @@
     <x-site.torn-section bg="bone" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="text-center mb-16 md:mb-24">
-                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Three ways to treat</div>
+                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Two ways to treat</div>
                 <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">Choose your chew</h2>
             </div>
 
@@ -92,15 +92,16 @@
                         'link' => route('products.index', ['type' => \App\Models\Product::TYPE_TRAINING_TREATS]),
                         'cta' => 'Explore treats',
                     ],
-                    [
-                        'number' => '03',
-                        'badge' => 'Sausages',
-                        'word' => 'SAUSAGES',
-                        'title' => 'Natural Sausages',
-                        'text' => 'Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.',
-                        'link' => route('products.index'),
-                        'cta' => 'Explore sausages',
-                    ],
+                    // Natural Sausages hidden until the category is available — restore this entry when it is.
+                    // [
+                    //     'number' => '03',
+                    //     'badge' => 'Sausages',
+                    //     'word' => 'SAUSAGES',
+                    //     'title' => 'Natural Sausages',
+                    //     'text' => 'Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.',
+                    //     'link' => route('products.index'),
+                    //     'cta' => 'Explore sausages',
+                    // ],
                 ];
             @endphp
 
