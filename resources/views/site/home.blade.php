@@ -274,7 +274,17 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($testimonials as $t)
                     <div class="brush-card bg-bone p-6 {{ $loop->iteration % 2 === 0 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">
-                        <div class="text-fire text-2xl mb-2">{!! str_repeat('★', $t->rating) !!}</div>
+                        <div class="flex items-center gap-1.5 text-fire mb-2" aria-label="{{ $t->rating }} out of 5">
+                            @for($star = 0; $star < $t->rating; $star++)
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-6 w-6 {{ $star % 2 === 0 ? 'rotate-[-8deg]' : 'rotate-[8deg]' }}">
+                                    <ellipse cx="5.2" cy="9" rx="2.1" ry="2.9" transform="rotate(-24 5.2 9)"/>
+                                    <ellipse cx="18.8" cy="9" rx="2.1" ry="2.9" transform="rotate(24 18.8 9)"/>
+                                    <ellipse cx="9.2" cy="5" rx="2.1" ry="3" transform="rotate(-9 9.2 5)"/>
+                                    <ellipse cx="14.8" cy="5" rx="2.1" ry="3" transform="rotate(9 14.8 5)"/>
+                                    <path d="M12 10c-3.4 0-6.3 3.1-6.3 6 0 1.9 1.4 3.2 3.2 3.2 1.1 0 2-.5 3.1-.5s2 .5 3.1.5c1.8 0 3.2-1.3 3.2-3.2 0-2.9-2.9-6-6.3-6z"/>
+                                </svg>
+                            @endfor
+                        </div>
                         <p class="font-editorial italic text-xl leading-relaxed">"{{ $t->quote }}"</p>
                         <div class="mt-4 flex items-center gap-3">
                             @if($t->avatar)
