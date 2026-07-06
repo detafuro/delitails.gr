@@ -67,7 +67,7 @@
     {{-- CATEGORY LINEUP --}}
     <x-site.torn-section bg="fire" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
-            <div class="text-center mb-12">
+            <div class="text-center mb-16 md:mb-24">
                 <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">Three ways to treat</div>
                 <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">Choose your chew</h2>
             </div>
@@ -81,7 +81,7 @@
                         'title' => 'Natural Single-Protein Chews',
                         'text' => 'Wholesome, simple yet delicious — our single-protein chews are made from carefully selected natural ingredients with no additives or fillers. Perfect for sensitive dogs, they support dental health, satisfy chewing instincts, and offer a healthy snack you can trust.',
                         'link' => route('products.index', ['type' => \App\Models\Product::TYPE_NATURAL_CHEWS]),
-                        'cta' => 'Shop chews',
+                        'cta' => 'Explore chews',
                     ],
                     [
                         'number' => '02',
@@ -90,7 +90,7 @@
                         'title' => 'Training Treats',
                         'text' => 'Make every training session a success! Our grain-free treats are bite-sized, delicious, and crafted from natural ingredients, making them the ideal reward to motivate your dog while keeping them healthy and happy.',
                         'link' => route('products.index', ['type' => \App\Models\Product::TYPE_TRAINING_TREATS]),
-                        'cta' => 'Shop treats',
+                        'cta' => 'Explore treats',
                     ],
                     [
                         'number' => '03',
@@ -99,7 +99,7 @@
                         'title' => 'Natural Sausages',
                         'text' => 'Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.',
                         'link' => route('products.index'),
-                        'cta' => 'Shop sausages',
+                        'cta' => 'Explore sausages',
                     ],
                 ];
             @endphp
