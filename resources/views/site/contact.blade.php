@@ -1,17 +1,17 @@
 @php $title = 'Contact — '.($site['site_name'] ?? config('app.name')); @endphp
 <x-layout title="{{ $title }}" description="Get in touch. We answer every message — usually with treats in hand.">
-    <section class="bg-fire text-bone paper">
+    <section class="bg-ink text-bone paper">
         <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-20">
-            <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">Contact</div>
+            <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">Contact</div>
             <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
-                Say hi. <span class="text-ink">Bring snacks.</span>
+                Say hi. <span class="text-fire">Bring snacks.</span>
             </h1>
-            <p class="mt-4 max-w-2xl font-editorial italic text-xl text-bone/85">
+            <p class="mt-4 max-w-2xl font-editorial italic text-xl text-bone/75">
                 Questions, compliments, wild ideas — drop us a line and we'll bark back, usually within a day.
             </p>
         </div>
         <div aria-hidden="true" class="relative">
-            <div class="absolute top-full -mt-px left-0 right-0 h-10 paper torn-bottom bg-fire"></div>
+            <div class="absolute top-full -mt-px left-0 right-0 h-10 paper torn-bottom bg-ink"></div>
         </div>
     </section>
 

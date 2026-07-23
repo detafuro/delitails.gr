@@ -1,19 +1,19 @@
 @php $title = 'FAQ — '.($site['site_name'] ?? config('app.name')); @endphp
 <x-layout title="{{ $title }}" description="Answers to the questions our pack asks most.">
-    <section class="bg-fire text-bone paper">
-        <div class="mx-auto max-w-4xl px-4 md:px-6 py-16 md:py-20 text-center">
-            <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">Asked & answered</div>
+    <section class="bg-ink text-bone paper">
+        <div class="mx-auto max-w-4xl px-4 md:px-6 py-16 md:py-20">
+            <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">Asked & answered</div>
             <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
-                Got <span class="text-ink">questions?</span><br>We got it.
+                Got <span class="text-fire">questions?</span><br>We got it.
             </h1>
-            <form method="GET" class="mt-8 mx-auto flex flex-col sm:flex-row gap-3 max-w-xl">
+            <form method="GET" class="mt-8 flex flex-col sm:flex-row gap-3 max-w-xl">
                 <input type="text" name="q" value="{{ $search }}" placeholder="Search FAQ…"
                        class="flex-1 border-2 border-ink bg-bone text-ink px-4 py-3 font-display uppercase placeholder:text-ink/40 focus:outline-none">
-                <x-site.rough-button variant="ink">Search</x-site.rough-button>
+                <x-site.rough-button variant="fire">Search</x-site.rough-button>
             </form>
         </div>
         <div aria-hidden="true" class="relative">
-            <div class="absolute top-full -mt-px left-0 right-0 h-10 paper torn-bottom bg-fire"></div>
+            <div class="absolute top-full -mt-px left-0 right-0 h-10 paper torn-bottom bg-ink"></div>
         </div>
     </section>
 
