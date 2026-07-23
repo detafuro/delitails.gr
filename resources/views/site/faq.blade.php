@@ -1,14 +1,16 @@
 @php $title = 'FAQ — '.($site['site_name'] ?? config('app.name')); @endphp
 <x-layout title="{{ $title }}" description="Answers to the questions our pack asks most.">
     <section class="bg-ink text-bone paper">
-        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-20">
-            <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">Asked & answered</div>
-            <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
-                Got <span class="text-fire">questions?</span><br>We got it.
-            </h1>
-            <form method="GET" class="mt-8 flex flex-col sm:flex-row gap-3 max-w-xl">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-20 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div>
+                <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">Asked & answered</div>
+                <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
+                    Got <span class="text-fire">questions?</span><br>We got it.
+                </h1>
+            </div>
+            <form method="GET" class="flex flex-col sm:flex-row gap-3 w-full max-w-xl lg:w-96 lg:shrink-0">
                 <input type="text" name="q" value="{{ $search }}" placeholder="Search FAQ…"
-                       class="flex-1 border-2 border-ink bg-bone text-ink px-4 py-3 font-display uppercase placeholder:text-ink/40 focus:outline-none">
+                       class="flex-1 min-w-0 border-2 border-ink bg-bone text-ink px-4 py-3 font-display uppercase placeholder:text-ink/40 focus:outline-none">
                 <x-site.rough-button variant="fire">Search</x-site.rough-button>
             </form>
         </div>
