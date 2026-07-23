@@ -38,6 +38,7 @@ class UpdateSettingsRequest extends FormRequest
             'analytics_scripts' => ['nullable', 'string', 'max:5000'],
             'footer_text' => ['nullable', 'string', 'max:1000'],
             'stores_page_status' => ['nullable', 'in:draft,public'],
+            'under_construction' => ['nullable', 'in:off,on'],
             'map_embed' => ['nullable', 'string', 'max:2000'],
         ];
     }

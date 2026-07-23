@@ -1,0 +1,60 @@
+@php
+    $siteName = $site['site_name'] ?? config('app.name', 'Delitails');
+    $faviconPath = $site['favicon'] ?? null;
+@endphp
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>{{ $siteName }} — Under construction</title>
+    @if($faviconPath)<link rel="icon" href="{{ asset('storage/'.$faviconPath) }}">@endif
+    @vite(['resources/css/app.css'])
+</head>
+<body class="min-h-screen bg-bone text-ink antialiased selection:bg-fire selection:text-bone overflow-x-hidden">
+
+    <main class="min-h-screen flex items-center justify-center px-4 py-16">
+        <div class="w-full max-w-xl text-center">
+            @if(!empty($site['logo']))
+                <img src="{{ asset('storage/'.$site['logo']) }}" alt="{{ $siteName }}" class="h-20 mx-auto mb-8">
+            @else
+                <div class="font-display text-3xl font-black uppercase mb-8">{{ $siteName }}</div>
+            @endif
+
+            <div class="brush-card bg-bone p-8 md:p-12">
+                <div class="inline-block bg-fire text-bone font-display text-xs font-extrabold uppercase tracking-[0.2em] px-3 py-1.5 -rotate-2 mb-6">
+                    Coming soon
+                </div>
+                <h1 class="font-display text-4xl md:text-5xl font-black uppercase leading-none">
+                    Under<br>construction
+                </h1>
+                <p class="font-editorial italic text-ink/70 leading-relaxed mt-6">
+                    We're baking something loud behind the scenes.
+                    The full site will be live soon — sniff back shortly.
+                </p>
+
+                @if(!empty($site['contact_email']))
+                    <a href="mailto:{{ $site['contact_email'] }}" class="btn-rough is-fire mt-8">Get in touch</a>
+                @endif
+            </div>
+
+            <div class="mt-8 flex justify-center gap-2">
+                @foreach([
+                    'social_facebook' => 'Facebook',
+                    'social_instagram' => 'Instagram',
+                    'social_tiktok' => 'TikTok',
+                    'social_youtube' => 'YouTube',
+                ] as $key => $label)
+                    @if(!empty($site[$key]))
+                        <a href="{{ $site[$key] }}" target="_blank" rel="noopener" aria-label="{{ $label }}" class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink hover:bg-fire hover:border-fire hover:text-bone">
+                            <x-social-icon :name="str_replace('social_', '', $key)" />
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
