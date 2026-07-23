@@ -62,7 +62,7 @@
                 @endif
             </a>
 
-            <nav class="hidden lg:flex flex-1 items-center justify-center gap-1">
+            <nav class="hidden lg:flex flex-1 items-center justify-center gap-3">
                 @php
                     $storesPublic = ($site['stores_page_status'] ?? 'draft') === 'public';
                     $links = array_values(array_filter([
@@ -77,10 +77,9 @@
                 @foreach($links as [$route,$label])
                     @php $active = request()->routeIs($route) || request()->routeIs($route.'.*'); @endphp
                     <a href="{{ route($route) }}"
-                       class="relative px-3 py-2 font-display text-sm font-bold uppercase tracking-wider hover:text-fire transition
-                              {{ $active ? 'text-fire' : '' }}">
+                       class="nav-btn {{ $active ? 'is-current' : '' }}"
+                       @if($active) aria-current="page" @endif>
                         {{ $label }}
-                        @if($active)<span class="absolute -bottom-1 left-2 right-2 h-1 bg-fire"></span>@endif
                     </a>
                 @endforeach
             </nav>
