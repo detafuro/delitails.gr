@@ -39,6 +39,7 @@ class UpdateSettingsRequest extends FormRequest
             'footer_text' => ['nullable', 'string', 'max:1000'],
             'stores_page_status' => ['nullable', 'in:draft,public'],
             'under_construction' => ['nullable', 'in:off,on'],
+            'under_construction_passcode' => ['nullable', 'string', 'max:64'],
             'map_embed' => ['nullable', 'string', 'max:2000'],
         ];
     }

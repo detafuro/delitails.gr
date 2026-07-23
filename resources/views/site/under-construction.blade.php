@@ -37,6 +37,21 @@
                 @if(!empty($site['contact_email']))
                     <a href="mailto:{{ $site['contact_email'] }}" class="btn-rough is-fire mt-8">Get in touch</a>
                 @endif
+
+                @if(!empty($site['under_construction_passcode']))
+                    <details class="mt-8 border-t-2 border-dashed border-ink/30 pt-6" @if($errors->has('passcode')) open @endif>
+                        <summary class="btn-rough is-ghost is-sm cursor-pointer list-none inline-flex">Guest login</summary>
+                        <form method="POST" action="{{ route('construction.unlock') }}" class="mt-4 flex flex-col sm:flex-row justify-center gap-2">
+                            @csrf
+                            <input type="password" name="passcode" required autocomplete="off" placeholder="Passcode"
+                                   class="border-2 border-ink bg-bone px-3 py-2 font-sans text-ink focus:outline-none focus:ring-2 focus:ring-fire/60">
+                            <button type="submit" class="btn-rough is-ink is-sm justify-center">Enter</button>
+                        </form>
+                        @error('passcode')
+                            <p class="mt-2 text-sm font-bold text-fire">{{ $message }}</p>
+                        @enderror
+                    </details>
+                @endif
             </div>
 
             <div class="mt-8 flex justify-center gap-2">

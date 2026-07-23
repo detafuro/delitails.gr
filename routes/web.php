@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ConstructionAccessController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqPageController;
 use App\Http\Controllers\HomeController;
@@ -22,6 +23,8 @@ Route::get('/stores', StoreLocatorController::class)->name('stores');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::post('/construction/unlock', [ConstructionAccessController::class, 'unlock'])
+    ->middleware('throttle:10,1')->name('construction.unlock');
 
 Route::get('/dashboard', function () {
     if (auth()->user()?->isAdmin()) {

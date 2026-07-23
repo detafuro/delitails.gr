@@ -17,6 +17,7 @@ class UnderConstruction
         'admin', 'admin/*',
         'login', 'logout',
         'forgot-password', 'reset-password/*',
+        'construction/unlock',
         'up',
     ];
 
@@ -28,11 +29,27 @@ class UnderConstruction
             $enabled = false;
         }
 
-        if (! $enabled || $request->user()?->isAdmin() || $request->is(...self::ALLOWED_PATHS)) {
+        if (! $enabled || $request->user()?->isAdmin() || $request->is(...self::ALLOWED_PATHS) || $this->hasGuestBypass($request)) {
             return $next($request);
         }
 
         return response()->view('site.under-construction', [], 503)
             ->header('Retry-After', 3600);
+    }
+
+    /**
+     * A guest who entered the passcode carries a hash of it in their session;
+     * changing the passcode in admin invalidates existing guest bypasses.
+     */
+    private function hasGuestBypass(Request $request): bool
+    {
+        if (! $request->hasSession()) {
+            return false;
+        }
+
+        $passcode = (string) Setting::get('under_construction_passcode', '');
+
+        return $passcode !== ''
+            && $request->session()->get('construction_bypass') === hash('sha256', $passcode);
     }
 }

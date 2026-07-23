@@ -99,6 +99,8 @@
                 <x-admin.select name="under_construction" label="Under construction mode"
                     :options="['off' => 'Off (site visible)', 'on' => 'On (visitors see a coming-soon page)']"
                     :value="$settings['under_construction'] ?? 'off'"/>
+                <x-admin.form-input name="under_construction_passcode" label="Guest passcode"
+                    :value="$settings['under_construction_passcode'] ?? ''"/>
             </div>
             <p class="text-xs text-ink/60">
                 Draft hides the stockists page (404 for visitors — admins can still preview it at /stores)
@@ -110,6 +112,9 @@
                 Under construction mode replaces the whole public site with a branded coming-soon page
                 (HTTP 503) for visitors. Logged-in admins keep seeing the real site, and the login page
                 stays reachable at /login. Turn it off to relaunch instantly.
+                If a guest passcode is set, the coming-soon page shows a "Guest login" button — anyone
+                with the passcode can browse the full site for their session. Changing the passcode
+                kicks existing guests back out; leaving it empty hides the button.
             </p>
         </section>
 
