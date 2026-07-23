@@ -1,7 +1,7 @@
 @php $title = 'FAQ — '.($site['site_name'] ?? config('app.name')); @endphp
 <x-layout title="{{ $title }}" description="Answers to the questions our pack asks most.">
     <section class="bg-ink text-bone paper">
-        <div class="mx-auto max-w-4xl px-4 md:px-6 py-16 md:py-20">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-20">
             <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">Asked & answered</div>
             <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
                 Got <span class="text-fire">questions?</span><br>We got it.
@@ -18,7 +18,7 @@
     </section>
 
     <section class="bg-bone py-16 md:py-20">
-        <div class="mx-auto max-w-4xl px-4 md:px-6 space-y-12">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 space-y-12">
             @if($groups->isEmpty() && $orphans->isEmpty())
                 <div class="brush-card p-10 text-center">
                     <div class="font-display text-2xl font-black uppercase">Nothing matches</div>
@@ -50,7 +50,7 @@
     </section>
 
     <x-site.torn-section bg="ink" :top="true">
-        <div class="mx-auto max-w-4xl px-4 md:px-6 text-center text-bone">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 text-center text-bone">
             <h2 class="font-display text-4xl md:text-6xl font-black uppercase">Still curious?</h2>
             <p class="mt-4 font-editorial italic text-bone/80 text-xl">If we missed your question, throw it at us. We answer every one.</p>
             <div class="mt-6">
