@@ -178,12 +178,9 @@
             <div>
                 <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Products</h4>
                 <ul class="mt-4 space-y-2 text-bone/80">
-                    <li><a class="hover:text-grass" href="{{ route('products.index') }}">All treats</a></li>
                     @foreach(\App\Models\Product::TYPES as $typeKey => $typeLabel)
                         <li><a class="hover:text-grass" href="{{ route('products.index', ['type' => $typeKey]) }}">{{ $typeLabel }}</a></li>
                     @endforeach
-                    <li><a class="hover:text-grass" href="{{ route('products.index') }}?sort=newest">New drops</a></li>
-                    <li><a class="hover:text-grass" href="{{ route('products.index') }}?sort=price_asc">By price</a></li>
                     @if(($site['stores_page_status'] ?? 'draft') === 'public')
                         <li><a class="hover:text-grass" href="{{ route('stores') }}">Find a store</a></li>
                     @endif
