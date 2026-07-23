@@ -133,7 +133,8 @@
     .nav-btn:nth-child(odd) { transform: rotate(-1.25deg); }
     .nav-btn:nth-child(even) { transform: rotate(1.25deg); }
     .nav-btn:hover {
-        background: var(--color-grass);
+        background: var(--color-fire);
+        color: var(--color-bone);
         transform: rotate(0deg) translate(-2px, -2px);
         box-shadow: 5px 5px 0 0 var(--color-ink);
     }
