@@ -95,7 +95,7 @@
                             'social_youtube' => 'YouTube',
                         ] as $key => $label)
                             @if(!empty($site[$key]))
-                                <a href="{{ $site[$key] }}" target="_blank" rel="noopener" class="btn-rough is-ink is-sm">{{ $label }}</a>
+                                <a href="{{ $site[$key] }}" target="_blank" rel="noopener" class="btn-rough is-ink is-sm"><x-social-icon :name="str_replace('social_', '', $key)" :size="15" class="mr-1.5" />{{ $label }}</a>
                             @endif
                         @endforeach
                     </div>

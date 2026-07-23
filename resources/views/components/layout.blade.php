@@ -161,13 +161,15 @@
 
                 <div class="mt-5 flex gap-2">
                     @foreach([
-                        'social_facebook' => 'FB',
-                        'social_instagram' => 'IG',
-                        'social_tiktok' => 'TT',
-                        'social_youtube' => 'YT',
+                        'social_facebook' => 'Facebook',
+                        'social_instagram' => 'Instagram',
+                        'social_tiktok' => 'TikTok',
+                        'social_youtube' => 'YouTube',
                     ] as $key => $label)
                         @if(!empty($site[$key]))
-                            <a href="{{ $site[$key] }}" target="_blank" rel="noopener" class="inline-flex h-10 w-10 items-center justify-center border-2 border-bone font-bold hover:bg-fire hover:border-fire">{{ $label }}</a>
+                            <a href="{{ $site[$key] }}" target="_blank" rel="noopener" aria-label="{{ $label }}" class="inline-flex h-10 w-10 items-center justify-center border-2 border-bone hover:bg-fire hover:border-fire">
+                                <x-social-icon :name="str_replace('social_', '', $key)" />
+                            </a>
                         @endif
                     @endforeach
                 </div>
