@@ -39,9 +39,9 @@
 
             <div class="lg:col-span-3">
                 @if($posts->count())
-                    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div class="space-y-6">
                         @foreach($posts as $post)
-                            <x-site.blog-card :post="$post"/>
+                            <x-site.blog-card :post="$post" :horizontal="true"/>
                         @endforeach
                     </div>
                     <x-site.pagination :paginator="$posts"/>
