@@ -11,6 +11,6 @@ class NewsletterController extends Controller
     {
         $email = $request->validated()['email'];
         NewsletterSubscriber::updateOrCreate(['email' => $email], ['is_active' => true]);
-        return back()->with('success', 'You are signed up. Watch your inbox.');
+        return back()->with('success', __('You are signed up. Watch your inbox.'));
     }
 }

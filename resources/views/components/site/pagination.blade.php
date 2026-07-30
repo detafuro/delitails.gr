@@ -2,9 +2,9 @@
 @if($paginator->hasPages())
 <nav class="mt-6 flex flex-wrap items-center justify-between gap-3 text-sm">
     <div class="text-ink/60">
-        Showing <span class="font-semibold text-ink">{{ $paginator->firstItem() }}</span>
-        to <span class="font-semibold text-ink">{{ $paginator->lastItem() }}</span>
-        of <span class="font-semibold text-ink">{{ $paginator->total() }}</span>
+        {{ __('Showing') }} <span class="font-semibold text-ink">{{ $paginator->firstItem() }}</span>
+        {{ __('to') }} <span class="font-semibold text-ink">{{ $paginator->lastItem() }}</span>
+        {{ __('of') }} <span class="font-semibold text-ink">{{ $paginator->total() }}</span>
     </div>
     <div class="flex flex-wrap items-center gap-1">
         @if($paginator->onFirstPage())

@@ -44,6 +44,7 @@
                             ]],
                             ['heading' => 'System', 'links' => [
                                 ['admin.settings.edit', 'Site settings', '⚙'],
+                                ['admin.translations.index', 'Translations', '⇄'],
                             ]],
                         ];
                     @endphp

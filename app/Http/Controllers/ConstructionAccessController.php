@@ -14,7 +14,7 @@ class ConstructionAccessController extends Controller
         $expected = (string) Setting::get('under_construction_passcode', '');
 
         if ($expected === '' || ! hash_equals($expected, (string) $request->input('passcode'))) {
-            return back()->withErrors(['passcode' => 'That passcode is not right.']);
+            return back()->withErrors(['passcode' => __('That passcode is not right.')]);
         }
 
         $request->session()->put('construction_bypass', hash('sha256', $expected));

@@ -6,8 +6,8 @@
     <section class="bg-bone pt-10 md:pt-16 pb-20 md:pb-28">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <nav class="text-xs uppercase tracking-widest text-ink/60 mb-6">
-                <a class="hover:text-fire" href="{{ route('home') }}">Home</a> /
-                <a class="hover:text-fire" href="{{ route('products.index') }}">Products</a>
+                <a class="hover:text-fire" href="{{ route('home') }}">{{ __('Home') }}</a> /
+                <a class="hover:text-fire" href="{{ route('products.index') }}">{{ __('Products') }}</a>
                 @if($product->category)
                     / <a class="hover:text-fire" href="{{ route('products.index', ['category' => $product->category->slug]) }}">{{ $product->category->name }}</a>
                 @endif
@@ -53,7 +53,7 @@
                         $shareText = urlencode($product->title);
                     @endphp
                     <div class="mt-4 pt-6 border-t-2 border-dashed border-ink/30 flex flex-wrap items-center gap-3">
-                        <span class="text-xs font-bold uppercase tracking-[0.3em] text-ink/60">Share</span>
+                        <span class="text-xs font-bold uppercase tracking-[0.3em] text-ink/60">{{ __('Share') }}</span>
                         <div class="flex flex-wrap gap-2">
                             <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank" rel="noopener" aria-label="Share on Facebook"
                                class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-bone text-ink hover:bg-fire hover:text-bone transition">
@@ -92,7 +92,7 @@
 
                     <div class="mt-4 flex flex-wrap items-center gap-2">
                         @if($product->type_label)
-                            <span class="inline-flex items-center gap-1.5 border-2 border-ink bg-fire text-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider">{{ $product->type_label }}</span>
+                            <span class="inline-flex items-center gap-1.5 border-2 border-ink bg-fire text-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider">{{ __($product->type_label) }}</span>
                         @endif
                         @if($product->category)
                             <a href="{{ route('products.index', ['category' => $product->category->slug]) }}"
@@ -108,14 +108,14 @@
 
                     <div class="mt-6 flex flex-wrap items-center gap-3">
                         @if(($site['stores_page_status'] ?? 'draft') === 'public')
-                            <x-site.rough-button href="{{ route('stores') }}" variant="fire">Find a stockist</x-site.rough-button>
+                            <x-site.rough-button href="{{ route('stores') }}" variant="fire">{{ __('Find a stockist') }}</x-site.rough-button>
                         @endif
-                        <x-site.rough-button href="{{ route('products.index') }}" variant="grass">Keep browsing</x-site.rough-button>
+                        <x-site.rough-button href="{{ route('products.index') }}" variant="grass">{{ __('Keep browsing') }}</x-site.rough-button>
                     </div>
 
                     @if($product->characteristics)
                         <div class="mt-8 border-2 border-dashed border-ink bg-grass/15 p-5">
-                            <h2 class="font-display text-xl font-extrabold uppercase mb-3">Why it's good</h2>
+                            <h2 class="font-display text-xl font-extrabold uppercase mb-3">{{ __("Why it's good") }}</h2>
                             <div class="characteristics text-ink/85 font-editorial leading-relaxed text-xl">
                                 {!! $product->characteristics !!}
                             </div>
@@ -124,7 +124,7 @@
 
                     @if($product->description)
                         <div class="mt-8">
-                            <h2 class="font-display text-xl font-extrabold uppercase mb-3">The details</h2>
+                            <h2 class="font-display text-xl font-extrabold uppercase mb-3">{{ __('The details') }}</h2>
                             <div class="prose prose-ink max-w-none font-editorial leading-relaxed text-lg text-ink/80 whitespace-pre-line">{{ $product->description }}</div>
                         </div>
                     @endif
@@ -133,32 +133,32 @@
 
             {{-- Why natural chews work --}}
             <div class="mt-16 md:mt-20">
-                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">The lowdown</div>
-                <h2 class="mt-2 font-display text-3xl md:text-5xl font-black uppercase">Why these treats work</h2>
+                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">{{ __('The lowdown') }}</div>
+                <h2 class="mt-2 font-display text-3xl md:text-5xl font-black uppercase">{{ __('Why these treats work') }}</h2>
 
                 <div class="mt-8 space-y-3" x-data="{ open: 0 }">
                     @php
                         $accordion = [
                             [
-                                'title' => 'Natural & single-ingredient',
-                                'body' => "<p>Real food, full stop. One animal, one cut, air-dried to lock in nutrients. No fillers, no shortcuts, no surprises in the bag — just the kind of chew a dog would pick for themselves if they were running the kitchen.</p>",
+                                'title' => __('Natural & single-ingredient'),
+                                'body' => '<p>'.__('Real food, full stop. One animal, one cut, air-dried to lock in nutrients. No fillers, no shortcuts, no surprises in the bag — just the kind of chew a dog would pick for themselves if they were running the kitchen.').'</p>',
                             ],
                             [
-                                'title' => 'Air-dried, never rushed',
-                                'body' => "<p>Every batch is dried low-and-slow under controlled conditions. That keeps the protein, the smell and the satisfying chew exactly where they belong — and lets your dog get the most out of every bite.</p>",
+                                'title' => __('Air-dried, never rushed'),
+                                'body' => '<p>'.__('Every batch is dried low-and-slow under controlled conditions. That keeps the protein, the smell and the satisfying chew exactly where they belong — and lets your dog get the most out of every bite.').'</p>',
                             ],
                             [
-                                'title' => 'Respect the dog',
-                                'body' => "<p>Single-protein means easier digestion, fewer surprises and a treat that respects your dog's instinctive diet. No additives, no preservatives, no apologies.</p>",
+                                'title' => __('Respect the dog'),
+                                'body' => '<p>'.__("Single-protein means easier digestion, fewer surprises and a treat that respects your dog's instinctive diet. No additives, no preservatives, no apologies.").'</p>',
                             ],
                             [
-                                'title' => "Don't forget",
-                                'body' => "<p class='mb-3'>A few good rules for the bowl:</p>
+                                'title' => __("Don't forget"),
+                                'body' => "<p class='mb-3'>".__('A few good rules for the bowl:')."</p>
                                            <ul>
-                                               <li>Lead with real meat</li>
-                                               <li>Less processing, more dog</li>
-                                               <li>High-quality protein wins every time</li>
-                                               <li>Fresh water always goes alongside</li>
+                                               <li>".__('Lead with real meat')."</li>
+                                               <li>".__('Less processing, more dog')."</li>
+                                               <li>".__('High-quality protein wins every time')."</li>
+                                               <li>".__('Fresh water always goes alongside')."</li>
                                            </ul>",
                             ],
                         ];
@@ -188,8 +188,8 @@
     @if($related->count())
         <x-site.torn-section bg="ink" :top="true">
             <div class="mx-auto max-w-7xl px-4 md:px-6">
-                <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">You might also like</div>
-                <h2 class="mt-2 font-display text-4xl md:text-5xl font-black uppercase">More for the bowl</h2>
+                <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ __('You might also like') }}</div>
+                <h2 class="mt-2 font-display text-4xl md:text-5xl font-black uppercase">{{ __('More for the bowl') }}</h2>
                 <div class="cards-fire-shadow mt-8 grid grid-cols-2 md:grid-cols-4 gap-5">
                     @foreach($related as $r)
                         <x-site.product-card :product="$r"/>

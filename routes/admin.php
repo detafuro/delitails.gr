@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\TranslationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -57,4 +58,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Settings
     Route::get('settings', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
+
+    // Translations
+    Route::get('translations', [TranslationController::class, 'index'])->name('translations.index');
+    Route::put('translations', [TranslationController::class, 'update'])->name('translations.update');
 });

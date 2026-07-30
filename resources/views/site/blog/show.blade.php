@@ -8,14 +8,14 @@
         <header class="relative bg-grass paper">
             <div class="mx-auto max-w-4xl px-4 md:px-6 py-16 md:py-24">
                 <nav class="text-xs uppercase tracking-widest text-ink/60 mb-5">
-                    <a href="{{ route('home') }}" class="hover:text-fire">Home</a> /
-                    <a href="{{ route('blog.index') }}" class="hover:text-fire">Blog</a>
+                    <a href="{{ route('home') }}" class="hover:text-fire">{{ __('Home') }}</a> /
+                    <a href="{{ route('blog.index') }}" class="hover:text-fire">{{ __('Blog') }}</a>
                     @if($post->category) / <a href="{{ route('blog.index', ['category' => $post->category->slug]) }}" class="hover:text-fire">{{ $post->category->name }}</a> @endif
                 </nav>
                 <h1 class="font-display text-4xl md:text-6xl font-black uppercase leading-[0.95]">{{ $post->title }}</h1>
                 <div class="mt-4 flex flex-wrap items-center gap-3 text-sm">
                     @if($post->author) <span class="font-display font-bold uppercase">{{ $post->author }}</span> @endif
-                    @if($post->published_at) <span class="text-ink/60">· {{ $post->published_at->format('M j, Y') }}</span> @endif
+                    @if($post->published_at) <span class="text-ink/60">· {{ $post->published_at->translatedFormat('j M Y') }}</span> @endif
                     @if($post->category) <span class="ribbon text-[10px]">{{ $post->category->name }}</span> @endif
                 </div>
             </div>
@@ -53,7 +53,7 @@
     @if($related->count())
         <x-site.torn-section bg="ink" :top="true">
             <div class="mx-auto max-w-7xl px-4 md:px-6">
-                <h2 class="font-display text-3xl md:text-5xl font-black uppercase">Keep reading</h2>
+                <h2 class="font-display text-3xl md:text-5xl font-black uppercase">{{ __('Keep reading') }}</h2>
                 <div class="mt-8 grid md:grid-cols-3 gap-6">
                     @foreach($related as $r)
                         <x-site.blog-card :post="$r"/>

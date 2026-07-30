@@ -6,9 +6,9 @@
         ->map(fn ($l) => trim($l))->filter()->values();
     if ($announcements->isEmpty()) {
         $announcements = collect([
-            'Free shipping over €40 — let them eat treats.',
-            'Hand-baked. Small-batch. Loud as hell.',
-            'New treats just landed. Sink your teeth in.',
+            __('Free shipping over €40 — let them eat treats.'),
+            __('Hand-baked. Small-batch. Loud as hell.'),
+            __('New treats just landed. Sink your teeth in.'),
         ]);
     }
     $pageTitle = $title ?? ($site['seo_default_title'] ?? $siteName);
@@ -79,27 +79,27 @@
                     <a href="{{ route($route) }}"
                        class="nav-btn {{ $active ? 'is-current' : '' }}"
                        @if($active) aria-current="page" @endif>
-                        {{ $label }}
+                        {{ __($label) }}
                     </a>
                 @endforeach
             </nav>
 
             <div class="ml-auto flex items-center gap-2">
                 {{-- Search --}}
-                <button type="button" @click="searchOpen = !searchOpen" class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-bone hover:bg-grass" aria-label="Search">
+                <button type="button" @click="searchOpen = !searchOpen" class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-bone hover:bg-grass" aria-label="{{ __('Search') }}">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
                 </button>
 
                 {{-- Stockists CTA (hidden while stockists page is draft) --}}
                 @if($storesPublic)
-                <a href="{{ route('stores') }}" class="relative inline-flex h-10 items-center gap-1 border-2 border-ink bg-fire text-bone px-3 font-bold uppercase tracking-wider text-xs hover:rotate-tilt-1" aria-label="Find a store">
+                <a href="{{ route('stores') }}" class="relative inline-flex h-10 items-center gap-1 border-2 border-ink bg-fire text-bone px-3 font-bold uppercase tracking-wider text-xs hover:rotate-tilt-1" aria-label="{{ __('Find a store') }}">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2c-3.866 0-7 3.134-7 7 0 4.97 7 13 7 13s7-8.03 7-13c0-3.866-3.134-7-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>
-                    <span class="hidden sm:inline">Find a store</span>
+                    <span class="hidden sm:inline">{{ __('Find a store') }}</span>
                 </a>
                 @endif
 
                 {{-- Mobile menu --}}
-                <button @click="mobile=true" class="lg:hidden inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-bone hover:bg-grass" aria-label="Menu">
+                <button @click="mobile=true" class="lg:hidden inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-bone hover:bg-grass" aria-label="{{ __('Menu') }}">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
                 </button>
             </div>
@@ -108,9 +108,9 @@
         {{-- Expandable search --}}
         <div x-show="searchOpen" x-cloak x-collapse class="border-t-2 border-ink bg-bone">
             <form action="{{ route('products.index') }}" method="GET" class="mx-auto flex max-w-7xl items-center gap-3 px-4 md:px-6 py-3">
-                <input type="text" name="q" autofocus placeholder="Search treats…" value="{{ request('q') }}"
+                <input type="text" name="q" autofocus placeholder="{{ __('Search treats…') }}" value="{{ request('q') }}"
                        class="flex-1 border-2 border-ink bg-bone px-3 py-2 font-display uppercase placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-fire/50">
-                <button class="btn-rough is-fire is-sm">Search</button>
+                <button class="btn-rough is-fire is-sm">{{ __('Search') }}</button>
             </form>
         </div>
 
@@ -119,23 +119,23 @@
             <div class="absolute right-0 top-0 h-full w-80 bg-bone border-l-2 border-ink p-5 overflow-y-auto"
                  x-show="mobile" x-transition:enter="transition transform" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0">
                 <div class="flex justify-between items-center mb-6">
-                    <span class="font-display text-xl font-black uppercase">Menu</span>
+                    <span class="font-display text-xl font-black uppercase">{{ __('Menu') }}</span>
                     <button @click="mobile=false" class="text-2xl">&times;</button>
                 </div>
                 <nav class="space-y-1">
                     @foreach($links as [$route,$label])
-                        <a href="{{ route($route) }}" class="block border-b-2 border-ink/10 py-3 font-display font-bold uppercase tracking-wider">{{ $label }}</a>
+                        <a href="{{ route($route) }}" class="block border-b-2 border-ink/10 py-3 font-display font-bold uppercase tracking-wider">{{ __($label) }}</a>
                     @endforeach
                 </nav>
                 <div class="mt-6 space-y-2">
                     @auth
-                        <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.edit') }}" class="btn-rough is-bone w-full justify-center">{{ auth()->user()->isAdmin() ? 'Admin' : 'My account' }}</a>
+                        <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.edit') }}" class="btn-rough is-bone w-full justify-center">{{ auth()->user()->isAdmin() ? __('Admin') : __('My account') }}</a>
                         <form method="POST" action="{{ route('logout') }}">@csrf
-                            <button class="btn-rough is-ghost w-full justify-center">Log out</button>
+                            <button class="btn-rough is-ghost w-full justify-center">{{ __('Log out') }}</button>
                         </form>
                     @else
-                        <a href="{{ route('login') }}" class="btn-rough is-bone w-full justify-center">Sign in</a>
-                        <a href="{{ route('register') }}" class="btn-rough is-fire w-full justify-center">Sign up</a>
+                        <a href="{{ route('login') }}" class="btn-rough is-bone w-full justify-center">{{ __('Sign in') }}</a>
+                        <a href="{{ route('register') }}" class="btn-rough is-fire w-full justify-center">{{ __('Sign up') }}</a>
                     @endauth
                 </div>
             </div>
@@ -157,7 +157,7 @@
                 @else
                     <div class="font-display text-3xl font-black uppercase mb-3">{{ $siteName }}</div>
                 @endif
-                <p class="font-editorial text-bone/70 leading-relaxed">{{ $site['footer_text'] ?? 'Loud treats for good dogs and louder cats. Hand-baked, small batch, raised on rebellion.' }}</p>
+                <p class="font-editorial text-bone/70 leading-relaxed">{{ $site['footer_text'] ?? __('Loud treats for good dogs and louder cats. Hand-baked, small batch, raised on rebellion.') }}</p>
 
                 <div class="mt-5 flex gap-2">
                     @foreach([
@@ -176,29 +176,29 @@
             </div>
 
             <div>
-                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Products</h4>
+                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">{{ __('Products') }}</h4>
                 <ul class="mt-4 space-y-2 text-bone/80">
                     @foreach(\App\Models\Product::TYPES as $typeKey => $typeLabel)
-                        <li><a class="hover:text-grass" href="{{ route('products.index', ['type' => $typeKey]) }}">{{ $typeLabel }}</a></li>
+                        <li><a class="hover:text-grass" href="{{ route('products.index', ['type' => $typeKey]) }}">{{ __($typeLabel) }}</a></li>
                     @endforeach
                     @if(($site['stores_page_status'] ?? 'draft') === 'public')
-                        <li><a class="hover:text-grass" href="{{ route('stores') }}">Find a store</a></li>
+                        <li><a class="hover:text-grass" href="{{ route('stores') }}">{{ __('Find a store') }}</a></li>
                     @endif
                 </ul>
             </div>
 
             <div>
-                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Inside</h4>
+                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">{{ __('Inside') }}</h4>
                 <ul class="mt-4 space-y-2 text-bone/80">
-                    <li><a class="hover:text-grass" href="{{ route('about') }}">About us</a></li>
-                    <li><a class="hover:text-grass" href="{{ route('blog.index') }}">Blog</a></li>
-                    <li><a class="hover:text-grass" href="{{ route('faq') }}">FAQ</a></li>
-                    <li><a class="hover:text-grass" href="{{ route('contact') }}">Contact</a></li>
+                    <li><a class="hover:text-grass" href="{{ route('about') }}">{{ __('About us') }}</a></li>
+                    <li><a class="hover:text-grass" href="{{ route('blog.index') }}">{{ __('Blog') }}</a></li>
+                    <li><a class="hover:text-grass" href="{{ route('faq') }}">{{ __('FAQ') }}</a></li>
+                    <li><a class="hover:text-grass" href="{{ route('contact') }}">{{ __('Contact') }}</a></li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Get in touch</h4>
+                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">{{ __('Get in touch') }}</h4>
                 <ul class="mt-4 space-y-2 text-bone/80">
                     @if(!empty($site['contact_email']))<li><a class="hover:text-grass" href="mailto:{{ $site['contact_email'] }}">{{ $site['contact_email'] }}</a></li>@endif
                     @if(!empty($site['contact_phone']))<li>{{ $site['contact_phone'] }}</li>@endif
@@ -209,9 +209,9 @@
 
         <div class="border-t-2 border-bone/20">
             <div class="mx-auto max-w-7xl px-4 md:px-6 py-5 flex flex-col md:flex-row gap-3 items-center justify-between text-xs uppercase tracking-widest text-bone/50">
-                <div>&copy; {{ date('Y') }} {{ $siteName }}. All rights reserved.</div>
+                <div>&copy; {{ date('Y') }} {{ $siteName }}. {{ __('All rights reserved.') }}</div>
                 <div class="font-sans text-bone/60 normal-case tracking-normal text-sm">
-                    Designed &amp; developed by <a href="https://nifty.gr/" target="_blank" rel="noopener" class="font-semibold text-bone/80 hover:text-fire-light">Nifty</a>.
+                    {{ __('Designed & developed by') }} <a href="https://nifty.gr/" target="_blank" rel="noopener" class="font-semibold text-bone/80 hover:text-fire-light">Nifty</a>.
                 </div>
             </div>
         </div>

@@ -1,10 +1,10 @@
 @php
     $siteName = $site['site_name'] ?? config('app.name', 'Delitails');
-    $heroHeading = $site['hero_heading'] ?? 'TREATS WITH ATTITUDE.';
-    $heroSub = $site['hero_subheading'] ?? 'Loud little snacks for picky pets and the humans who feed them. Small-batch, big personality.';
-    $heroCtaText = $site['hero_cta_text'] ?? 'Explore the pack';
+    $heroHeading = $site['hero_heading'] ?? __('TREATS WITH ATTITUDE.');
+    $heroSub = $site['hero_subheading'] ?? __('Loud little snacks for picky pets and the humans who feed them. Small-batch, big personality.');
+    $heroCtaText = $site['hero_cta_text'] ?? __('Explore the pack');
     $heroCtaLink = $site['hero_cta_link'] ?? route('products.index');
-    $title = ($site['seo_default_title'] ?? null) ?: $siteName.' — Premium pet treats';
+    $title = ($site['seo_default_title'] ?? null) ?: $siteName.' — '.__('Premium pet treats');
     $description = $site['seo_default_description'] ?? $heroSub;
 @endphp
 <x-layout title="{{ $title }}" description="{{ $description }}">
@@ -15,7 +15,7 @@
         <div class="relative mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-24 grid lg:grid-cols-3 gap-10 items-center">
             <div class="relative z-10 lg:col-span-2">
                 <div class="inline-flex items-center gap-2 ribbon mb-5">
-                    <span>★ 100% Natural</span>
+                    <span>★ {{ __('100% Natural') }}</span>
                 </div>
                 <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tight text-ink">
                     @foreach(explode(' ', $heroHeading) as $i => $word)
@@ -35,9 +35,9 @@
                 </div>
 
                 <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-bold uppercase tracking-widest text-ink/70">
-                    <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> Small batch</span>
-                    <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> No nasties</span>
-                    <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> Vet-approved</span>
+                    <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> {{ __('Small batch') }}</span>
+                    <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> {{ __('No nasties') }}</span>
+                    <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> {{ __('Vet-approved') }}</span>
                 </div>
             </div>
 
@@ -49,16 +49,16 @@
                     @else
                         <div class="h-full w-full halftone-fire flex items-center justify-center">
                             <div class="text-center px-4">
-                                <div class="font-display text-6xl md:text-7xl font-black uppercase text-ink leading-none">CHEW</div>
-                                <div class="font-display text-6xl md:text-7xl font-black uppercase text-fire leading-none">LOUD</div>
-                                <div class="font-display text-6xl md:text-7xl font-black uppercase text-ink leading-none">CHEW</div>
-                                <div class="font-display text-6xl md:text-7xl font-black uppercase text-fire leading-none">PROUD</div>
+                                <div class="font-display text-6xl md:text-7xl font-black uppercase text-ink leading-none">{{ __('CHEW') }}</div>
+                                <div class="font-display text-6xl md:text-7xl font-black uppercase text-fire leading-none">{{ __('LOUD') }}</div>
+                                <div class="font-display text-6xl md:text-7xl font-black uppercase text-ink leading-none">{{ __('CHEW') }}</div>
+                                <div class="font-display text-6xl md:text-7xl font-black uppercase text-fire leading-none">{{ __('PROUD') }}</div>
                             </div>
                         </div>
                     @endif
                 </div>
                 <div class="absolute -bottom-6 -left-6 stamp bg-bone rotate-tilt-2">
-                    <span class="font-display text-xs font-black uppercase text-center leading-tight">100%<br>WAGS</span>
+                    <span class="font-display text-xs font-black uppercase text-center leading-tight">{!! __('100%<br>WAGS') !!}</span>
                 </div>
             </div>
         </div>
@@ -68,41 +68,41 @@
     <x-site.torn-section bg="bone" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="text-center mb-16 md:mb-24">
-                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Two ways to treat</div>
-                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">Choose your chew</h2>
+                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">{{ __('Two ways to treat') }}</div>
+                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">{{ __('Choose your chew') }}</h2>
             </div>
 
             @php
                 $lineup = [
                     [
                         'number' => '01',
-                        'badge' => 'Chews',
-                        'word' => 'CHEWS',
-                        'title' => 'Natural Single-Protein Chews',
-                        'text' => 'Wholesome, simple yet delicious — our single-protein chews are made from carefully selected natural ingredients with no additives or fillers. Perfect for sensitive dogs, they support dental health, satisfy chewing instincts, and offer a healthy snack you can trust.',
+                        'badge' => __('Chews'),
+                        'word' => __('CHEWS'),
+                        'title' => __('Natural Single-Protein Chews'),
+                        'text' => __('Wholesome, simple yet delicious — our single-protein chews are made from carefully selected natural ingredients with no additives or fillers. Perfect for sensitive dogs, they support dental health, satisfy chewing instincts, and offer a healthy snack you can trust.'),
                         'link' => route('products.index', ['type' => \App\Models\Product::TYPE_NATURAL_CHEWS]),
-                        'cta' => 'Explore chews',
+                        'cta' => __('Explore chews'),
                         'image' => $site['lineup_chews_image'] ?? null,
                     ],
                     [
                         'number' => '02',
-                        'badge' => 'Treats',
-                        'word' => 'TREATS',
-                        'title' => 'Training Treats',
-                        'text' => 'Make every training session a success! Our grain-free treats are bite-sized, delicious, and crafted from natural ingredients, making them the ideal reward to motivate your dog while keeping them healthy and happy.',
+                        'badge' => __('Treats'),
+                        'word' => __('TREATS'),
+                        'title' => __('Training Treats'),
+                        'text' => __('Make every training session a success! Our grain-free treats are bite-sized, delicious, and crafted from natural ingredients, making them the ideal reward to motivate your dog while keeping them healthy and happy.'),
                         'link' => route('products.index', ['type' => \App\Models\Product::TYPE_TRAINING_TREATS]),
-                        'cta' => 'Explore treats',
+                        'cta' => __('Explore treats'),
                         'image' => $site['lineup_treats_image'] ?? null,
                     ],
                     // Natural Sausages hidden until the category is available — restore this entry when it is.
                     // [
                     //     'number' => '03',
-                    //     'badge' => 'Sausages',
-                    //     'word' => 'SAUSAGES',
-                    //     'title' => 'Natural Sausages',
-                    //     'text' => 'Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.',
+                    //     'badge' => __('Sausages'),
+                    //     'word' => __('SAUSAGES'),
+                    //     'title' => __('Natural Sausages'),
+                    //     'text' => __('Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.'),
                     //     'link' => route('products.index'),
-                    //     'cta' => 'Explore sausages',
+                    //     'cta' => __('Explore sausages'),
                     // ],
                 ];
             @endphp
@@ -146,17 +146,17 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
-                    <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">Customer favourites</div>
-                    <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">The hot picks</h2>
+                    <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">{{ __('Customer favourites') }}</div>
+                    <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">{{ __('The hot picks') }}</h2>
                 </div>
-                <x-site.rough-button href="{{ route('products.index') }}" variant="ink">View everything</x-site.rough-button>
+                <x-site.rough-button href="{{ route('products.index') }}" variant="ink">{{ __('View everything') }}</x-site.rough-button>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 @forelse($featured as $product)
                     <x-site.product-card :product="$product"/>
                 @empty
-                    <div class="col-span-full text-center text-bone/70 py-10">No products yet. Stand by.</div>
+                    <div class="col-span-full text-center text-bone/70 py-10">{{ __('No products yet. Stand by.') }}</div>
                 @endforelse
             </div>
         </div>
@@ -166,14 +166,14 @@
     <x-site.torn-section bg="grass" :top="true" :bottom="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="text-center mb-10">
-                <div class="text-ink/70 text-sm font-bold uppercase tracking-[0.3em]">What we stand for</div>
-                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">Made loud, made right</h2>
+                <div class="text-ink/70 text-sm font-bold uppercase tracking-[0.3em]">{{ __('What we stand for') }}</div>
+                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">{{ __('Made loud, made right') }}</h2>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <x-site.stamp-icon glyph="✻" label="Small batch" bg="bone"/>
-                <x-site.stamp-icon glyph="✚" label="Vet approved" bg="fire"/>
-                <x-site.stamp-icon glyph="✦" label="Clean labels" bg="bone"/>
-                <x-site.stamp-icon glyph="✺" label="Tail-tested" bg="ink"/>
+                <x-site.stamp-icon glyph="✻" :label="__('Small batch')" bg="bone"/>
+                <x-site.stamp-icon glyph="✚" :label="__('Vet approved')" bg="fire"/>
+                <x-site.stamp-icon glyph="✦" :label="__('Clean labels')" bg="bone"/>
+                <x-site.stamp-icon glyph="✺" :label="__('Tail-tested')" bg="ink"/>
             </div>
         </div>
     </x-site.torn-section>
@@ -184,19 +184,19 @@
             <div class="relative">
                 <div class="absolute -inset-4 rotate-[2deg] bg-ink/10 border-2 border-ink"></div>
                 <div class="relative aspect-[4/5] border-2 border-ink bg-fire overflow-hidden">
-                    <img src="{{ asset('storage/'.($site['our_story_image'] ?? 'our-story-feat.jpg')) }}" alt="Our story" class="h-full w-full object-cover" loading="lazy">
+                    <img src="{{ asset('storage/'.($site['our_story_image'] ?? 'our-story-feat.jpg')) }}" alt="{{ __('Our story') }}" class="h-full w-full object-cover" loading="lazy">
                 </div>
             </div>
             <div>
-                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Our story</div>
+                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">{{ __('Our story') }}</div>
                 <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase leading-[0.95]">
-                    A brand created by a <span class="underline-brush">producer</span>
+                    {!! __('A brand created by a <span class="underline-brush">producer</span>') !!}
                 </h2>
                 <p class="mt-5 font-editorial text-xl md:text-2xl text-ink/80 leading-relaxed italic">
-                    Delitails creates natural, single-protein chews, training treats, and sausages designed with care, simplicity, and quality at their core. Our approach is built on honesty: clean ingredients, no unnecessary additives, and products you can trust.
+                    {{ __('Delitails creates natural, single-protein chews, training treats, and sausages designed with care, simplicity, and quality at their core. Our approach is built on honesty: clean ingredients, no unnecessary additives, and products you can trust.') }}
                 </p>
                 <div class="mt-7">
-                    <x-site.rough-button href="{{ route('about') }}" variant="fire">Read our story</x-site.rough-button>
+                    <x-site.rough-button href="{{ route('about') }}" variant="fire">{{ __('Read our story') }}</x-site.rough-button>
                 </div>
             </div>
         </div>
@@ -207,17 +207,17 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
-                    <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">Bark journal</div>
-                    <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">Words for the pack</h2>
+                    <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ __('Bark journal') }}</div>
+                    <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">{{ __('Words for the pack') }}</h2>
                 </div>
-                <x-site.rough-button href="{{ route('blog.index') }}" variant="bone">Read the blog</x-site.rough-button>
+                <x-site.rough-button href="{{ route('blog.index') }}" variant="bone">{{ __('Read the blog') }}</x-site.rough-button>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 @forelse($posts as $post)
                     <x-site.blog-card :post="$post"/>
                 @empty
-                    <div class="col-span-full text-bone/50 text-center py-10">Nothing to read yet.</div>
+                    <div class="col-span-full text-bone/50 text-center py-10">{{ __('Nothing to read yet.') }}</div>
                 @endforelse
             </div>
         </div>
@@ -229,10 +229,10 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
-                    <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">Find us in the wild</div>
-                    <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">Stockists</h2>
+                    <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">{{ __('Find us in the wild') }}</div>
+                    <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">{{ __('Stockists') }}</h2>
                 </div>
-                <x-site.rough-button href="{{ route('stores') }}" variant="ink">All stores</x-site.rough-button>
+                <x-site.rough-button href="{{ route('stores') }}" variant="ink">{{ __('All stores') }}</x-site.rough-button>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -243,12 +243,12 @@
                         <p class="mt-2 text-sm text-ink/70">{{ $s->address }}</p>
                         @if($s->phone)<p class="mt-1 text-sm">{{ $s->phone }}</p>@endif
                         @if($s->map_link)
-                            <a href="{{ $s->map_link }}" target="_blank" rel="noopener" class="mt-3 inline-block text-xs font-bold uppercase tracking-widest text-fire hover:text-ink">View on map →</a>
+                            <a href="{{ $s->map_link }}" target="_blank" rel="noopener" class="mt-3 inline-block text-xs font-bold uppercase tracking-widest text-fire hover:text-ink">{{ __('View on map') }} →</a>
                         @endif
                     </div>
                 @empty
                     @for($i=0;$i<4;$i++)
-                        <div class="brush-card bg-bone/90 p-5 text-ink/40 text-center">Coming soon</div>
+                        <div class="brush-card bg-bone/90 p-5 text-ink/40 text-center">{{ __('Coming soon') }}</div>
                     @endfor
                 @endforelse
             </div>
@@ -260,12 +260,12 @@
     <x-site.torn-section bg="bone" :top="true">
         <div class="mx-auto max-w-4xl px-4 md:px-6">
             <div class="text-center mb-10">
-                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">Asked & answered</div>
-                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">FAQ shortlist</h2>
+                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">{{ __('Asked & answered') }}</div>
+                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">{{ __('FAQ shortlist') }}</h2>
             </div>
             <x-site.faq-accordion :faqs="$faqs"/>
             <div class="text-center mt-8">
-                <x-site.rough-button href="{{ route('faq') }}" variant="ink">All the questions</x-site.rough-button>
+                <x-site.rough-button href="{{ route('faq') }}" variant="ink">{{ __('All the questions') }}</x-site.rough-button>
             </div>
         </div>
     </x-site.torn-section>
@@ -274,8 +274,8 @@
     <x-site.torn-section bg="grass" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="text-center mb-12">
-                <div class="text-ink/70 text-sm font-bold uppercase tracking-[0.3em]">From the pack</div>
-                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">Word on the street</h2>
+                <div class="text-ink/70 text-sm font-bold uppercase tracking-[0.3em]">{{ __('From the pack') }}</div>
+                <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">{{ __('Word on the street') }}</h2>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -295,11 +295,11 @@
                         <p class="font-editorial italic text-xl leading-relaxed">"{{ $t->quote }}"</p>
                         <div class="mt-4">
                             <div class="font-display font-extrabold uppercase">{{ $t->author }}</div>
-                            @if($t->pet_name)<div class="text-xs uppercase tracking-widest text-ink/60">w/ {{ $t->pet_name }}</div>@endif
+                            @if($t->pet_name)<div class="text-xs uppercase tracking-widest text-ink/60">{{ __('w/') }} {{ $t->pet_name }}</div>@endif
                         </div>
                     </div>
                 @empty
-                    <div class="col-span-full text-center text-ink/60">No reviews yet.</div>
+                    <div class="col-span-full text-center text-ink/60">{{ __('No reviews yet.') }}</div>
                 @endforelse
             </div>
         </div>
@@ -308,10 +308,10 @@
     {{-- NEWSLETTER --}}
     <x-site.torn-section bg="ink" :top="true">
         <div class="mx-auto max-w-4xl px-4 md:px-6 text-center">
-            <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ $site['newsletter_heading'] ?? 'Join the pack' }}</div>
-            <h2 class="mt-3 font-display text-4xl md:text-6xl font-black uppercase">Don't miss a bite</h2>
+            <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ $site['newsletter_heading'] ?? __('Join the pack') }}</div>
+            <h2 class="mt-3 font-display text-4xl md:text-6xl font-black uppercase">{{ __("Don't miss a bite") }}</h2>
             <p class="mt-4 font-editorial italic text-xl md:text-2xl text-bone/70 max-w-2xl mx-auto">
-                {{ $site['newsletter_text'] ?? 'New drops, late-night deals and just enough chaos. Drop your email below — we promise not to spam.' }}
+                {{ $site['newsletter_text'] ?? __('New drops, late-night deals and just enough chaos. Drop your email below — we promise not to spam.') }}
             </p>
 
             @if(session('success'))
@@ -323,7 +323,7 @@
                 <input type="text" name="hp_field" class="hidden" tabindex="-1" autocomplete="off">
                 <input type="email" name="email" required placeholder="your@email.com"
                        class="flex-1 border-2 border-bone bg-ink-700 text-bone placeholder:text-bone/40 px-4 py-3 font-display uppercase focus:outline-none focus:ring-2 focus:ring-fire/60">
-                <x-site.rough-button variant="fire" type="submit">Sign me up</x-site.rough-button>
+                <x-site.rough-button variant="fire" type="submit">{{ __('Sign me up') }}</x-site.rough-button>
             </form>
             @error('email') <p class="mt-2 text-sm text-fire-light">{{ $message }}</p> @enderror
         </div>

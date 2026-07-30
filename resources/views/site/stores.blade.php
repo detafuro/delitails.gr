@@ -1,15 +1,15 @@
-@php $title = 'Stores — '.($site['site_name'] ?? config('app.name')); @endphp
-<x-layout title="{{ $title }}" description="Find a stockist near you. We are in cities, towns, and corner shops worth knowing.">
+@php $title = __('Stores').' — '.($site['site_name'] ?? config('app.name')); @endphp
+<x-layout title="{{ $title }}" description="{{ __('Find a stockist near you. We are in cities, towns, and corner shops worth knowing.') }}">
     <section class="bg-grass paper">
         <div class="mx-auto max-w-4xl px-4 md:px-6 py-16 md:py-20 text-center">
-            <div class="text-ink/70 text-sm font-bold uppercase tracking-[0.3em]">Stockists</div>
+            <div class="text-ink/70 text-sm font-bold uppercase tracking-[0.3em]">{{ __('Stockists') }}</div>
             <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
-                Find us <span class="text-fire">in the wild</span>
+                {!! __('Find us <span class="text-fire">in the wild</span>') !!}
             </h1>
             <form method="GET" class="mt-8 mx-auto flex flex-col sm:flex-row gap-3 max-w-xl">
-                <input type="text" name="q" value="{{ request('q') }}" placeholder="City, postcode or store name…"
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('City, postcode or store name…') }}"
                        class="flex-1 border-2 border-ink bg-bone px-4 py-3 font-display uppercase placeholder:text-ink/40 focus:outline-none">
-                <x-site.rough-button variant="fire">Find</x-site.rough-button>
+                <x-site.rough-button variant="fire">{{ __('Find') }}</x-site.rough-button>
             </form>
         </div>
         <div aria-hidden="true" class="relative">
@@ -21,9 +21,9 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             @if($stores->count() === 0)
                 <div class="brush-card p-10 text-center">
-                    <div class="font-display text-2xl font-black uppercase">No stockists match.</div>
-                    <p class="mt-2 text-ink/60">Try a different city — or order online, the dogs won't mind.</p>
-                    <x-site.rough-button class="mt-5" href="{{ route('products.index') }}" variant="fire">Shop online</x-site.rough-button>
+                    <div class="font-display text-2xl font-black uppercase">{{ __('No stockists match.') }}</div>
+                    <p class="mt-2 text-ink/60">{{ __("Try a different city — or order online, the dogs won't mind.") }}</p>
+                    <x-site.rough-button class="mt-5" href="{{ route('products.index') }}" variant="fire">{{ __('Shop online') }}</x-site.rough-button>
                 </div>
             @else
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -48,10 +48,10 @@
 
                             <div class="mt-4 flex flex-wrap gap-2">
                                 @if($store->map_link)
-                                    <a href="{{ $store->map_link }}" target="_blank" rel="noopener" class="btn-rough is-grass is-sm">View map</a>
+                                    <a href="{{ $store->map_link }}" target="_blank" rel="noopener" class="btn-rough is-grass is-sm">{{ __('View map') }}</a>
                                 @endif
                                 @if($store->phone)
-                                    <a href="tel:{{ preg_replace('/[^+\d]/','',$store->phone) }}" class="btn-rough is-fire is-sm">Call</a>
+                                    <a href="tel:{{ preg_replace('/[^+\d]/','',$store->phone) }}" class="btn-rough is-fire is-sm">{{ __('Call') }}</a>
                                 @endif
                             </div>
                         </div>
