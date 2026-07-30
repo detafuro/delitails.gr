@@ -184,7 +184,7 @@
             <div class="relative">
                 <div class="absolute -inset-4 rotate-[2deg] bg-ink/10 border-2 border-ink"></div>
                 <div class="relative aspect-[4/5] border-2 border-ink bg-fire overflow-hidden">
-                    <img src="{{ asset('storage/our-story-feat.jpg') }}" alt="Our story" class="h-full w-full object-cover">
+                    <img src="{{ asset('storage/'.($site['our_story_image'] ?? 'our-story-feat.jpg')) }}" alt="Our story" class="h-full w-full object-cover" loading="lazy">
                 </div>
             </div>
             <div>

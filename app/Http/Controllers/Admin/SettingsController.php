@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends AdminController
 {
-    private const FILE_KEYS = ['logo', 'footer_logo', 'favicon', 'hero_image', 'lineup_chews_image', 'lineup_treats_image'];
+    private const FILE_KEYS = ['logo', 'footer_logo', 'favicon', 'hero_image', 'lineup_chews_image', 'lineup_treats_image', 'our_story_image'];
 
     public function edit()
     {

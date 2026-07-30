@@ -72,6 +72,12 @@
                         hint="Replaces the TREATS placeholder. Landscape 4:3 — 1200×900 recommended."/>
                 </div>
             </div>
+            <div class="border-t-2 border-dashed border-ink/30 pt-5 mt-2 space-y-5">
+                <h3 class="font-display text-lg font-black uppercase">Our story</h3>
+                <x-admin.image-upload name="our_story_image" label="Our story photo"
+                    :currentPath="$settings['our_story_image'] ?? null"
+                    hint="Photo in the homepage Our Story section. Portrait 4:5 — 1200×1500 recommended. Falls back to the default photo when empty."/>
+            </div>
         </section>
 
         {{-- Newsletter --}}
