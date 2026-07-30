@@ -53,6 +53,13 @@
                 @endif
             </div>
 
+            @php $otherLocale = app()->getLocale() === 'el' ? 'en' : 'el'; @endphp
+            <div class="mt-6">
+                <a href="{{ route('lang.switch', $otherLocale) }}" class="text-xs font-bold uppercase tracking-widest text-ink/60 hover:text-fire underline underline-offset-4">
+                    {{ $otherLocale === 'en' ? 'English' : 'Ελληνικά' }}
+                </a>
+            </div>
+
             <div class="mt-8 flex justify-center gap-2">
                 @foreach([
                     'social_facebook' => 'Facebook',

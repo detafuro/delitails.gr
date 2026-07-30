@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\PreventIndexing;
+use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\UnderConstruction;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->append(PreventIndexing::class);
-        $middleware->web(append: [UnderConstruction::class]);
+        $middleware->web(append: [SetLocale::class, UnderConstruction::class]);
 
         $middleware->alias([
             'admin' => EnsureAdmin::class,

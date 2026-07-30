@@ -12,6 +12,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreLocatorController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/lang/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, \App\Http\Middleware\SetLocale::SUPPORTED, true), 404);
+    session(['locale' => $locale]);
+    return redirect()->back(fallback: route('home'));
+})->name('lang.switch');
+
 Route::get('/', HomeController::class)->name('home');
 Route::get('/about', AboutController::class)->name('about');
 Route::get('/products', [ProductCatalogController::class, 'index'])->name('products.index');

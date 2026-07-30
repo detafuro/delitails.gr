@@ -18,6 +18,7 @@ class UnderConstruction
         'login', 'logout',
         'forgot-password', 'reset-password/*',
         'construction/unlock',
+        'lang/*',
         'up',
     ];
 

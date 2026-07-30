@@ -85,6 +85,14 @@
             </nav>
 
             <div class="ml-auto flex items-center gap-2">
+                {{-- Language switch --}}
+                @php $otherLocale = app()->getLocale() === 'el' ? 'en' : 'el'; @endphp
+                <a href="{{ route('lang.switch', $otherLocale) }}"
+                   class="inline-flex h-10 items-center justify-center border-2 border-ink bg-bone px-2.5 font-display text-xs font-black uppercase tracking-wider hover:bg-grass"
+                   aria-label="{{ $otherLocale === 'en' ? 'Switch to English' : 'Αλλαγή σε Ελληνικά' }}">
+                    {{ $otherLocale === 'en' ? 'EN' : 'ΕΛ' }}
+                </a>
+
                 {{-- Search --}}
                 <button type="button" @click="searchOpen = !searchOpen" class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-bone hover:bg-grass" aria-label="{{ __('Search') }}">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
@@ -128,6 +136,9 @@
                     @endforeach
                 </nav>
                 <div class="mt-6 space-y-2">
+                    <a href="{{ route('lang.switch', $otherLocale) }}" class="btn-rough is-grass w-full justify-center">
+                        {{ $otherLocale === 'en' ? 'English' : 'Ελληνικά' }}
+                    </a>
                     @auth
                         <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.edit') }}" class="btn-rough is-bone w-full justify-center">{{ auth()->user()->isAdmin() ? __('Admin') : __('My account') }}</a>
                         <form method="POST" action="{{ route('logout') }}">@csrf
