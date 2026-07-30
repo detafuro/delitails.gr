@@ -50,13 +50,25 @@
         </section>
 
         {{-- Homepage --}}
-        <section x-show="tab==='homepage'" x-cloak class="brush-card p-6 space-y-5">
-            <h3 class="font-display text-lg font-black uppercase">Hero</h3>
-            <x-admin.form-input name="hero_heading" label="Hero heading" :value="$settings['hero_heading'] ?? ''"/>
-            <x-admin.textarea name="hero_subheading" label="Hero subheading" :value="$settings['hero_subheading'] ?? ''" rows="2"/>
-            <div class="grid sm:grid-cols-2 gap-5">
-                <x-admin.form-input name="hero_cta_text" label="CTA text" :value="$settings['hero_cta_text'] ?? 'Explore the pack'"/>
-                <x-admin.form-input name="hero_cta_link" label="CTA link" :value="$settings['hero_cta_link'] ?? '/products'"/>
+        <section x-show="tab==='homepage'" x-cloak class="brush-card p-6 space-y-5" x-data="{ lang: 'en' }">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="font-display text-lg font-black uppercase">Hero</h3>
+                <x-admin.lang-tabs/>
+            </div>
+            <div x-show="lang==='en'" class="space-y-5">
+                <x-admin.form-input name="hero_heading" label="Hero heading" :value="$settings['hero_heading'] ?? ''"/>
+                <x-admin.textarea name="hero_subheading" label="Hero subheading" :value="$settings['hero_subheading'] ?? ''" rows="2"/>
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <x-admin.form-input name="hero_cta_text" label="CTA text" :value="$settings['hero_cta_text'] ?? 'Explore the pack'"/>
+                    <x-admin.form-input name="hero_cta_link" label="CTA link" :value="$settings['hero_cta_link'] ?? '/products'"/>
+                </div>
+            </div>
+            <div x-show="lang==='el'" x-cloak class="space-y-5">
+                <x-admin.form-input name="hero_heading_el" label="Hero heading (Ελληνικά)" :value="$settings['hero_heading_el'] ?? ''"/>
+                <x-admin.textarea name="hero_subheading_el" label="Hero subheading (Ελληνικά)" :value="$settings['hero_subheading_el'] ?? ''" rows="2"/>
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <x-admin.form-input name="hero_cta_text_el" label="CTA text (Ελληνικά)" :value="$settings['hero_cta_text_el'] ?? ''"/>
+                </div>
             </div>
             <x-admin.image-upload name="hero_image" label="Hero image"
                 :currentPath="$settings['hero_image'] ?? null"
@@ -87,10 +99,18 @@
         </section>
 
         {{-- Announcement --}}
-        <section x-show="tab==='announcement'" x-cloak class="brush-card p-6 space-y-5">
-            <x-admin.textarea name="announcement_messages" label="Announcement messages"
-                :value="$settings['announcement_messages'] ?? ''" rows="6"
-                hint="One message per line. They scroll across the top of the site."/>
+        <section x-show="tab==='announcement'" x-cloak class="brush-card p-6 space-y-5" x-data="{ lang: 'en' }">
+            <x-admin.lang-tabs/>
+            <div x-show="lang==='en'">
+                <x-admin.textarea name="announcement_messages" label="Announcement messages"
+                    :value="$settings['announcement_messages'] ?? ''" rows="6"
+                    hint="One message per line. They scroll across the top of the site."/>
+            </div>
+            <div x-show="lang==='el'" x-cloak>
+                <x-admin.textarea name="announcement_messages_el" label="Announcement messages (Ελληνικά)"
+                    :value="$settings['announcement_messages_el'] ?? ''" rows="6"
+                    hint="One message per line. Shown to Greek visitors; falls back to the English messages when empty."/>
+            </div>
         </section>
 
         {{-- SEO --}}

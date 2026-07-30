@@ -1,8 +1,10 @@
 @php
     $siteName = $site['site_name'] ?? config('app.name', 'Delitails');
-    $heroHeading = $site['hero_heading'] ?? __('TREATS WITH ATTITUDE.');
-    $heroSub = $site['hero_subheading'] ?? __('Loud little snacks for picky pets and the humans who feed them. Small-batch, big personality.');
-    $heroCtaText = $site['hero_cta_text'] ?? __('Explore the pack');
+    // Locale-aware setting: Greek visitors get the *_el variant when it is filled in.
+    $pick = fn (string $key) => (app()->getLocale() === 'el' ? ($site[$key.'_el'] ?? null) : null) ?: ($site[$key] ?? null);
+    $heroHeading = $pick('hero_heading') ?? __('TREATS WITH ATTITUDE.');
+    $heroSub = $pick('hero_subheading') ?? __('Loud little snacks for picky pets and the humans who feed them. Small-batch, big personality.');
+    $heroCtaText = $pick('hero_cta_text') ?? __('Explore the pack');
     $heroCtaLink = $site['hero_cta_link'] ?? route('products.index');
     $title = ($site['seo_default_title'] ?? null) ?: $siteName.' — '.__('Premium pet treats');
     $description = $site['seo_default_description'] ?? $heroSub;

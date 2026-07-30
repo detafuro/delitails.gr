@@ -2,6 +2,9 @@
     use Illuminate\Support\Str;
     $siteName = $site['site_name'] ?? config('app.name', 'Delitails');
     $announcementRaw = $site['announcement_messages'] ?? '';
+    if (app()->getLocale() === 'el' && trim($site['announcement_messages_el'] ?? '') !== '') {
+        $announcementRaw = $site['announcement_messages_el'];
+    }
     $announcements = collect(preg_split("/\r\n|\n|\r/", $announcementRaw))
         ->map(fn ($l) => trim($l))->filter()->values();
     if ($announcements->isEmpty()) {
