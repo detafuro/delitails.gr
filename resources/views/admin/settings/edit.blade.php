@@ -1,4 +1,4 @@
-<x-admin.layout title="Site settings" subtitle="Global branding, contact, SEO, hero & footer">
+<x-admin.layout title="Site settings" subtitle="Global branding, contact, homepage, SEO & footer">
     <form method="POST" action="{{ route('admin.settings.update') }}" enctype="multipart/form-data"
           x-data="{tab: 'brand'}" class="space-y-6">
         @csrf @method('PUT')
@@ -8,7 +8,7 @@
                 $tabs = [
                     'brand' => 'Brand',
                     'contact' => 'Contact',
-                    'hero' => 'Hero',
+                    'homepage' => 'Homepage',
                     'newsletter' => 'Newsletter',
                     'announcement' => 'Announcement',
                     'seo' => 'SEO & scripts',
@@ -49,18 +49,28 @@
             <x-admin.textarea name="map_embed" label="Map embed HTML (iframe)" :value="$settings['map_embed'] ?? ''" rows="3"/>
         </section>
 
-        {{-- Hero --}}
-        <section x-show="tab==='hero'" x-cloak class="brush-card p-6 space-y-5">
+        {{-- Homepage --}}
+        <section x-show="tab==='homepage'" x-cloak class="brush-card p-6 space-y-5">
+            <h3 class="font-display text-lg font-black uppercase">Hero</h3>
             <x-admin.form-input name="hero_heading" label="Hero heading" :value="$settings['hero_heading'] ?? ''"/>
             <x-admin.textarea name="hero_subheading" label="Hero subheading" :value="$settings['hero_subheading'] ?? ''" rows="2"/>
             <div class="grid sm:grid-cols-2 gap-5">
                 <x-admin.form-input name="hero_cta_text" label="CTA text" :value="$settings['hero_cta_text'] ?? 'Explore the pack'"/>
                 <x-admin.form-input name="hero_cta_link" label="CTA link" :value="$settings['hero_cta_link'] ?? '/products'"/>
             </div>
-            <div class="border-t-2 border-dashed border-ink/30 pt-5 mt-2">
-                <x-admin.image-upload name="hero_image" label="Hero image"
-                    :currentPath="$settings['hero_image'] ?? null"
-                    hint="Replaces the 'CHEW LOUD / CHEW PROUD' placeholder on the home hero. Portrait or square works best (aspect 4:5)."/>
+            <x-admin.image-upload name="hero_image" label="Hero image"
+                :currentPath="$settings['hero_image'] ?? null"
+                hint="Replaces the 'CHEW LOUD / CHEW PROUD' placeholder on the home hero. Portrait or square works best (aspect 4:5)."/>
+            <div class="border-t-2 border-dashed border-ink/30 pt-5 mt-2 space-y-5">
+                <h3 class="font-display text-lg font-black uppercase">Choose your chew</h3>
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <x-admin.image-upload name="lineup_chews_image" label="Chews image"
+                        :currentPath="$settings['lineup_chews_image'] ?? null"
+                        hint="Replaces the CHEWS placeholder. Landscape 4:3 — 1200×900 recommended."/>
+                    <x-admin.image-upload name="lineup_treats_image" label="Treats image"
+                        :currentPath="$settings['lineup_treats_image'] ?? null"
+                        hint="Replaces the TREATS placeholder. Landscape 4:3 — 1200×900 recommended."/>
+                </div>
             </div>
         </section>
 

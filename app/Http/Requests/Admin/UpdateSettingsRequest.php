@@ -31,6 +31,8 @@ class UpdateSettingsRequest extends FormRequest
             'hero_heading' => ['nullable', 'string', 'max:255'],
             'hero_subheading' => ['nullable', 'string', 'max:500'],
             'hero_image' => ['nullable', 'image', 'max:8192'],
+            'lineup_chews_image' => ['nullable', 'image', 'max:8192'],
+            'lineup_treats_image' => ['nullable', 'image', 'max:8192'],
             'hero_cta_text' => ['nullable', 'string', 'max:64'],
             'hero_cta_link' => ['nullable', 'string', 'max:255'],
             'seo_default_title' => ['nullable', 'string', 'max:255'],

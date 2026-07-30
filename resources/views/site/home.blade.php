@@ -82,6 +82,7 @@
                         'text' => 'Wholesome, simple yet delicious — our single-protein chews are made from carefully selected natural ingredients with no additives or fillers. Perfect for sensitive dogs, they support dental health, satisfy chewing instincts, and offer a healthy snack you can trust.',
                         'link' => route('products.index', ['type' => \App\Models\Product::TYPE_NATURAL_CHEWS]),
                         'cta' => 'Explore chews',
+                        'image' => $site['lineup_chews_image'] ?? null,
                     ],
                     [
                         'number' => '02',
@@ -91,6 +92,7 @@
                         'text' => 'Make every training session a success! Our grain-free treats are bite-sized, delicious, and crafted from natural ingredients, making them the ideal reward to motivate your dog while keeping them healthy and happy.',
                         'link' => route('products.index', ['type' => \App\Models\Product::TYPE_TRAINING_TREATS]),
                         'cta' => 'Explore treats',
+                        'image' => $site['lineup_treats_image'] ?? null,
                     ],
                     // Natural Sausages hidden until the category is available — restore this entry when it is.
                     // [
@@ -111,9 +113,13 @@
                         <div class="relative {{ $i % 2 === 1 ? 'lg:order-2' : '' }}">
                             <div class="absolute -inset-4 {{ $i % 2 === 1 ? 'rotate-[2deg]' : 'rotate-[-2deg]' }} bg-ink/15 border-2 border-ink"></div>
                             <div class="relative aspect-[4/3] border-2 border-ink bg-bone sticker-shadow overflow-hidden">
-                                <div class="h-full w-full halftone-fire flex items-center justify-center">
-                                    <span class="font-display text-5xl md:text-7xl font-black uppercase text-ink/30 {{ $i % 2 === 1 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">{{ $cat['word'] }}</span>
-                                </div>
+                                @if(!empty($cat['image']))
+                                    <img src="{{ asset('storage/'.$cat['image']) }}" alt="{{ $cat['title'] }}" class="h-full w-full object-cover" loading="lazy">
+                                @else
+                                    <div class="h-full w-full halftone-fire flex items-center justify-center">
+                                        <span class="font-display text-5xl md:text-7xl font-black uppercase text-ink/30 {{ $i % 2 === 1 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">{{ $cat['word'] }}</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="absolute -bottom-6 {{ $i % 2 === 1 ? '-right-5' : '-left-5' }} stamp bg-bone {{ $i % 2 === 1 ? 'rotate-tilt-1' : 'rotate-tilt-2' }}">
                                 <span class="font-display text-lg font-black">{{ $cat['number'] }}</span>
