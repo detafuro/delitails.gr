@@ -26,7 +26,7 @@
                 <section>
                     <div class="flex items-center gap-3 mb-5">
                         <span class="inline-block h-3 w-3 bg-fire"></span>
-                        <h2 class="font-display text-3xl md:text-4xl font-black uppercase">{{ $g->name }}</h2>
+                        <h2 class="font-display text-3xl md:text-4xl font-black uppercase">{{ $g->t('name') }}</h2>
                     </div>
                     <x-site.faq-accordion :faqs="$g->faqs"/>
                 </section>

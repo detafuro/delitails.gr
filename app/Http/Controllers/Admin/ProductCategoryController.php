@@ -40,7 +40,8 @@ class ProductCategoryController extends AdminController
             $data['image'] = $request->file('image')->store('categories', 'public');
         }
 
-        ProductCategory::create($data);
+        $category = ProductCategory::create($data);
+        $category->saveTranslations($request->input('el'));
         return redirect()->route('admin.product-categories.index')->with('success', 'Category created.');
     }
 
@@ -62,6 +63,7 @@ class ProductCategoryController extends AdminController
         }
 
         $category->update($data);
+        $category->saveTranslations($request->input('el'));
         return redirect()->route('admin.product-categories.index')->with('success', 'Category updated.');
     }
 

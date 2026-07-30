@@ -26,7 +26,8 @@ class BlogCategoryController extends AdminController
     {
         $data = $request->validated();
         $data['slug'] = $data['slug'] ?: Str::slug($data['name']);
-        BlogCategory::create($data);
+        $blog_category = BlogCategory::create($data);
+        $blog_category->saveTranslations($request->input('el'));
         return redirect()->route('admin.blog-categories.index')->with('success', 'Blog category created.');
     }
 
@@ -41,6 +42,7 @@ class BlogCategoryController extends AdminController
         $data = $request->validated();
         $data['slug'] = $data['slug'] ?: Str::slug($data['name']);
         $blog_category->update($data);
+        $blog_category->saveTranslations($request->input('el'));
         return redirect()->route('admin.blog-categories.index')->with('success', 'Blog category updated.');
     }
 

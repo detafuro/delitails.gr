@@ -11,7 +11,7 @@
    class="group relative block brush-card bg-bone text-ink p-3 transition">
     <div class="relative aspect-square overflow-hidden border-2 border-ink/80 bg-bone-dark">
         @if($primary)
-            <img src="{{ asset('storage/'.$primary) }}" alt="{{ $product->title }}"
+            <img src="{{ asset('storage/'.$primary) }}" alt="{{ $product->t('title') }}"
                  class="absolute inset-0 h-full w-full object-cover transition duration-300 {{ $hover ? 'group-hover:opacity-0' : 'group-hover:scale-105' }}">
             @if($hover)
                 <img src="{{ asset('storage/'.$hover) }}" alt="" aria-hidden="true" loading="lazy"
@@ -19,7 +19,7 @@
             @endif
         @else
             <div class="flex h-full w-full items-center justify-center halftone-grass">
-                <span class="font-display text-3xl font-black uppercase text-ink/40">{{ Str::words($product->title, 2, '') }}</span>
+                <span class="font-display text-3xl font-black uppercase text-ink/40">{{ Str::words($product->t('title'), 2, '') }}</span>
             </div>
         @endif
 
@@ -32,8 +32,8 @@
     </div>
     <div class="mt-3 flex items-end justify-between gap-2">
         <div>
-            <h3 class="font-display text-lg font-extrabold uppercase leading-tight">{{ $product->title }}</h3>
-            <div class="text-xs uppercase tracking-wider text-ink/55">{{ $product->category?->name }}</div>
+            <h3 class="font-display text-lg font-extrabold uppercase leading-tight">{{ $product->t('title') }}</h3>
+            <div class="text-xs uppercase tracking-wider text-ink/55">{{ $product->category?->t('name') }}</div>
         </div>
         <span class="inline-flex items-center gap-1 font-display text-xs font-extrabold uppercase tracking-wider text-fire">
             {{ __('View') }} <span class="wiggle inline-block">→</span>

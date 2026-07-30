@@ -1,6 +1,6 @@
 @php
-    $title = ($product->seo_title ?: $product->title).' — '.($site['site_name'] ?? config('app.name'));
-    $description = $product->seo_description ?: $product->short_description ?: ($site['seo_default_description'] ?? '');
+    $title = ($product->t('seo_title') ?: $product->t('title')).' — '.($site['site_name'] ?? config('app.name'));
+    $description = $product->t('seo_description') ?: $product->t('short_description') ?: ($site['seo_default_description'] ?? '');
 @endphp
 <x-layout title="{{ $title }}" description="{{ $description }}">
     <section class="bg-bone pt-10 md:pt-16 pb-20 md:pb-28">
@@ -9,9 +9,9 @@
                 <a class="hover:text-fire" href="{{ route('home') }}">{{ __('Home') }}</a> /
                 <a class="hover:text-fire" href="{{ route('products.index') }}">{{ __('Products') }}</a>
                 @if($product->category)
-                    / <a class="hover:text-fire" href="{{ route('products.index', ['category' => $product->category->slug]) }}">{{ $product->category->name }}</a>
+                    / <a class="hover:text-fire" href="{{ route('products.index', ['category' => $product->category->slug]) }}">{{ $product->category->t('name') }}</a>
                 @endif
-                / <span class="text-ink">{{ $product->title }}</span>
+                / <span class="text-ink">{{ $product->t('title') }}</span>
             </nav>
 
             <div class="grid lg:grid-cols-2 gap-10">
@@ -25,12 +25,12 @@
                     <div class="relative aspect-square border-2 border-ink bg-bone sticker-shadow overflow-hidden">
                         @if(count($images))
                             @foreach($images as $i => $path)
-                                <img x-show="active === {{ $i }}" src="{{ asset('storage/'.$path) }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-cover">
+                                <img x-show="active === {{ $i }}" src="{{ asset('storage/'.$path) }}" alt="{{ $product->t('title') }}" class="absolute inset-0 h-full w-full object-cover">
                             @endforeach
                         @else
                             <div class="absolute inset-0 halftone-fire flex items-center justify-center">
                                 <div class="text-center px-4">
-                                    <div class="font-display text-5xl font-black uppercase text-ink">{{ Str::words($product->title, 2, '') }}</div>
+                                    <div class="font-display text-5xl font-black uppercase text-ink">{{ Str::words($product->t('title'), 2, '') }}</div>
                                 </div>
                             </div>
                         @endif
@@ -86,9 +86,9 @@
                 {{-- Details --}}
                 <div>
                     @if($product->category)
-                        <div class="text-fire text-xs font-bold uppercase tracking-[0.3em]">{{ $product->category->name }}</div>
+                        <div class="text-fire text-xs font-bold uppercase tracking-[0.3em]">{{ $product->category->t('name') }}</div>
                     @endif
-                    <h1 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase leading-[0.95]">{{ $product->title }}</h1>
+                    <h1 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase leading-[0.95]">{{ $product->t('title') }}</h1>
 
                     <div class="mt-4 flex flex-wrap items-center gap-2">
                         @if($product->type_label)
@@ -97,13 +97,13 @@
                         @if($product->category)
                             <a href="{{ route('products.index', ['category' => $product->category->slug]) }}"
                                class="inline-flex items-center gap-1.5 border-2 border-ink bg-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider hover:bg-grass">
-                                {{ $product->category->name }}
+                                {{ $product->category->t('name') }}
                             </a>
                         @endif
                     </div>
 
                     @if($product->short_description)
-                        <p class="mt-5 font-editorial italic text-xl text-ink/80 leading-relaxed">{{ $product->short_description }}</p>
+                        <p class="mt-5 font-editorial italic text-xl text-ink/80 leading-relaxed">{{ $product->t('short_description') }}</p>
                     @endif
 
                     <div class="mt-6 flex flex-wrap items-center gap-3">
@@ -117,7 +117,7 @@
                         <div class="mt-8 border-2 border-dashed border-ink bg-grass/15 p-5">
                             <h2 class="font-display text-xl font-extrabold uppercase mb-3">{{ __("Why it's good") }}</h2>
                             <div class="characteristics text-ink/85 font-editorial leading-relaxed text-xl">
-                                {!! $product->characteristics !!}
+                                {!! $product->t('characteristics') !!}
                             </div>
                         </div>
                     @endif
@@ -125,7 +125,7 @@
                     @if($product->description)
                         <div class="mt-8">
                             <h2 class="font-display text-xl font-extrabold uppercase mb-3">{{ __('The details') }}</h2>
-                            <div class="prose prose-ink max-w-none font-editorial leading-relaxed text-lg text-ink/80 whitespace-pre-line">{{ $product->description }}</div>
+                            <div class="prose prose-ink max-w-none font-editorial leading-relaxed text-lg text-ink/80 whitespace-pre-line">{{ $product->t('description') }}</div>
                         </div>
                     @endif
                 </div>

@@ -26,7 +26,8 @@ class FaqGroupController extends AdminController
     {
         $data = $request->validated();
         $data['slug'] = $data['slug'] ?: Str::slug($data['name']);
-        FaqGroup::create($data);
+        $group = FaqGroup::create($data);
+        $group->saveTranslations($request->input('el'));
         return redirect()->route('admin.faq-groups.index')->with('success', 'Group created.');
     }
 
@@ -41,6 +42,7 @@ class FaqGroupController extends AdminController
         $data = $request->validated();
         $data['slug'] = $data['slug'] ?: Str::slug($data['name']);
         $group->update($data);
+        $group->saveTranslations($request->input('el'));
         return redirect()->route('admin.faq-groups.index')->with('success', 'Group updated.');
     }
 

@@ -67,6 +67,7 @@ class ProductController extends AdminController
         unset($data['gallery']);
 
         $product = Product::create($data);
+        $product->saveTranslations($request->input('el'));
 
         if ($request->hasFile('gallery')) {
             foreach ($request->file('gallery') as $i => $file) {
@@ -102,6 +103,7 @@ class ProductController extends AdminController
 
         unset($data['gallery']);
         $product->update($data);
+        $product->saveTranslations($request->input('el'));
 
         if ($request->hasFile('gallery')) {
             $start = $product->images()->max('sort_order') ?? 0;

@@ -30,7 +30,7 @@
                             <li><a href="{{ route('blog.index') }}" class="block border-2 border-transparent px-3 py-2 font-display uppercase tracking-wider text-sm hover:border-ink {{ !$activeCategory ? 'border-ink bg-grass' : '' }}">{{ __('All posts') }}</a></li>
                             @foreach($categories as $cat)
                                 @php $on = $activeCategory && $activeCategory->id === $cat->id; @endphp
-                                <li><a href="{{ route('blog.index', ['category' => $cat->slug]) }}" class="block border-2 border-transparent px-3 py-2 font-display uppercase tracking-wider text-sm hover:border-ink {{ $on ? 'border-ink bg-grass' : '' }}">{{ $cat->name }}</a></li>
+                                <li><a href="{{ route('blog.index', ['category' => $cat->slug]) }}" class="block border-2 border-transparent px-3 py-2 font-display uppercase tracking-wider text-sm hover:border-ink {{ $on ? 'border-ink bg-grass' : '' }}">{{ $cat->t('name') }}</a></li>
                             @endforeach
                         </ul>
                     </div>

@@ -1,14 +1,29 @@
 @csrf
 <div class="grid lg:grid-cols-3 gap-6">
-    <div class="lg:col-span-2 brush-card p-5 space-y-5">
-        <x-admin.form-input name="name" label="Name" :value="$category->name" required/>
-        <x-admin.form-input name="slug" label="Slug" :value="$category->slug" hint="Leave blank to auto-generate."/>
-        <x-admin.textarea name="description" label="Description" :value="$category->description" rows="4"/>
+    <div class="lg:col-span-2 brush-card p-5 space-y-5" x-data="{ lang: 'en' }" @invalid.capture="lang = 'en'">
+        <x-admin.lang-tabs/>
 
-        <div class="border-t-2 border-dashed border-ink/30 pt-4">
-            <h3 class="font-display text-lg font-extrabold uppercase mb-2">SEO</h3>
-            <x-admin.form-input name="seo_title" label="SEO title" :value="$category->seo_title"/>
-            <x-admin.textarea class="mt-3" name="seo_description" label="SEO description" :value="$category->seo_description" rows="3"/>
+        <div x-show="lang==='en'" class="space-y-5">
+            <x-admin.form-input name="name" label="Name" :value="$category->name" required/>
+            <x-admin.form-input name="slug" label="Slug" :value="$category->slug" hint="Leave blank to auto-generate. Shared by both languages."/>
+            <x-admin.textarea name="description" label="Description" :value="$category->description" rows="4"/>
+
+            <div class="border-t-2 border-dashed border-ink/30 pt-4">
+                <h3 class="font-display text-lg font-extrabold uppercase mb-2">SEO</h3>
+                <x-admin.form-input name="seo_title" label="SEO title" :value="$category->seo_title"/>
+                <x-admin.textarea class="mt-3" name="seo_description" label="SEO description" :value="$category->seo_description" rows="3"/>
+            </div>
+        </div>
+
+        <div x-show="lang==='el'" x-cloak class="space-y-5">
+            <x-admin.form-input name="el[name]" label="Name (Ελληνικά)" :value="$category->translation('name')"/>
+            <x-admin.textarea name="el[description]" label="Description (Ελληνικά)" :value="$category->translation('description')" rows="4"/>
+
+            <div class="border-t-2 border-dashed border-ink/30 pt-4">
+                <h3 class="font-display text-lg font-extrabold uppercase mb-2">SEO</h3>
+                <x-admin.form-input name="el[seo_title]" label="SEO title (Ελληνικά)" :value="$category->translation('seo_title')"/>
+                <x-admin.textarea class="mt-3" name="el[seo_description]" label="SEO description (Ελληνικά)" :value="$category->translation('seo_description')" rows="3"/>
+            </div>
         </div>
     </div>
 

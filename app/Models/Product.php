@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,10 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
+    use HasTranslations;
+
+    protected array $translatable = ['title', 'short_description', 'description', 'characteristics', 'seo_title', 'seo_description'];
+
     use HasFactory;
 
     public const TYPE_NATURAL_CHEWS = 'natural_chews';

@@ -1,14 +1,29 @@
 @csrf
 <div class="grid lg:grid-cols-3 gap-6">
-    <div class="lg:col-span-2 brush-card p-5 space-y-5">
-        <x-admin.form-input name="title" label="Title" :value="$post->title" required/>
-        <x-admin.form-input name="slug" label="Slug" :value="$post->slug" hint="Leave blank to auto-generate."/>
-        <x-admin.textarea name="excerpt" label="Excerpt" :value="$post->excerpt" rows="3"/>
-        <x-admin.rich-textarea name="body" label="Body" :value="$post->body" hint="Use formatting tools or paste HTML."/>
-        <div class="border-t-2 border-dashed border-ink/30 pt-4">
-            <h3 class="font-display text-lg font-extrabold uppercase mb-2">SEO</h3>
-            <x-admin.form-input name="seo_title" label="SEO title" :value="$post->seo_title"/>
-            <x-admin.textarea class="mt-3" name="seo_description" label="SEO description" :value="$post->seo_description" rows="3"/>
+    <div class="lg:col-span-2 brush-card p-5 space-y-5" x-data="{ lang: 'en' }" @invalid.capture="lang = 'en'">
+        <x-admin.lang-tabs/>
+
+        <div x-show="lang==='en'" class="space-y-5">
+            <x-admin.form-input name="title" label="Title" :value="$post->title" required/>
+            <x-admin.form-input name="slug" label="Slug" :value="$post->slug" hint="Leave blank to auto-generate. Shared by both languages."/>
+            <x-admin.textarea name="excerpt" label="Excerpt" :value="$post->excerpt" rows="3"/>
+            <x-admin.rich-textarea name="body" label="Body" :value="$post->body" hint="Use formatting tools or paste HTML."/>
+            <div class="border-t-2 border-dashed border-ink/30 pt-4">
+                <h3 class="font-display text-lg font-extrabold uppercase mb-2">SEO</h3>
+                <x-admin.form-input name="seo_title" label="SEO title" :value="$post->seo_title"/>
+                <x-admin.textarea class="mt-3" name="seo_description" label="SEO description" :value="$post->seo_description" rows="3"/>
+            </div>
+        </div>
+
+        <div x-show="lang==='el'" x-cloak class="space-y-5">
+            <x-admin.form-input name="el[title]" label="Title (Ελληνικά)" :value="$post->translation('title')"/>
+            <x-admin.textarea name="el[excerpt]" label="Excerpt (Ελληνικά)" :value="$post->translation('excerpt')" rows="3"/>
+            <x-admin.rich-textarea name="el[body]" label="Body (Ελληνικά)" :value="$post->translation('body')" hint="Use formatting tools or paste HTML."/>
+            <div class="border-t-2 border-dashed border-ink/30 pt-4">
+                <h3 class="font-display text-lg font-extrabold uppercase mb-2">SEO</h3>
+                <x-admin.form-input name="el[seo_title]" label="SEO title (Ελληνικά)" :value="$post->translation('seo_title')"/>
+                <x-admin.textarea class="mt-3" name="el[seo_description]" label="SEO description (Ελληνικά)" :value="$post->translation('seo_description')" rows="3"/>
+            </div>
         </div>
     </div>
     <div class="space-y-5">

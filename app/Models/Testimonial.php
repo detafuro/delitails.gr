@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 class Testimonial extends Model
 {
+    use HasTranslations;
+
+    protected array $translatable = ['quote'];
+
     protected $fillable = [
         'author', 'pet_name', 'quote', 'rating',
         'avatar', 'is_active', 'sort_order',

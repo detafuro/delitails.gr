@@ -34,7 +34,8 @@ class FaqController extends AdminController
 
     public function store(StoreFaqRequest $request)
     {
-        Faq::create($request->validated());
+        $faq = Faq::create($request->validated());
+        $faq->saveTranslations($request->input('el'));
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ created.');
     }
 
@@ -48,6 +49,7 @@ class FaqController extends AdminController
     public function update(StoreFaqRequest $request, Faq $faq)
     {
         $faq->update($request->validated());
+        $faq->saveTranslations($request->input('el'));
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ updated.');
     }
 

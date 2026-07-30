@@ -28,7 +28,8 @@ class TestimonialController extends AdminController
         if ($request->hasFile('avatar')) {
             $data['avatar'] = $request->file('avatar')->store('testimonials', 'public');
         }
-        Testimonial::create($data);
+        $testimonial = Testimonial::create($data);
+        $testimonial->saveTranslations($request->input('el'));
         return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial created.');
     }
 
@@ -46,6 +47,7 @@ class TestimonialController extends AdminController
             $data['avatar'] = $request->file('avatar')->store('testimonials', 'public');
         }
         $testimonial->update($data);
+        $testimonial->saveTranslations($request->input('el'));
         return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial updated.');
     }
 

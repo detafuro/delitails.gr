@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Faq extends Model
 {
+    use HasTranslations;
+
+    protected array $translatable = ['question', 'answer', 'seo_title', 'seo_description'];
+
     protected $fillable = [
         'question', 'answer', 'group_id',
         'sort_order', 'is_active', 'show_on_homepage',

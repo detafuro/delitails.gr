@@ -40,7 +40,8 @@ class PostController extends AdminController
         if ($request->hasFile('featured_image')) {
             $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
         }
-        Post::create($data);
+        $post = Post::create($data);
+        $post->saveTranslations($request->input('el'));
         return redirect()->route('admin.posts.index')->with('success', 'Post created.');
     }
 
@@ -63,6 +64,7 @@ class PostController extends AdminController
             $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
         }
         $post->update($data);
+        $post->saveTranslations($request->input('el'));
         return redirect()->route('admin.posts.edit', $post)->with('success', 'Post updated.');
     }
 

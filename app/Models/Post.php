@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 class Post extends Model
 {
+    use HasTranslations;
+
+    protected array $translatable = ['title', 'excerpt', 'body', 'seo_title', 'seo_description'];
+
     protected $fillable = [
         'title', 'slug', 'excerpt', 'body', 'featured_image',
         'category_id', 'author', 'tags',

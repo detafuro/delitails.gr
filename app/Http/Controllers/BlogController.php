@@ -13,8 +13,11 @@ class BlogController extends Controller
         $query = Post::published()->with('category');
 
         if ($search = $request->string('q')->toString()) {
-            $query->where('title', 'like', "%{$search}%")
-                  ->orWhere('excerpt', 'like', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('excerpt', 'like', "%{$search}%")
+                  ->orWhereHas('translations', fn ($t) => $t->where('value', 'like', "%{$search}%"));
+            });
         }
 
         $activeCategory = null;

@@ -18,7 +18,8 @@ class ProductCatalogController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
                   ->orWhere('short_description', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhereHas('translations', fn ($t) => $t->where('value', 'like', "%{$search}%"));
             });
         }
 

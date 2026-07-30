@@ -1,9 +1,9 @@
 @php
     $titleParts = [];
-    if ($activeCategory) $titleParts[] = $activeCategory->name;
+    if ($activeCategory) $titleParts[] = $activeCategory->t('name');
     if (!empty($activeType) && isset($types[$activeType])) $titleParts[] = __($types[$activeType]);
     $title = (count($titleParts) ? implode(' · ', $titleParts).' — ' : '').__('Products').' — '.($site['site_name'] ?? config('app.name'));
-    $description = $activeCategory?->seo_description ?? ($site['seo_default_description'] ?? null);
+    $description = $activeCategory?->t('seo_description') ?? ($site['seo_default_description'] ?? null);
 
     $linkBase = fn(array $extra = []) => route('products.index', array_filter(array_merge(
         ['category' => $activeCategory?->slug, 'type' => $activeType, 'q' => request('q'), 'sort' => $sort !== 'featured' ? $sort : null],
@@ -17,15 +17,15 @@
             <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">{{ __('Catalogue') }}</div>
             <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
                 @if($activeCategory)
-                    {{ $activeCategory->name }}
+                    {{ $activeCategory->t('name') }}
                 @elseif($activeType && isset($types[$activeType]))
                     {{ __($types[$activeType]) }}
                 @else
                     {!! __('Every treat <span class="text-ink">we got</span>') !!}
                 @endif
             </h1>
-            @if($activeCategory?->description)
-                <p class="mt-4 max-w-2xl font-editorial italic text-xl text-bone/85">{{ $activeCategory->description }}</p>
+            @if($activeCategory?->t('description'))
+                <p class="mt-4 max-w-2xl font-editorial italic text-xl text-bone/85">{{ $activeCategory->t('description') }}</p>
             @else
                 <p class="mt-4 max-w-2xl font-editorial italic text-xl text-bone/85">{{ __('Real food, loud labels, zero filler. Pick your favourites — or let your pet do it for you.') }}</p>
             @endif
@@ -36,7 +36,7 @@
                     @if($activeCategory)
                         <a href="{{ $linkBase(['category' => null]) }}"
                            class="inline-flex items-center gap-2 border-2 border-bone bg-ink px-3 py-1 font-display text-xs font-bold uppercase tracking-wider">
-                            {{ __('Animal') }}: {{ $activeCategory->name }} <span class="text-fire-light">✕</span>
+                            {{ __('Animal') }}: {{ $activeCategory->t('name') }} <span class="text-fire-light">✕</span>
                         </a>
                     @endif
                     @if($activeType && isset($types[$activeType]))
@@ -107,7 +107,7 @@
                             <li>
                                 <a href="{{ $linkBase(['category' => $cat->slug]) }}"
                                    class="block border-2 border-transparent px-3 py-2 font-display uppercase tracking-wider text-sm hover:border-ink {{ $on ? 'border-ink bg-grass' : '' }}">
-                                    {{ $cat->name }}
+                                    {{ $cat->t('name') }}
                                 </a>
                             </li>
                         @endforeach

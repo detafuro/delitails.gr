@@ -1,11 +1,20 @@
 @csrf
 <div class="grid lg:grid-cols-3 gap-6">
-    <div class="lg:col-span-2 brush-card p-5 space-y-5">
+    <div class="lg:col-span-2 brush-card p-5 space-y-5" x-data="{ lang: 'en' }" @invalid.capture="lang = 'en'">
+        <x-admin.lang-tabs/>
+
         <div class="grid sm:grid-cols-2 gap-4">
             <x-admin.form-input name="author" label="Author" :value="$testimonial->author" required/>
             <x-admin.form-input name="pet_name" label="Pet name" :value="$testimonial->pet_name"/>
         </div>
-        <x-admin.textarea name="quote" label="Quote" :value="$testimonial->quote" rows="5" required/>
+
+        <div x-show="lang==='en'">
+            <x-admin.textarea name="quote" label="Quote" :value="$testimonial->quote" rows="5" required/>
+        </div>
+        <div x-show="lang==='el'" x-cloak>
+            <x-admin.textarea name="el[quote]" label="Quote (Ελληνικά)" :value="$testimonial->translation('quote')" rows="5"/>
+        </div>
+
         <x-admin.select name="rating" label="Rating" :value="$testimonial->rating ?? 5"
             :options="[5=>'5 stars',4=>'4 stars',3=>'3 stars',2=>'2 stars',1=>'1 star']"/>
     </div>

@@ -292,7 +292,7 @@
                                 </svg>
                             @endfor
                         </div>
-                        <p class="font-editorial italic text-xl leading-relaxed">"{{ $t->quote }}"</p>
+                        <p class="font-editorial italic text-xl leading-relaxed">"{{ $t->t('quote') }}"</p>
                         <div class="mt-4">
                             <div class="font-display font-extrabold uppercase">{{ $t->author }}</div>
                             @if($t->pet_name)<div class="text-xs uppercase tracking-widest text-ink/60">{{ __('w/') }} {{ $t->pet_name }}</div>@endif
