@@ -30,6 +30,8 @@
     <meta property="og:title" content="{{ $pageTitle }}">
     @if($pageDesc)<meta property="og:description" content="{{ $pageDesc }}">@endif
     @if($faviconPath)<link rel="icon" href="{{ asset('storage/'.$faviconPath) }}">@endif
+    <link rel="preload" href="/fonts/cera-pro/CeraPro-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/cera-pro/CeraPro-Black.woff2" as="font" type="font/woff2" crossorigin>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
     @if(!empty($site['analytics_scripts']))
