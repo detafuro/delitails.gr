@@ -10,6 +10,8 @@
     <meta name="robots" content="noindex, nofollow">
     <title>{{ $siteName }} — {{ __('Under construction') }}</title>
     @if($faviconPath)<link rel="icon" href="{{ asset('storage/'.$faviconPath) }}">@endif
+    <link rel="preload" href="/fonts/cera-pro/CeraPro-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/cera-pro/CeraPro-Black.woff2" as="font" type="font/woff2" crossorigin>
     @vite(['resources/css/app.css'])
 </head>
 <body class="min-h-screen bg-bone text-ink antialiased selection:bg-fire selection:text-bone overflow-x-hidden">
