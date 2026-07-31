@@ -1,14 +1,19 @@
 # Cera Pro webfonts
 
-Drop your licensed Cera Pro `.woff2` files here with these exact names:
+Licensed Cera Pro, converted from the original TTFs to `.woff2`.
+Full pan-European character set — Greek coverage verified (930 glyphs/style).
 
-- `CeraPro-Regular.woff2` — weight 400 (body text)
-- `CeraPro-Medium.woff2` — weights 500–600
-- `CeraPro-Bold.woff2` — weight 700
-- `CeraPro-Black.woff2` — weights 800–900 (headings, buttons)
+| File | font-weight | font-style |
+| --- | --- | --- |
+| `CeraPro-Light.woff2` | 100–300 | normal |
+| `CeraPro-Medium.woff2` | 400–600 (no Regular in the set; Medium doubles as body weight) | normal |
+| `CeraPro-Bold.woff2` | 700 | normal |
+| `CeraPro-Black.woff2` | 800–900 (headings/buttons) | normal |
+| `CeraPro-Italic.woff2` | 100–600 | italic |
+| `CeraPro-BlackItalic.woff2` | 700–900 | italic |
 
-If your license package has `.otf`/`.ttf` only, convert to `.woff2` first
-(e.g. https://cloudconvert.com/otf-to-woff2 or `woff2_compress`).
+`@font-face` rules live in `resources/css/app.css`. Medium + Black are
+preloaded in `resources/views/components/layout.blade.php`.
 
-The `@font-face` rules live in `resources/css/app.css`. Until the files are
-present the site silently falls back to system fonts (`font-display: swap`).
+The original `.otf`/`.ttf` sources live in `resources/fonts-src/cera-pro/`
+(gitignored, kept out of the public webroot for licensing reasons).

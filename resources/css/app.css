@@ -8,16 +8,17 @@
 
 @font-face {
     font-family: 'Cera Pro';
-    src: url('/fonts/cera-pro/CeraPro-Regular.woff2') format('woff2');
-    font-weight: 400;
+    src: url('/fonts/cera-pro/CeraPro-Light.woff2') format('woff2');
+    font-weight: 100 300;
     font-style: normal;
     font-display: swap;
 }
 
+/* No upright Regular in the licensed set — Medium doubles as the 400 body weight */
 @font-face {
     font-family: 'Cera Pro';
     src: url('/fonts/cera-pro/CeraPro-Medium.woff2') format('woff2');
-    font-weight: 500 600;
+    font-weight: 400 600;
     font-style: normal;
     font-display: swap;
 }
@@ -35,6 +36,22 @@
     src: url('/fonts/cera-pro/CeraPro-Black.woff2') format('woff2');
     font-weight: 800 900;
     font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cera Pro';
+    src: url('/fonts/cera-pro/CeraPro-Italic.woff2') format('woff2');
+    font-weight: 100 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cera Pro';
+    src: url('/fonts/cera-pro/CeraPro-BlackItalic.woff2') format('woff2');
+    font-weight: 700 900;
+    font-style: italic;
     font-display: swap;
 }
 
