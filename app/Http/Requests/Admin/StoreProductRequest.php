@@ -20,6 +20,8 @@ class StoreProductRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('products', 'slug')->ignore($productId)],
             'sku' => ['nullable', 'string', 'max:64', Rule::unique('products', 'sku')->ignore($productId)],
+            'weight' => ['nullable', 'string', 'max:64'],
+            'el.weight' => ['nullable', 'string', 'max:64'],
             'short_description' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
             'characteristics' => ['nullable', 'string', 'max:5000'],

@@ -20,6 +20,7 @@
 
         <div x-show="lang==='el'" x-cloak class="space-y-5">
             <x-admin.form-input name="el[title]" label="Title (Ελληνικά)" :value="$product->translation('title')"/>
+            <x-admin.form-input name="el[weight]" label="Net weight / quantity (Ελληνικά)" :value="$product->translation('weight')" placeholder="π.χ. 200 gr, 2 τεμ."/>
             <x-admin.textarea name="el[short_description]" label="Short description (Ελληνικά)" :value="$product->translation('short_description')" rows="2"/>
             <x-admin.textarea name="el[description]" label="Full description (Ελληνικά)" :value="$product->translation('description')" rows="10"/>
             <x-admin.textarea name="el[characteristics]" label="Characteristics (HTML, Ελληνικά)" :value="$product->translation('characteristics')" rows="6"
@@ -32,7 +33,13 @@
             </div>
         </div>
 
-        <x-admin.form-input name="sku" label="SKU" :value="$product->sku"/>
+        <div class="grid sm:grid-cols-2 gap-4">
+            <x-admin.form-input name="sku" label="SKU" :value="$product->sku"/>
+            <div>
+                <x-admin.form-input name="weight" label="Net weight / quantity" :value="$product->weight" placeholder="e.g. 200 gr, 2 pcs"/>
+                <p class="mt-1 text-xs text-ink/60">As printed on the label. Greek override: <span class="font-mono">weight (Ελληνικά)</span> in the EL tab.</p>
+            </div>
+        </div>
     </div>
 
     <div class="space-y-5">

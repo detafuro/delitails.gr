@@ -91,6 +91,16 @@
                     <h1 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase leading-[0.95]">{{ $product->t('title') }}</h1>
 
                     <div class="mt-4 flex flex-wrap items-center gap-2">
+                        @if($product->weight)
+                            <span class="inline-flex items-center gap-1.5 border-2 border-ink bg-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider" title="{{ __('Net weight') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5" aria-hidden="true">
+                                    <path d="M12 3a4 4 0 0 0-4 4h8a4 4 0 0 0-4-4z"/>
+                                    <path d="M4 7h16l1.5 12a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2L4 7z"/>
+                                    <path d="M9 14a3 3 0 0 0 6 0"/>
+                                </svg>
+                                <span class="sr-only">{{ __('Net weight') }}:</span>{{ $product->t('weight') }}
+                            </span>
+                        @endif
                         @if($product->type_label)
                             <span class="inline-flex items-center gap-1.5 border-2 border-ink bg-fire text-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider">{{ __($product->type_label) }}</span>
                         @endif

@@ -13,7 +13,7 @@ class Product extends Model
 {
     use HasTranslations;
 
-    protected array $translatable = ['title', 'short_description', 'description', 'characteristics', 'seo_title', 'seo_description'];
+    protected array $translatable = ['title', 'short_description', 'description', 'characteristics', 'weight', 'seo_title', 'seo_description'];
 
     use HasFactory;
 
@@ -26,7 +26,7 @@ class Product extends Model
     ];
 
     protected $fillable = [
-        'title', 'slug', 'sku', 'short_description', 'description', 'characteristics',
+        'title', 'slug', 'sku', 'weight', 'short_description', 'description', 'characteristics',
         'price', 'sale_price', 'stock_status', 'featured_image',
         'category_id', 'type', 'is_published', 'is_featured', 'sort_order',
         'seo_title', 'seo_description',
