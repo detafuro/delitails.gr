@@ -6,6 +6,7 @@ use App\Models\Setting;
 use App\Translation\DatabaseTranslationLoader;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Carbon::setLocale(app()->getLocale());
+        URL::defaults(['locale' => app()->getLocale()]);
 
         View::composer('*', function ($view) {
             static $cached = null;

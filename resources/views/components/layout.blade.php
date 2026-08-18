@@ -30,6 +30,12 @@
     @unless(config('app.indexable'))<meta name="robots" content="noindex, nofollow">@endunless
     <title>{{ $pageTitle }}</title>
     @if($pageDesc)<meta name="description" content="{{ $pageDesc }}">@endif
+    @php $alternates = \App\Support\Locale::alternates(); @endphp
+    <link rel="canonical" href="{{ $alternates[app()->getLocale()] ?? url()->current() }}">
+    @foreach($alternates as $altLocale => $altUrl)
+        <link rel="alternate" hreflang="{{ $altLocale }}" href="{{ $altUrl }}">
+    @endforeach
+    <link rel="alternate" hreflang="x-default" href="{{ $alternates[\App\Support\Locale::default()] ?? url('/') }}">
     <meta property="og:title" content="{{ $pageTitle }}">
     @if($pageDesc)<meta property="og:description" content="{{ $pageDesc }}">@endif
     @if($faviconPath)<link rel="icon" href="{{ asset('storage/'.$faviconPath) }}">@endif
@@ -95,7 +101,7 @@
             <div class="ml-auto flex shrink-0 items-center gap-1.5 md:gap-2">
                 {{-- Language switch --}}
                 @php $otherLocale = app()->getLocale() === 'el' ? 'en' : 'el'; @endphp
-                <a href="{{ route('lang.switch', $otherLocale) }}"
+                <a href="{{ \App\Support\Locale::alternateUrl($otherLocale) }}"
                    class="inline-flex h-10 items-center justify-center border-2 border-ink bg-bone px-2.5 font-display text-xs font-black uppercase tracking-wider hover:bg-grass"
                    aria-label="{{ $otherLocale === 'en' ? 'Switch to English' : 'Αλλαγή σε Ελληνικά' }}">
                     {{ $otherLocale === 'en' ? 'EN' : 'ΕΛ' }}
