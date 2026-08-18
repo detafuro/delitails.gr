@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\NewsletterSubscriberController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\AboutPageController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -58,6 +59,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Settings
     Route::get('settings', [SettingsController::class, 'edit'])->name('settings.edit');
     Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
+    Route::get('about', [AboutPageController::class, 'edit'])->name('about.edit');
+    Route::put('about', [AboutPageController::class, 'update'])->name('about.update');
 
     // Translations
     Route::get('translations', [TranslationController::class, 'index'])->name('translations.index');

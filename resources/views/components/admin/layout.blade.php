@@ -37,6 +37,7 @@
                                 ['admin.faq-groups.index', 'FAQ groups', '⊞'],
                                 ['admin.testimonials.index', 'Testimonials', '★'],
                                 ['admin.stores.index', 'Stores', '⌖'],
+                                ['admin.about.edit', 'About page', '☺'],
                             ]],
                             ['heading' => 'Inbox', 'links' => [
                                 ['admin.messages.index', 'Contact messages', '✉'],
