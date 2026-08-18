@@ -36,7 +36,7 @@
             @if($post->excerpt)
                 <p class="font-editorial italic text-2xl md:text-3xl text-ink/80 leading-relaxed border-l-4 border-fire pl-5">{{ $post->t('excerpt') }}</p>
             @endif
-            <div class="mt-6 text-ink/85 leading-relaxed text-xl quill-content">
+            <div class="mt-6 text-ink/85 leading-relaxed text-[17px] quill-content">
                 {!! $post->t('body') !!}
             </div>
 

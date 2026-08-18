@@ -125,7 +125,7 @@
                     @if($product->description)
                         <div class="mt-8">
                             <h2 class="font-display text-xl font-extrabold uppercase mb-3">{{ __('The details') }}</h2>
-                            <div class="text-ink/85 leading-relaxed text-xl quill-content">
+                            <div class="text-ink/85 leading-relaxed text-[17px] quill-content">
                                 @foreach(preg_split("/(\r?\n){2,}/", trim($product->t('description'))) as $paragraph)
                                     <p class="whitespace-pre-line">{{ trim($paragraph) }}</p>
                                 @endforeach
