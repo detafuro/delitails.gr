@@ -203,11 +203,11 @@
             <div class="mx-auto max-w-7xl px-4 md:px-6">
                 <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ __('You might also like') }}</div>
                 <h2 class="mt-2 font-display text-4xl md:text-5xl font-black uppercase">{{ __('More for the bowl') }}</h2>
-                <div class="cards-fire-shadow mt-8 grid grid-cols-2 md:grid-cols-4 gap-5">
+                <x-site.mobile-carousel :count="$related->count()" grid="md:grid-cols-4" tone="bone" class="cards-fire-shadow mt-8">
                     @foreach($related as $r)
-                        <x-site.product-card :product="$r"/>
+                        <x-site.carousel-item><x-site.product-card :product="$r"/></x-site.carousel-item>
                     @endforeach
-                </div>
+                </x-site.mobile-carousel>
             </div>
         </x-site.torn-section>
     @endif
