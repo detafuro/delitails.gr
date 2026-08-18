@@ -116,12 +116,11 @@
                         <p class="mt-5 font-editorial italic text-xl text-ink/80 leading-relaxed">{{ $product->t('short_description') }}</p>
                     @endif
 
-                    <div class="mt-6 flex flex-wrap items-center gap-3">
-                        @if(($site['stores_page_status'] ?? 'draft') === 'public')
+                    @if(($site['stores_page_status'] ?? 'draft') === 'public')
+                        <div class="mt-6 flex flex-wrap items-center gap-3">
                             <x-site.rough-button href="{{ route('stores') }}" variant="fire">{{ __('Find a stockist') }}</x-site.rough-button>
-                        @endif
-                        <x-site.rough-button href="{{ route('products.index') }}" variant="grass">{{ __('Keep browsing') }}</x-site.rough-button>
-                    </div>
+                        </div>
+                    @endif
 
                     @if($product->characteristics)
                         <div class="mt-8 border-2 border-dashed border-ink bg-grass/15 p-5">
