@@ -124,6 +124,7 @@
 
                 {{-- Mobile / tablet: search + quick chips + filter sheet --}}
                 <div class="lg:hidden mb-6 space-y-4" x-data="{ sheet: false }" x-effect="document.documentElement.classList.toggle('overflow-hidden', sheet)">
+                    <div class="text-sm text-ink/60">{{ __('Showing :count treats', ['count' => $products->total()]) }}</div>
                     <div class="flex items-center gap-2">
                         <button type="button" @click="sheet = true"
                                 class="inline-flex h-11 items-center gap-2 border-2 border-ink bg-bone px-3 font-display text-xs font-black uppercase tracking-wider">
@@ -146,7 +147,6 @@
                         </form>
                     </div>
 
-                    <div class="text-sm text-ink/60">{{ __('Showing :count treats', ['count' => $products->total()]) }}</div>
 
                     {{-- Bottom sheet --}}
                     <template x-teleport="body">
