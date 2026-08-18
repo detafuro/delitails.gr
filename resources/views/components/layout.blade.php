@@ -60,10 +60,10 @@
     {{-- Header --}}
     <header class="sticky top-0 z-40 border-b-2 border-ink bg-bone/95 backdrop-blur"
             x-data="{ mobile:false, searchOpen:false }">
-        <div class="mx-auto flex max-w-7xl items-center gap-4 px-4 md:px-6 py-4">
-            <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0">
+        <div class="mx-auto flex max-w-7xl items-center gap-3 md:gap-4 px-4 md:px-6 py-2.5 md:py-4">
+            <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0 min-w-0">
                 @if(!empty($site['logo']))
-                    <img src="{{ asset('storage/'.$site['logo']) }}" alt="{{ $siteName }}" class="h-20 w-auto">
+                    <img src="{{ asset('storage/'.$site['logo']) }}" alt="{{ $siteName }}" class="h-12 md:h-16 lg:h-20 w-auto max-w-[48vw] md:max-w-none object-contain object-left">
                 @else
                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-fire text-bone font-black text-lg shadow-[3px_3px_0_0_#191818]">D</span>
                     <span class="font-display text-xl md:text-2xl font-black uppercase tracking-tight">{{ $siteName }}</span>
@@ -92,7 +92,7 @@
                 @endforeach
             </nav>
 
-            <div class="ml-auto flex items-center gap-2">
+            <div class="ml-auto flex shrink-0 items-center gap-1.5 md:gap-2">
                 {{-- Language switch --}}
                 @php $otherLocale = app()->getLocale() === 'el' ? 'en' : 'el'; @endphp
                 <a href="{{ route('lang.switch', $otherLocale) }}"
