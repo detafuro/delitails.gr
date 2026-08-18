@@ -17,13 +17,14 @@
         {{ $slot }}
     </div>
 
-    <div class="mt-5 flex items-center justify-center gap-2 md:hidden" x-show="n > 1" role="group" aria-label="{{ __('Slides') }}">
+    <div class="mt-4 flex items-center justify-center gap-0.5 md:hidden" x-show="n > 1" role="group" aria-label="{{ __('Slides') }}">
         <template x-for="k in n" :key="k">
             <button type="button" @click="go(k - 1)"
-                    class="h-2.5 w-2.5 border-2 {{ $dot }} transition"
-                    :class="i === k - 1 ? '{{ $dotOn }}' : 'bg-transparent'"
+                    class="inline-flex h-6 w-6 items-center justify-center"
                     :aria-current="i === k - 1 ? 'true' : null"
-                    :aria-label="'{{ __('Slide') }} ' + k + ' / ' + n"></button>
+                    :aria-label="'{{ __('Slide') }} ' + k + ' / ' + n">
+                <span class="block h-2.5 w-2.5 border-2 {{ $dot }} transition" :class="i === k - 1 ? '{{ $dotOn }}' : 'bg-transparent'"></span>
+            </button>
         </template>
     </div>
 </div>

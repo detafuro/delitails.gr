@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Cache;
  */
 class Media
 {
-    public const WIDTHS = [320, 480, 768, 1024, 1400, 1920];
+    public const WIDTHS = [320, 480, 640, 768, 1024, 1400, 1920];
     public const QUALITY = 82;
 
     public static function original(string $path): ?string
