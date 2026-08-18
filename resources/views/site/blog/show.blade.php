@@ -6,7 +6,7 @@
     <article class="bg-bone">
         {{-- Hero --}}
         <header class="relative bg-grass paper">
-            <div class="mx-auto max-w-4xl px-4 md:px-6 py-16 md:py-24">
+            <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-24">
                 <nav class="text-xs uppercase tracking-widest text-ink/60 mb-5">
                     <a href="{{ route('home') }}" class="hover:text-fire">{{ __('Home') }}</a> /
                     <a href="{{ route('blog.index') }}" class="hover:text-fire">{{ __('Blog') }}</a>
@@ -25,14 +25,14 @@
         </header>
 
         @if($post->featured_image)
-            <div class="mx-auto max-w-5xl px-4 md:px-6 mt-12">
+            <div class="mx-auto max-w-7xl px-4 md:px-6 mt-12">
                 <div class="aspect-[16/9] border-2 border-ink bg-bone overflow-hidden sticker-shadow">
                     <img src="{{ asset('storage/'.$post->featured_image) }}" alt="{{ $post->t('title') }}" class="h-full w-full object-cover">
                 </div>
             </div>
         @endif
 
-        <div class="mx-auto max-w-3xl px-4 md:px-6 py-12 md:py-16">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-16">
             @if($post->excerpt)
                 <p class="font-editorial italic text-2xl md:text-3xl text-ink/80 leading-relaxed border-l-4 border-fire pl-5">{{ $post->t('excerpt') }}</p>
             @endif
