@@ -93,9 +93,17 @@
         </section>
 
         {{-- Newsletter --}}
-        <section x-show="tab==='newsletter'" x-cloak class="brush-card p-6 space-y-5">
-            <x-admin.form-input name="newsletter_heading" label="Newsletter heading" :value="$settings['newsletter_heading'] ?? 'Join the pack'"/>
-            <x-admin.textarea name="newsletter_text" label="Newsletter text" :value="$settings['newsletter_text'] ?? ''" rows="3"/>
+        <section x-show="tab==='newsletter'" x-cloak class="brush-card p-6 space-y-5" x-data="{ lang: 'en' }">
+            <x-admin.lang-tabs/>
+            <div x-show="lang==='en'" class="space-y-5">
+                <x-admin.form-input name="newsletter_heading" label="Newsletter heading" :value="$settings['newsletter_heading'] ?? 'Join the pack'"/>
+                <x-admin.textarea name="newsletter_text" label="Newsletter text" :value="$settings['newsletter_text'] ?? ''" rows="3"/>
+            </div>
+            <div x-show="lang==='el'" x-cloak class="space-y-5">
+                <x-admin.form-input name="newsletter_heading_el" label="Newsletter heading (Ελληνικά)" :value="$settings['newsletter_heading_el'] ?? ''"/>
+                <x-admin.textarea name="newsletter_text_el" label="Newsletter text (Ελληνικά)" :value="$settings['newsletter_text_el'] ?? ''" rows="3"
+                    hint="Shown to Greek visitors; falls back to the English text when empty."/>
+            </div>
         </section>
 
         {{-- Announcement --}}

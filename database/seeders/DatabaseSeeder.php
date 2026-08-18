@@ -54,6 +54,7 @@ class DatabaseSeeder extends Seeder
             'social_youtube' => 'https://youtube.com/',
             'newsletter_heading' => 'Join the pack',
             'newsletter_text' => 'New batches, restock alerts, and the occasional ridiculous deal. Drop your email — we promise to keep it loud, not noisy.',
+            'newsletter_text_el' => 'Νέα προϊόντα, ειδοποιήσεις για restock και προσφορές που δεν θες να χάσεις. Άσε το email σου και όλα τα τελευταία νέα μας θα καταλήγουν στο mailbox σου!',
             'announcement_messages' => "Free shipping over €40 — let them eat treats.\nHand-baked. Small-batch. Loud as hell.\nNew treats just landed. Sink your teeth in.",
             'hero_heading' => 'TREATS WITH ATTITUDE',
             'hero_subheading' => 'Loud little snacks for picky pets and the humans who feed them. Small-batch, big personality, zero filler.',

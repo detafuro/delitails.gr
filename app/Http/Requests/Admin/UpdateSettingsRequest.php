@@ -27,6 +27,8 @@ class UpdateSettingsRequest extends FormRequest
             'social_youtube' => ['nullable', 'url', 'max:255'],
             'newsletter_heading' => ['nullable', 'string', 'max:255'],
             'newsletter_text' => ['nullable', 'string', 'max:500'],
+            'newsletter_heading_el' => ['nullable', 'string', 'max:255'],
+            'newsletter_text_el' => ['nullable', 'string', 'max:500'],
             'announcement_messages' => ['nullable', 'string', 'max:2000'],
             'hero_heading' => ['nullable', 'string', 'max:255'],
             'hero_heading_el' => ['nullable', 'string', 'max:255'],

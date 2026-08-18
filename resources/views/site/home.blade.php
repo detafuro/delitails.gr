@@ -308,10 +308,10 @@
     {{-- NEWSLETTER --}}
     <x-site.torn-section bg="ink" :top="true">
         <div class="mx-auto max-w-4xl px-4 md:px-6 text-center">
-            <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ $site['newsletter_heading'] ?? __('Join the pack') }}</div>
+            <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ $pick('newsletter_heading') ?? __('Join the pack') }}</div>
             <h2 class="mt-3 font-display text-4xl md:text-6xl font-black uppercase">{{ __("Don't miss a bite") }}</h2>
             <p class="mt-4 font-editorial italic text-xl md:text-2xl text-bone/70 max-w-2xl mx-auto">
-                {{ $site['newsletter_text'] ?? __('New drops, late-night deals and just enough chaos. Drop your email below — we promise not to spam.') }}
+                {{ $pick('newsletter_text') ?? __('New drops, late-night deals and just enough chaos. Drop your email below — we promise not to spam.') }}
             </p>
 
             @if(session('success'))
