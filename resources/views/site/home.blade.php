@@ -135,7 +135,7 @@
                         <div class="{{ $i % 2 === 1 ? 'lg:order-1' : '' }}">
                             <span class="inline-flex items-center border-2 border-ink {{ $cat['badge_class'] ?? 'bg-grass text-ink' }} px-2.5 py-1 text-xs font-bold uppercase tracking-widest">{{ $cat['badge'] }}</span>
                             <h3 class="mt-4 font-display text-3xl md:text-5xl font-black uppercase leading-[0.95]">{{ $cat['title'] }}</h3>
-                            <p class="mt-4 font-editorial italic text-lg md:text-xl text-ink/80 leading-relaxed">{{ $cat['text'] }}</p>
+                            <p class="mt-4 text-ink/85 leading-relaxed text-[17px]">{{ $cat['text'] }}</p>
                             <div class="mt-7">
                                 <x-site.rough-button href="{{ $cat['link'] }}" variant="ink">
                                     {{ $cat['cta'] }} <span aria-hidden="true" class="wiggle inline-block">→</span>
@@ -205,7 +205,7 @@
                 <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase leading-[0.95]">
                     {!! __('A brand created by a <span class="underline-brush">producer</span>') !!}
                 </h2>
-                <p class="mt-5 font-editorial text-xl md:text-2xl text-ink/80 leading-relaxed italic">
+                <p class="mt-5 text-ink/85 leading-relaxed text-[17px]">
                     {{ __('Delitails creates natural, single-protein chews, training treats, and sausages designed with care, simplicity, and quality at their core. Our approach is built on honesty: clean ingredients, no unnecessary additives, and products you can trust.') }}
                 </p>
                 <div class="mt-7">
