@@ -6,6 +6,7 @@ use App\Http\Controllers\ConstructionAccessController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqPageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProductCatalogController;
 use App\Http\Controllers\ProfileController;
@@ -34,6 +35,7 @@ Route::prefix('{locale}')
     });
 
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+Route::get('/media/{width}/{path}', MediaController::class)->where(['width' => '[0-9]+', 'path' => '.+\.webp'])->name('media');
 
 // Bare root → the visitor's last language, else Greek.
 Route::get('/', function (Request $request) {

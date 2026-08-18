@@ -48,7 +48,7 @@
                     <div class="relative aspect-square border-2 border-ink bg-bone sticker-shadow overflow-hidden">
                         @if(count($images))
                             @foreach($images as $i => $path)
-                                <img x-show="active === {{ $i }}" src="{{ asset('storage/'.$path) }}" alt="{{ $product->t('title') }}" class="absolute inset-0 h-full w-full object-cover">
+                                <x-site.img x-show="active === {{ $i }}" :src="$path" :alt="$product->t('title')" sizes="(min-width: 1024px) 50vw, 100vw" :loading="$i === 0 ? 'eager' : 'lazy'" :fetchpriority="$i === 0 ? 'high' : null" class="absolute inset-0 h-full w-full object-cover"/>
                             @endforeach
                         @else
                             <div class="absolute inset-0 halftone-fire flex items-center justify-center">
@@ -64,7 +64,7 @@
                                 <button type="button" @click="active={{ $i }}" :aria-pressed="active === {{ $i }}" aria-label="{{ __('Photo :n of :total', ['n' => $i + 1, 'total' => count($images)]) }}"
                                         :class="active === {{ $i }} ? 'border-fire' : 'border-ink'"
                                         class="aspect-square border-2 overflow-hidden">
-                                    <img src="{{ asset('storage/'.$path) }}" alt="" class="h-full w-full object-cover" loading="lazy" decoding="async">
+                                    <x-site.img :src="$path" alt="" sizes="96px" :widths="[160, 320]" class="h-full w-full object-cover"/>
                                 </button>
                             @endforeach
                         </div>

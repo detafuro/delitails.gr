@@ -122,7 +122,8 @@
         <div class="mx-auto flex max-w-7xl items-center gap-3 md:gap-4 px-4 md:px-6 py-2.5 md:py-4">
             <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0 min-w-0">
                 @if(!empty($site['logo']))
-                    <img src="{{ asset('storage/'.$site['logo']) }}" alt="{{ $siteName }}" class="h-12 md:h-16 lg:h-20 w-auto max-w-[48vw] md:max-w-none object-contain object-left">
+                    @php [$lw, $lh] = \App\Support\Media::dimensions($site['logo']) ?? [400, 129]; @endphp
+                    <img src="{{ asset('storage/'.$site['logo']) }}" alt="{{ $siteName }}" width="{{ $lw }}" height="{{ $lh }}" fetchpriority="high" class="h-12 md:h-16 lg:h-20 w-auto max-w-[48vw] md:max-w-none object-contain object-left">
                 @else
                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-fire text-bone font-black text-lg shadow-[3px_3px_0_0_#191818]">D</span>
                     <span class="font-display text-xl md:text-2xl font-black uppercase tracking-tight">{{ $siteName }}</span>
@@ -227,7 +228,8 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 lg:grid-cols-5 gap-10">
             <div class="lg:col-span-2">
                 @if(!empty($site['footer_logo']))
-                    <img src="{{ asset('storage/'.$site['footer_logo']) }}" alt="" class="h-24 mb-4">
+                    @php [$fw, $fh] = \App\Support\Media::dimensions($site['footer_logo']) ?? [400, 129]; @endphp
+                    <img src="{{ asset('storage/'.$site['footer_logo']) }}" alt="" width="{{ $fw }}" height="{{ $fh }}" loading="lazy" class="h-24 w-auto mb-4">
                 @else
                     <div class="font-display text-3xl font-black uppercase mb-3">{{ $siteName }}</div>
                 @endif

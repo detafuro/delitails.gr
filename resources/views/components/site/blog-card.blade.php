@@ -3,8 +3,8 @@
 <a href="{{ route('blog.show', $post->slug) }}" class="group flex flex-col sm:flex-row brush-card bg-bone overflow-hidden">
     <div class="relative shrink-0 sm:w-64 md:w-80 sm:min-h-56 aspect-[4/3] sm:aspect-auto overflow-hidden border-b-2 sm:border-b-0 sm:border-r-2 border-ink">
         @if($post->featured_image)
-            <img src="{{ asset('storage/'.$post->featured_image) }}" alt="{{ $post->t('title') }}"
-                 class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-105">
+            <x-site.img :src="$post->featured_image" :alt="$post->t('title')" sizes="(min-width: 640px) 320px, 100vw" :widths="[320, 480, 768, 1024]"
+                 class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-105"/>
         @else
             <div class="absolute inset-0 flex items-center justify-center halftone-fire">
                 <span class="font-editorial text-2xl text-ink/60">{{ Str::words($post->t('title'), 3, '') }}</span>
@@ -31,8 +31,8 @@
 <a href="{{ route('blog.show', $post->slug) }}" class="group flex h-full flex-col brush-card bg-bone overflow-hidden">
     <div class="relative shrink-0 aspect-[4/3] overflow-hidden border-b-2 border-ink">
         @if($post->featured_image)
-            <img src="{{ asset('storage/'.$post->featured_image) }}" alt="{{ $post->t('title') }}"
-                 class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+            <x-site.img :src="$post->featured_image" :alt="$post->t('title')" sizes="(min-width: 768px) 33vw, 85vw" :widths="[320, 480, 768, 1024]"
+                 class="h-full w-full object-cover transition duration-300 group-hover:scale-105"/>
         @else
             <div class="flex h-full w-full items-center justify-center halftone-fire">
                 <span class="font-editorial text-2xl text-ink/60">{{ Str::words($post->t('title'), 3, '') }}</span>

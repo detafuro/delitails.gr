@@ -11,11 +11,11 @@
    class="group relative flex h-full flex-col brush-card bg-bone text-ink p-3 transition">
     <div class="relative shrink-0 aspect-square overflow-hidden border-2 border-ink/80 bg-bone-dark">
         @if($primary)
-            <img src="{{ asset('storage/'.$primary) }}" alt="{{ $product->t('title') }}"
-                 class="absolute inset-0 h-full w-full object-cover transition duration-300 {{ $hover ? 'group-hover:opacity-0' : 'group-hover:scale-105' }}">
+            <x-site.img :src="$primary" :alt="$product->t('title')" sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 85vw" :widths="[320, 480, 768, 1024]"
+                 class="absolute inset-0 h-full w-full object-cover transition duration-300 {{ $hover ? 'group-hover:opacity-0' : 'group-hover:scale-105' }}"/>
             @if($hover)
-                <img src="{{ asset('storage/'.$hover) }}" alt="" aria-hidden="true" loading="lazy"
-                     class="absolute inset-0 h-full w-full object-cover opacity-0 transition duration-300 group-hover:opacity-100 group-hover:scale-105">
+                <x-site.img :src="$hover" alt="" aria-hidden="true" sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 85vw" :widths="[320, 480, 768, 1024]"
+                     class="absolute inset-0 h-full w-full object-cover opacity-0 transition duration-300 group-hover:opacity-100 group-hover:scale-105"/>
             @endif
         @else
             <div class="flex h-full w-full items-center justify-center halftone-grass">

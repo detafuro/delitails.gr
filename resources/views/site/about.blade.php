@@ -32,7 +32,7 @@
             <div class="relative order-2 lg:order-1">
                 <div class="absolute -inset-4 -rotate-[3deg] bg-fire/15 border-2 border-ink"></div>
                 <div class="relative aspect-square border-2 border-ink overflow-hidden">
-                    <img src="{{ asset('storage/'.($site['about_what_image'] ?? 'our-history.png')) }}" alt="{{ $pick('about_what_label', __('What we do')) }}" class="h-full w-full object-cover">
+                    <x-site.img :src="$site['about_what_image'] ?? null" fallback="our-history.png" :alt="$pick('about_what_label', __('What we do'))" sizes="(min-width: 1024px) 50vw, 100vw" class="h-full w-full object-cover"/>
                 </div>
             </div>
             <div class="order-1 lg:order-2">
@@ -68,7 +68,7 @@
             <div class="relative">
                 <div class="absolute -inset-4 rotate-[3deg] bg-grass/20 border-2 border-bone"></div>
                 <div class="relative aspect-square border-2 border-bone overflow-hidden">
-                    <img src="{{ asset('storage/'.($site['about_philosophy_image'] ?? 'our-story-feat.jpg')) }}" alt="{{ $pick('about_philosophy_label', __('Our philosophy')) }}" class="h-full w-full object-cover">
+                    <x-site.img :src="$site['about_philosophy_image'] ?? null" fallback="our-story-feat.jpg" :alt="$pick('about_philosophy_label', __('Our philosophy'))" sizes="(min-width: 1024px) 50vw, 100vw" class="h-full w-full object-cover"/>
                 </div>
             </div>
         </div>

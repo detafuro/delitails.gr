@@ -51,7 +51,7 @@
                 <div class="absolute -inset-6 rotate-[-3deg] bg-fire/15 border-2 border-ink"></div>
                 <div class="relative aspect-[4/5] border-2 border-ink bg-bone sticker-shadow overflow-hidden">
                     @if(!empty($site['hero_image']))
-                        <img src="{{ asset('storage/'.$site['hero_image']) }}" alt="" class="h-full w-full object-cover">
+                        <x-site.img :src="$site['hero_image']" alt="" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 60vw, 100vw" loading="eager" fetchpriority="high" class="h-full w-full object-cover"/>
                     @else
                         <div class="h-full w-full halftone-fire flex items-center justify-center">
                             <div class="text-center px-4">
@@ -121,7 +121,7 @@
                             <div class="absolute -inset-4 {{ $i % 2 === 1 ? 'rotate-[2deg]' : 'rotate-[-2deg]' }} bg-ink/15 border-2 border-ink"></div>
                             <div class="relative aspect-[4/3] border-2 border-ink bg-bone sticker-shadow overflow-hidden">
                                 @if(!empty($cat['image']))
-                                    <img src="{{ asset('storage/'.$cat['image']) }}" alt="{{ $cat['title'] }}" class="h-full w-full object-cover" loading="lazy">
+                                    <x-site.img :src="$cat['image']" :alt="$cat['title']" sizes="(min-width: 1024px) 50vw, 100vw" class="h-full w-full object-cover"/>
                                 @else
                                     <div class="h-full w-full halftone-fire flex items-center justify-center">
                                         <span class="font-display text-5xl md:text-7xl font-black uppercase text-ink/30 {{ $i % 2 === 1 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">{{ $cat['word'] }}</span>
@@ -197,7 +197,7 @@
             <div class="relative">
                 <div class="absolute -inset-4 rotate-[2deg] bg-ink/10 border-2 border-ink"></div>
                 <div class="relative aspect-[4/5] border-2 border-ink bg-fire overflow-hidden">
-                    <img src="{{ asset('storage/'.($site['our_story_image'] ?? 'our-story-feat.jpg')) }}" alt="{{ __('Our story') }}" class="h-full w-full object-cover" loading="lazy">
+                    <x-site.img :src="$site['our_story_image'] ?? null" fallback="our-story-feat.jpg" :alt="__('Our story')" sizes="(min-width: 1024px) 50vw, 100vw" class="h-full w-full object-cover"/>
                 </div>
             </div>
             <div>

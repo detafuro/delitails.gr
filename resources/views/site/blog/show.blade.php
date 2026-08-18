@@ -50,7 +50,7 @@
         @if($post->featured_image)
             <div class="mx-auto max-w-7xl px-4 md:px-6 mt-20 md:mt-24">
                 <div class="aspect-[16/9] border-2 border-ink bg-bone overflow-hidden sticker-shadow">
-                    <img src="{{ asset('storage/'.$post->featured_image) }}" alt="{{ $post->t('title') }}" class="h-full w-full object-cover">
+                    <x-site.img :src="$post->featured_image" :alt="$post->t('title')" sizes="(min-width: 1280px) 1232px, 100vw" loading="eager" fetchpriority="high" class="h-full w-full object-cover"/>
                 </div>
             </div>
         @endif
