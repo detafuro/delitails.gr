@@ -144,20 +144,14 @@
                         <a href="{{ route($route) }}" class="block border-b-2 border-ink/10 py-3 font-display font-bold uppercase tracking-wider">{{ __($label) }}</a>
                     @endforeach
                 </nav>
-                <div class="mt-6 space-y-2">
-                    <a href="{{ route('lang.switch', $otherLocale) }}" class="btn-rough is-grass w-full justify-center">
-                        {{ $otherLocale === 'en' ? 'English' : 'Ελληνικά' }}
-                    </a>
-                    @auth
+                @auth
+                    <div class="mt-6 space-y-2">
                         <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.edit') }}" class="btn-rough is-bone w-full justify-center">{{ auth()->user()->isAdmin() ? __('Admin') : __('My account') }}</a>
                         <form method="POST" action="{{ route('logout') }}">@csrf
                             <button class="btn-rough is-ghost w-full justify-center">{{ __('Log out') }}</button>
                         </form>
-                    @else
-                        <a href="{{ route('login') }}" class="btn-rough is-bone w-full justify-center">{{ __('Sign in') }}</a>
-                        <a href="{{ route('register') }}" class="btn-rough is-fire w-full justify-center">{{ __('Sign up') }}</a>
-                    @endauth
-                </div>
+                    </div>
+                @endauth
             </div>
         </div>
         </template>
