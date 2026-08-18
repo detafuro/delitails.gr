@@ -150,7 +150,7 @@
     {{-- FEATURED PRODUCTS --}}
     <x-site.torn-section bg="fire" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div class="flex flex-col items-start md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
                     <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">{{ __('Customer favourites') }}</div>
                     <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">{{ __('The hot picks') }}</h2>
@@ -211,7 +211,7 @@
     {{-- BLOG PREVIEW --}}
     <x-site.torn-section bg="ink" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div class="flex flex-col items-start md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
                     <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ __('Bark journal') }}</div>
                     <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">{{ __('Words for the pack') }}</h2>
@@ -233,7 +233,7 @@
     {{-- STORE LOCATOR PREVIEW (hidden while stockists page is draft) --}}
     <x-site.torn-section bg="fire" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div class="flex flex-col items-start md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
                     <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">{{ __('Find us in the wild') }}</div>
                     <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">{{ __('Stockists') }}</h2>
