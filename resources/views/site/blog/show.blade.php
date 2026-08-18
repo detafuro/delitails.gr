@@ -1,8 +1,31 @@
 @php
-    $title = ($post->t('seo_title') ?: $post->t('title')).' — '.($site['site_name'] ?? config('app.name'));
-    $description = $post->t('seo_description') ?: $post->t('excerpt') ?: ($site['seo_default_description'] ?? '');
+    $title = \App\Support\Seo::title($post->t('seo_title') ?: $post->t('title'), $post->t('seo_title') ? '' : __('Blog'));
+    $description = $post->t('seo_description') ?: $post->t('excerpt') ?: \App\Support\Seo::defaultDescription();
+    $ogImage = $post->featured_image ? asset('storage/'.$post->featured_image) : null;
+    $jsonLd = [
+        [
+            '@context' => 'https://schema.org', '@type' => 'BlogPosting',
+            'headline' => $post->t('title'), 'description' => $description, 'url' => url()->current(),
+            'image' => $ogImage ? [$ogImage] : null,
+            'datePublished' => $post->published_at?->toIso8601String(),
+            'dateModified' => $post->updated_at?->toIso8601String(),
+            'author' => ['@type' => $post->author ? 'Person' : 'Organization', 'name' => $post->author ?: \App\Support\Seo::siteName()],
+            'publisher' => ['@type' => 'Organization', 'name' => \App\Support\Seo::siteName(), 'logo' => ['@type' => 'ImageObject', 'url' => asset('og-image.png')]],
+            'mainEntityOfPage' => url()->current(),
+            'inLanguage' => app()->getLocale(),
+        ],
+        [
+            '@context' => 'https://schema.org', '@type' => 'BreadcrumbList',
+            'itemListElement' => array_values(array_filter([
+                ['@type' => 'ListItem', 'position' => 1, 'name' => __('Home'), 'item' => route('home')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => __('Blog'), 'item' => route('blog.index')],
+                $post->category ? ['@type' => 'ListItem', 'position' => 3, 'name' => $post->category->t('name'), 'item' => route('blog.index', ['category' => $post->category->slug])] : null,
+                ['@type' => 'ListItem', 'position' => $post->category ? 4 : 3, 'name' => $post->t('title'), 'item' => url()->current()],
+            ])),
+        ],
+    ];
 @endphp
-<x-layout title="{{ $title }}" description="{{ $description }}">
+<x-layout title="{{ $title }}" description="{{ $description }}" :image="$ogImage" :jsonld="$jsonLd">
     <article class="bg-bone">
         {{-- Hero --}}
         <header class="relative bg-grass paper">

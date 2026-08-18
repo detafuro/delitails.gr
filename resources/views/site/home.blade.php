@@ -6,8 +6,8 @@
     $heroSub = $pick('hero_subheading') ?? __('Loud little snacks for picky pets and the humans who feed them. Small-batch, big personality.');
     $heroCtaText = $pick('hero_cta_text') ?? __('Explore the pack');
     $heroCtaLink = $site['hero_cta_link'] ?? route('products.index');
-    $title = ($site['seo_default_title'] ?? null) ?: $siteName.' — '.__('Premium pet treats');
-    $description = $site['seo_default_description'] ?? $heroSub;
+    $title = \App\Support\Seo::defaultTitle();
+    $description = \App\Support\Seo::setting('seo_default_description') ?: $heroSub;
 @endphp
 <x-layout title="{{ $title }}" description="{{ $description }}">
     {{-- HERO --}}

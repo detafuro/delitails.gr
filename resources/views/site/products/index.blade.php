@@ -2,15 +2,26 @@
     $titleParts = [];
     if ($activeCategory) $titleParts[] = $activeCategory->t('name');
     if (!empty($activeType) && isset($types[$activeType])) $titleParts[] = __($types[$activeType]);
-    $title = (count($titleParts) ? implode(' · ', $titleParts).' — ' : '').__('Products').' — '.($site['site_name'] ?? config('app.name'));
-    $description = $activeCategory?->t('seo_description') ?? ($site['seo_default_description'] ?? null);
+    if ($activeCategory && $activeCategory->t('seo_title')) {
+        $title = \App\Support\Seo::title($activeCategory->t('seo_title'));
+    } elseif (count($titleParts)) {
+        $title = \App\Support\Seo::title(implode(' · ', $titleParts).' — '.__('Treats for dogs'));
+    } else {
+        $title = \App\Support\Seo::title(__('All treats'), __('Natural chews & training treats for dogs'));
+    }
+    $description = $activeCategory?->t('seo_description')
+        ?: ($activeCategory?->t('description') ? __(':category treats for dogs: :desc', ['category' => $activeCategory->t('name'), 'desc' => $activeCategory->t('description')]) : null)
+        ?: __('Browse all Delitails treats: single-protein natural chews and training treats for dogs, hand-prepared in small batches with no additives.');
+    // Search/sort variants are the same content — canonical to the clean listing so they don't get indexed as duplicates.
+    $canonical = route('products.index', array_filter(['category' => $activeCategory?->slug, 'type' => $activeType, 'page' => request('page') > 1 ? request('page') : null]));
+    $noindex = request()->filled('q');
 
     $linkBase = fn(array $extra = []) => route('products.index', array_filter(array_merge(
         ['category' => $activeCategory?->slug, 'type' => $activeType, 'q' => request('q'), 'sort' => $sort !== 'featured' ? $sort : null],
         $extra
     ), fn($v) => $v !== null && $v !== ''));
 @endphp
-<x-layout title="{{ $title }}" description="{{ $description }}">
+<x-layout title="{{ $title }}" description="{{ $description }}" :canonical="$canonical" :noindex="$noindex">
     {{-- Header --}}
     <section class="bg-fire paper text-bone">
         <div class="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-14">

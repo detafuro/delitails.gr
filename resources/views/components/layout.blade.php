@@ -17,10 +17,43 @@
             __('New treats just landed. Sink your teeth in.'),
         ]);
     }
-    $pageTitle = $title ?? ($site['seo_default_title'] ?? $siteName);
-    $pageDesc = $description ?? ($site['seo_default_description'] ?? '');
+    // Views pass title="{{ $x }}" (already escaped once) — decode so Blade's own escaping below doesn't double-encode & and quotes.
+    $pageTitle = html_entity_decode($title ?? \App\Support\Seo::defaultTitle(), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $pageDesc = html_entity_decode($description ?? \App\Support\Seo::defaultDescription(), ENT_QUOTES | ENT_HTML5, 'UTF-8');
     $faviconPath = $site['favicon'] ?? null;
     $ogImage = $image ?? asset('og-image.png'); // pages may pass an `image` prop (absolute URL) to override
+    $alternates = \App\Support\Locale::alternates();
+    $canonicalUrl = $canonical ?? ($alternates[app()->getLocale()] ?? url()->current());
+    $noindexPage = $noindex ?? false;
+    $socialLinks = array_values(array_filter([$site['social_facebook'] ?? null, $site['social_instagram'] ?? null, $site['social_tiktok'] ?? null, $site['social_youtube'] ?? null]));
+    $orgJsonLd = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Organization',
+        'name' => $siteName,
+        'url' => url('/'.app()->getLocale()),
+        'logo' => !empty($site['logo']) ? asset('storage/'.$site['logo']) : asset('og-image.png'),
+        'sameAs' => $socialLinks,
+        'contactPoint' => array_filter([
+            '@type' => 'ContactPoint',
+            'contactType' => 'customer service',
+            'email' => $site['contact_email'] ?? null,
+            'telephone' => $site['contact_phone'] ?? null,
+            'availableLanguage' => ['el', 'en'],
+        ]),
+    ];
+    $siteJsonLd = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => $siteName,
+        'url' => url('/'.app()->getLocale()),
+        'inLanguage' => app()->getLocale(),
+        'potentialAction' => [
+            '@type' => 'SearchAction',
+            'target' => ['@type' => 'EntryPoint', 'urlTemplate' => route('products.index').'?q={search_term_string}'],
+            'query-input' => 'required name=search_term_string',
+        ],
+    ];
+    $jsonLdBlocks = array_merge([$orgJsonLd, $siteJsonLd], array_values(array_filter($jsonld ?? [])));
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -28,11 +61,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @unless(config('app.indexable'))<meta name="robots" content="noindex, nofollow">@endunless
     <title>{{ $pageTitle }}</title>
     @if($pageDesc)<meta name="description" content="{{ $pageDesc }}">@endif
-    @php $alternates = \App\Support\Locale::alternates(); @endphp
-    <link rel="canonical" href="{{ $alternates[app()->getLocale()] ?? url()->current() }}">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    @unless(config('app.indexable'))
+        <meta name="robots" content="noindex, nofollow">
+    @elseif($noindexPage)
+        <meta name="robots" content="noindex, follow">
+    @endunless
     @foreach($alternates as $altLocale => $altUrl)
         <link rel="alternate" hreflang="{{ $altLocale }}" href="{{ $altUrl }}">
     @endforeach
@@ -40,7 +76,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{ $siteName }}">
     <meta property="og:locale" content="{{ app()->getLocale() === 'el' ? 'el_GR' : 'en_US' }}">
-    <meta property="og:url" content="{{ $alternates[app()->getLocale()] ?? url()->current() }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
     <meta property="og:title" content="{{ $pageTitle }}">
     @if($pageDesc)<meta property="og:description" content="{{ $pageDesc }}">@endif
     <meta property="og:image" content="{{ $ogImage }}">
@@ -55,6 +91,9 @@
     <link rel="preload" href="/fonts/cera-pro/CeraPro-Black.woff2" as="font" type="font/woff2" crossorigin>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
+    @foreach($jsonLdBlocks as $block)
+        <script type="application/ld+json">{!! json_encode($block, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    @endforeach
     @if(!empty($site['analytics_scripts']))
         {!! $site['analytics_scripts'] !!}
     @endif

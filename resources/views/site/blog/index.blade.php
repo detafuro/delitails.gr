@@ -1,4 +1,4 @@
-@php $title = __('Blog').' — '.($site['site_name'] ?? config('app.name')); @endphp
+@php $title = \App\Support\Seo::title(__('Blog'), __('Notes, tips & news for dog people')); @endphp
 <x-layout title="{{ $title }}" description="{{ __('Field notes, recipes, and loud opinions from the pack.') }}">
     <section class="bg-ink text-bone paper">
         <div class="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-14">

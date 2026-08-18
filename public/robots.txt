@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /login
+Disallow: /register
+Allow: /
+
+Sitemap: https://delitails.gr/sitemap.xml

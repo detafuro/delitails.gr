@@ -1,5 +1,5 @@
 @php
-    $title = __('About').' — '.($site['site_name'] ?? config('app.name'));
+    $title = \App\Support\Seo::title(__('About'), __('A brand created by a producer'));
     // Admin-managed copy (Admin → About page): Greek visitors get the *_el variant when filled, else English, else the built-in text.
     $pick = fn (string $key, string $default = '') => ((app()->getLocale() === 'el' ? ($site[$key.'_el'] ?? null) : null) ?: ($site[$key] ?? null)) ?: $default;
     $paragraphs = fn (string $text) => array_values(array_filter(array_map('trim', preg_split("/(\r?\n){2,}/", $text))));

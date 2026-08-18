@@ -1,5 +1,15 @@
-@php $title = __('FAQ').' — '.($site['site_name'] ?? config('app.name')); @endphp
-<x-layout title="{{ $title }}" description="{{ __('Answers to the questions our pack asks most.') }}">
+@php
+    $title = \App\Support\Seo::title(__('FAQ'), __('Questions about our dog treats'));
+    $allFaqs = $groups->flatMap->faqs->merge($orphans);
+    $jsonLd = $allFaqs->isNotEmpty() ? [[
+        '@context' => 'https://schema.org', '@type' => 'FAQPage',
+        'mainEntity' => $allFaqs->map(fn ($f) => [
+            '@type' => 'Question', 'name' => $f->t('question'),
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f->t('answer')],
+        ])->values()->all(),
+    ]] : [];
+@endphp
+<x-layout title="{{ $title }}" description="{{ __('Answers to the questions our pack asks most.') }}" :jsonld="$jsonLd">
     <section class="bg-ink text-bone paper">
         <div class="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-14">
             <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ __('Asked & answered') }}</div>

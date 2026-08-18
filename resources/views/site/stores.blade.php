@@ -1,4 +1,4 @@
-@php $title = __('Stores').' — '.($site['site_name'] ?? config('app.name')); @endphp
+@php $title = \App\Support\Seo::title(__('Stores'), __('Where to buy')); @endphp
 <x-layout title="{{ $title }}" description="{{ __('Find a stockist near you. We are in cities, towns, and corner shops worth knowing.') }}">
     <section class="bg-grass paper">
         <div class="mx-auto max-w-4xl px-4 md:px-6 py-10 md:py-14 text-center">

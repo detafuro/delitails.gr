@@ -45,6 +45,8 @@ class UpdateSettingsRequest extends FormRequest
             'hero_cta_link' => ['nullable', 'string', 'max:255'],
             'seo_default_title' => ['nullable', 'string', 'max:255'],
             'seo_default_description' => ['nullable', 'string', 'max:500'],
+            'seo_default_title_el' => ['nullable', 'string', 'max:255'],
+            'seo_default_description_el' => ['nullable', 'string', 'max:500'],
             'analytics_scripts' => ['nullable', 'string', 'max:5000'],
             'footer_text' => ['nullable', 'string', 'max:1000'],
             'footer_text_el' => ['nullable', 'string', 'max:1000'],

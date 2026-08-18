@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProductCatalogController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\StoreLocatorController;
 use App\Http\Middleware\SetLocale;
 use App\Support\Locale;
@@ -31,6 +32,8 @@ Route::prefix('{locale}')
         Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
         Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
     });
+
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 // Bare root → the visitor's last language, else Greek.
 Route::get('/', function (Request $request) {

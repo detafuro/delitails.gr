@@ -126,9 +126,16 @@
         </section>
 
         {{-- SEO --}}
-        <section x-show="tab==='seo'" x-cloak class="brush-card p-6 space-y-5">
-            <x-admin.form-input name="seo_default_title" label="Default SEO title" :value="$settings['seo_default_title'] ?? ''"/>
-            <x-admin.textarea name="seo_default_description" label="Default SEO description" :value="$settings['seo_default_description'] ?? ''" rows="3"/>
+        <section x-show="tab==='seo'" x-cloak class="brush-card p-6 space-y-5" x-data="{ lang: 'en' }">
+            <x-admin.lang-tabs/>
+            <div x-show="lang==='en'" class="space-y-5">
+                <x-admin.form-input name="seo_default_title" label="Default SEO title" :value="$settings['seo_default_title'] ?? ''"/>
+                <x-admin.textarea name="seo_default_description" label="Default SEO description" :value="$settings['seo_default_description'] ?? ''" rows="3"/>
+            </div>
+            <div x-show="lang==='el'" x-cloak class="space-y-5">
+                <x-admin.form-input name="seo_default_title_el" label="Default SEO title (Ελληνικά)" :value="$settings['seo_default_title_el'] ?? ''"/>
+                <x-admin.textarea name="seo_default_description_el" label="Default SEO description (Ελληνικά)" :value="$settings['seo_default_description_el'] ?? ''" rows="3"/>
+            </div>
             <x-admin.textarea name="analytics_scripts" label="Analytics / head scripts" :value="$settings['analytics_scripts'] ?? ''" rows="6"
                 hint="Raw HTML; injected into the <head>. Use with care."/>
         </section>

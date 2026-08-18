@@ -1,5 +1,5 @@
 @php
-    $title = __('Contact').' — '.($site['site_name'] ?? config('app.name'));
+    $title = \App\Support\Seo::title(__('Contact'));
     $contactAddress = (app()->getLocale() === 'el' ? ($site['contact_address_el'] ?? null) : null) ?: ($site['contact_address'] ?? null);
 @endphp
 <x-layout title="{{ $title }}" description="{{ __('Get in touch. We answer every message — usually with treats in hand.') }}">

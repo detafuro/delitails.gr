@@ -1,8 +1,31 @@
 @php
-    $title = ($product->t('seo_title') ?: $product->t('title')).' — '.($site['site_name'] ?? config('app.name'));
-    $description = $product->t('seo_description') ?: $product->t('short_description') ?: ($site['seo_default_description'] ?? '');
+    $title = $product->t('seo_title')
+        ? \App\Support\Seo::title($product->t('seo_title'))
+        : \App\Support\Seo::title($product->t('title'), $product->type_label ? __($product->type_label).' '.__('for dogs') : __('Treats for dogs'));
+    $description = $product->t('seo_description') ?: $product->t('short_description') ?: \App\Support\Seo::defaultDescription();
+    $ogImage = $product->featured_image ? asset('storage/'.$product->featured_image) : null;
+    $jsonLd = [
+        [
+            '@context' => 'https://schema.org', '@type' => 'Product',
+            'name' => $product->t('title'), 'description' => $description, 'url' => url()->current(),
+            'image' => array_values(array_filter(array_map(fn ($p) => $p ? asset('storage/'.$p) : null, array_merge([$product->featured_image], $product->images->pluck('path')->all())))),
+            'brand' => ['@type' => 'Brand', 'name' => \App\Support\Seo::siteName()],
+            'category' => $product->category?->t('name'),
+            'sku' => $product->sku,
+            'weight' => $product->weight,
+        ],
+        [
+            '@context' => 'https://schema.org', '@type' => 'BreadcrumbList',
+            'itemListElement' => array_values(array_filter([
+                ['@type' => 'ListItem', 'position' => 1, 'name' => __('Home'), 'item' => route('home')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => __('Products'), 'item' => route('products.index')],
+                $product->category ? ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->t('name'), 'item' => route('products.index', ['category' => $product->category->slug])] : null,
+                ['@type' => 'ListItem', 'position' => $product->category ? 4 : 3, 'name' => $product->t('title'), 'item' => url()->current()],
+            ])),
+        ],
+    ];
 @endphp
-<x-layout title="{{ $title }}" description="{{ $description }}">
+<x-layout title="{{ $title }}" description="{{ $description }}" :image="$ogImage" :jsonld="$jsonLd">
     <section class="bg-bone pt-10 md:pt-14 pb-14 md:pb-20">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <nav aria-label="{{ __('Breadcrumb') }}" class="text-xs uppercase tracking-widest text-ink/60 mb-6">
