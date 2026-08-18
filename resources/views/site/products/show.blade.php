@@ -3,7 +3,7 @@
     $description = $product->t('seo_description') ?: $product->t('short_description') ?: ($site['seo_default_description'] ?? '');
 @endphp
 <x-layout title="{{ $title }}" description="{{ $description }}">
-    <section class="bg-bone pt-10 md:pt-16 pb-20 md:pb-28">
+    <section class="bg-bone pt-10 md:pt-14 pb-14 md:pb-20">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <nav class="text-xs uppercase tracking-widest text-ink/60 mb-6">
                 <a class="hover:text-fire" href="{{ route('home') }}">{{ __('Home') }}</a> /

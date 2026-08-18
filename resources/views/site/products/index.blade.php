@@ -13,7 +13,7 @@
 <x-layout title="{{ $title }}" description="{{ $description }}">
     {{-- Header --}}
     <section class="bg-fire paper text-bone">
-        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-20">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-14">
             <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">{{ __('Catalogue') }}</div>
             <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
                 @if($activeCategory)
@@ -57,7 +57,7 @@
         </div>
     </section>
 
-    <section class="bg-bone py-10 md:py-14">
+    <section class="bg-bone pt-20 md:pt-28 pb-14 md:pb-20">
         <div class="mx-auto max-w-7xl px-4 md:px-6 grid lg:grid-cols-4 gap-10">
             {{-- Sidebar --}}
             <aside class="lg:col-span-1 space-y-6">

@@ -4,7 +4,7 @@
 @endphp
 <x-layout title="{{ $title }}" description="{{ __('Get in touch. We answer every message — usually with treats in hand.') }}">
     <section class="bg-ink text-bone paper">
-        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-20">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-14">
             <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ __('Contact') }}</div>
             <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
                 {!! __('Say hi. <span class="text-fire">Bring snacks.</span>') !!}
@@ -18,7 +18,7 @@
         </div>
     </section>
 
-    <section class="bg-bone py-16 md:py-20">
+    <section class="bg-bone pt-20 md:pt-28 pb-14 md:pb-20">
         <div class="mx-auto max-w-7xl px-4 md:px-6 grid lg:grid-cols-3 gap-10">
             <div class="lg:col-span-2 brush-card bg-bone p-6 md:p-8">
                 <h2 class="font-display text-2xl md:text-3xl font-extrabold uppercase">{{ __('Drop us a line') }}</h2>

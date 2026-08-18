@@ -1,7 +1,7 @@
 @php $title = __('Blog').' — '.($site['site_name'] ?? config('app.name')); @endphp
 <x-layout title="{{ $title }}" description="{{ __('Field notes, recipes, and loud opinions from the pack.') }}">
     <section class="bg-ink text-bone paper">
-        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-20">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-14">
             <div class="text-fire-light text-sm font-bold uppercase tracking-[0.3em]">{{ __('Bark journal') }}</div>
             <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
                 {!! __('Field notes <span class="text-fire">from</span> the pack') !!}
@@ -13,7 +13,7 @@
         </div>
     </section>
 
-    <section class="bg-bone py-10 md:py-14">
+    <section class="bg-bone pt-20 md:pt-28 pb-14 md:pb-20">
         <div class="mx-auto max-w-7xl px-4 md:px-6 grid lg:grid-cols-4 gap-10">
             <aside class="lg:col-span-1 space-y-6">
                 <form method="GET" class="brush-card bg-bone p-5">
