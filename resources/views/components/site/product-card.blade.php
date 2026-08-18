@@ -24,7 +24,7 @@
         @endif
 
         @if($product->type_label)
-            <span class="absolute left-3 bottom-3 z-10 inline-flex items-center gap-1 border-2 border-ink bg-bone text-ink px-2 py-0.5 text-[10px] font-bold uppercase">{{ __($product->type_label) }}</span>
+            <span class="absolute left-3 top-3 z-10 inline-flex items-center gap-1 bg-grass text-ink px-2 py-1 text-[10px] font-bold uppercase tracking-wider">{{ __($product->type_label) }}</span>
         @endif
     </div>
     <div class="mt-3">
