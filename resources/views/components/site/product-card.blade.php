@@ -24,7 +24,7 @@
         @endif
 
         @if($product->type_label)
-            <span class="absolute left-3 top-3 z-10 inline-flex items-center gap-1 bg-grass text-ink px-2 py-1 text-[10px] font-bold uppercase tracking-wider">{{ __($product->type_label) }}</span>
+            <span class="absolute left-3 top-3 z-10 inline-flex items-center gap-1 {{ $product->type === \App\Models\Product::TYPE_TRAINING_TREATS ? 'bg-fire text-bone' : 'bg-grass text-ink' }} px-2 py-1 text-[10px] font-bold uppercase tracking-wider">{{ __($product->type_label) }}</span>
         @endif
     </div>
     <div class="mt-3 flex items-start justify-between gap-2">
