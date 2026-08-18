@@ -3,15 +3,18 @@
     <div class="lg:col-span-2 brush-card p-5 space-y-5" x-data="{ lang: 'en' }" @invalid.capture="lang = 'en'">
         <x-admin.lang-tabs/>
 
-        <div class="grid sm:grid-cols-2 gap-4">
-            <x-admin.form-input name="author" label="Author" :value="$testimonial->author" required/>
-            <x-admin.form-input name="pet_name" label="Pet name" :value="$testimonial->pet_name"/>
-        </div>
-
-        <div x-show="lang==='en'">
+        <div x-show="lang==='en'" class="space-y-5">
+            <div class="grid sm:grid-cols-2 gap-4">
+                <x-admin.form-input name="author" label="Author" :value="$testimonial->author" required/>
+                <x-admin.form-input name="pet_name" label="Pet name" :value="$testimonial->pet_name"/>
+            </div>
             <x-admin.textarea name="quote" label="Quote" :value="$testimonial->quote" rows="5" required/>
         </div>
-        <div x-show="lang==='el'" x-cloak>
+        <div x-show="lang==='el'" x-cloak class="space-y-5">
+            <div class="grid sm:grid-cols-2 gap-4">
+                <x-admin.form-input name="el[author]" label="Author (Ελληνικά)" :value="$testimonial->translation('author')"/>
+                <x-admin.form-input name="el[pet_name]" label="Pet name (Ελληνικά)" :value="$testimonial->translation('pet_name')"/>
+            </div>
             <x-admin.textarea name="el[quote]" label="Quote (Ελληνικά)" :value="$testimonial->translation('quote')" rows="5"/>
         </div>
 

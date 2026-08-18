@@ -21,6 +21,9 @@ class StoreTestimonialRequest extends FormRequest
             'avatar' => ['nullable', 'image', 'max:4096'],
             'is_active' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
+            'el.author' => ['nullable', 'string', 'max:120'],
+            'el.pet_name' => ['nullable', 'string', 'max:120'],
+            'el.quote' => ['nullable', 'string', 'max:1500'],
         ];
     }
 

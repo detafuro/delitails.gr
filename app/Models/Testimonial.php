@@ -9,7 +9,7 @@ class Testimonial extends Model
 {
     use HasTranslations;
 
-    protected array $translatable = ['quote'];
+    protected array $translatable = ['author', 'pet_name', 'quote'];
 
     protected $fillable = [
         'author', 'pet_name', 'quote', 'rating',
