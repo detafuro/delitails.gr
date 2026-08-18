@@ -8,8 +8,8 @@
     $hover = $gallery[1] ?? null; // 2nd gallery image, revealed on hover
 @endphp
 <a href="{{ route('products.show', $product->slug) }}"
-   class="group relative block brush-card bg-bone text-ink p-3 transition">
-    <div class="relative aspect-square overflow-hidden border-2 border-ink/80 bg-bone-dark">
+   class="group relative flex h-full flex-col brush-card bg-bone text-ink p-3 transition">
+    <div class="relative shrink-0 aspect-square overflow-hidden border-2 border-ink/80 bg-bone-dark">
         @if($primary)
             <img src="{{ asset('storage/'.$primary) }}" alt="{{ $product->t('title') }}"
                  class="absolute inset-0 h-full w-full object-cover transition duration-300 {{ $hover ? 'group-hover:opacity-0' : 'group-hover:scale-105' }}">
@@ -27,7 +27,7 @@
             <span class="absolute left-3 top-3 z-10 inline-flex items-center gap-1 {{ $product->type === \App\Models\Product::TYPE_TRAINING_TREATS ? 'bg-fire text-bone' : 'bg-grass text-ink' }} px-2 py-1 text-[10px] font-bold uppercase tracking-wider">{{ __($product->type_label) }}</span>
         @endif
     </div>
-    <div class="mt-3 flex items-start justify-between gap-2">
+    <div class="mt-3 flex flex-1 items-start justify-between gap-2">
         <div class="min-w-0">
             <h3 class="font-display text-lg font-extrabold uppercase leading-tight">{{ $product->t('title') }}</h3>
             <div class="text-xs uppercase tracking-wider text-ink/55">{{ $product->category?->t('name') }}</div>
