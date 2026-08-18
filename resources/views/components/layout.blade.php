@@ -171,16 +171,16 @@
     <footer class="relative bg-ink text-bone">
         <div aria-hidden="true" class="absolute bottom-full -mb-px left-0 right-0 h-10 paper torn-top bg-ink"></div>
 
-        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 lg:grid-cols-5 gap-10 text-center md:text-left">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 lg:grid-cols-5 gap-10">
             <div class="lg:col-span-2">
                 @if(!empty($site['footer_logo']))
-                    <img src="{{ asset('storage/'.$site['footer_logo']) }}" alt="" class="h-24 mb-4 mx-auto md:mx-0">
+                    <img src="{{ asset('storage/'.$site['footer_logo']) }}" alt="" class="h-24 mb-4">
                 @else
                     <div class="font-display text-3xl font-black uppercase mb-3">{{ $siteName }}</div>
                 @endif
                 <p class="font-editorial text-bone/70 leading-relaxed">{{ $footerText ?? __('Loud treats for good dogs and louder cats. Hand-baked, small batch, raised on rebellion.') }}</p>
 
-                <div class="mt-5 flex gap-2 justify-center md:justify-start">
+                <div class="mt-5 flex gap-2">
                     @foreach([
                         'social_facebook' => 'Facebook',
                         'social_instagram' => 'Instagram',
