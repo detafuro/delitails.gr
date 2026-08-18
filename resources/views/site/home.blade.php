@@ -93,6 +93,7 @@
                     [
                         'number' => '02',
                         'badge' => __('Treats'),
+                        'badge_class' => 'bg-fire text-bone',
                         'word' => __('TREATS'),
                         'title' => __('Training Treats'),
                         'text' => __('Make every training session a success! Our grain-free treats are bite-sized, delicious, and crafted from natural ingredients, making them the ideal reward to motivate your dog while keeping them healthy and happy.'),
@@ -132,7 +133,7 @@
                             </div>
                         </div>
                         <div class="{{ $i % 2 === 1 ? 'lg:order-1' : '' }}">
-                            <span class="inline-flex items-center border-2 border-ink bg-grass px-2.5 py-1 text-xs font-bold uppercase tracking-widest text-ink">{{ $cat['badge'] }}</span>
+                            <span class="inline-flex items-center border-2 border-ink {{ $cat['badge_class'] ?? 'bg-grass text-ink' }} px-2.5 py-1 text-xs font-bold uppercase tracking-widest">{{ $cat['badge'] }}</span>
                             <h3 class="mt-4 font-display text-3xl md:text-5xl font-black uppercase leading-[0.95]">{{ $cat['title'] }}</h3>
                             <p class="mt-4 font-editorial italic text-lg md:text-xl text-ink/80 leading-relaxed">{{ $cat['text'] }}</p>
                             <div class="mt-7">
