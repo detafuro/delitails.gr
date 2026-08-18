@@ -250,6 +250,7 @@
                         <x-site.rough-button class="mt-5" href="{{ route('products.index') }}" variant="fire">{{ __('Reset') }}</x-site.rough-button>
                     </div>
                 @else
+                    <h2 class="sr-only">{{ __('Products') }}</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
                         @foreach($products as $product)
                             <x-site.product-card :product="$product"/>

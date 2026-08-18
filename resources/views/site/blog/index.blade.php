@@ -39,6 +39,7 @@
 
             <div class="lg:col-span-3">
                 @if($posts->count())
+                    <h2 class="sr-only">{{ __('Articles') }}</h2>
                     <div class="space-y-6">
                         @foreach($posts as $post)
                             <x-site.blog-card :post="$post" :horizontal="true"/>
