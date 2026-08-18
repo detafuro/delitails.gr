@@ -47,6 +47,7 @@ class UpdateSettingsRequest extends FormRequest
             'seo_default_description' => ['nullable', 'string', 'max:500'],
             'analytics_scripts' => ['nullable', 'string', 'max:5000'],
             'footer_text' => ['nullable', 'string', 'max:1000'],
+            'footer_text_el' => ['nullable', 'string', 'max:1000'],
             'stores_page_status' => ['nullable', 'in:draft,public'],
             'under_construction' => ['nullable', 'in:off,on'],
             'under_construction_passcode' => ['nullable', 'string', 'max:64'],

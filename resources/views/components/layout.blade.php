@@ -1,7 +1,9 @@
 @php
     use Illuminate\Support\Str;
     $siteName = $site['site_name'] ?? config('app.name', 'Delitails');
-    $contactAddress = (app()->getLocale() === 'el' ? ($site['contact_address_el'] ?? null) : null) ?: ($site['contact_address'] ?? null);
+    $pick = fn (string $key) => (app()->getLocale() === 'el' ? ($site[$key.'_el'] ?? null) : null) ?: ($site[$key] ?? null);
+    $contactAddress = $pick('contact_address');
+    $footerText = $pick('footer_text');
     $announcementRaw = $site['announcement_messages'] ?? '';
     if (app()->getLocale() === 'el' && trim($site['announcement_messages_el'] ?? '') !== '') {
         $announcementRaw = $site['announcement_messages_el'];
@@ -174,7 +176,7 @@
                 @else
                     <div class="font-display text-3xl font-black uppercase mb-3">{{ $siteName }}</div>
                 @endif
-                <p class="font-editorial text-bone/70 leading-relaxed">{{ $site['footer_text'] ?? __('Loud treats for good dogs and louder cats. Hand-baked, small batch, raised on rebellion.') }}</p>
+                <p class="font-editorial text-bone/70 leading-relaxed">{{ $footerText ?? __('Loud treats for good dogs and louder cats. Hand-baked, small batch, raised on rebellion.') }}</p>
 
                 <div class="mt-5 flex gap-2">
                     @foreach([

@@ -134,8 +134,15 @@
         </section>
 
         {{-- Footer --}}
-        <section x-show="tab==='footer'" x-cloak class="brush-card p-6 space-y-5">
-            <x-admin.textarea name="footer_text" label="Footer text" :value="$settings['footer_text'] ?? ''" rows="3"/>
+        <section x-show="tab==='footer'" x-cloak class="brush-card p-6 space-y-5" x-data="{ lang: 'en' }">
+            <x-admin.lang-tabs/>
+            <div x-show="lang==='en'">
+                <x-admin.textarea name="footer_text" label="Footer text" :value="$settings['footer_text'] ?? ''" rows="3"/>
+            </div>
+            <div x-show="lang==='el'" x-cloak>
+                <x-admin.textarea name="footer_text_el" label="Footer text (Ελληνικά)" :value="$settings['footer_text_el'] ?? ''" rows="3"
+                    hint="Shown to Greek visitors; falls back to the English text when empty."/>
+            </div>
         </section>
 
         {{-- Pages --}}
