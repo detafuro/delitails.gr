@@ -16,7 +16,7 @@
     $padMap = $top ? [
         'sm' => 'pt-[1.5rem] pb-10',
         'md' => 'pt-[3.5rem] pb-16',
-        'lg' => 'pt-[2.5rem] md:pt-[4.5rem] pb-20 md:pb-28',
+        'lg' => 'pt-6 md:pt-[3.5rem] pb-20 md:pb-28',
         'xl' => 'pt-[3.5rem] md:pt-[6.5rem] pb-24 md:pb-36',
     ] : [
         'sm' => 'py-10',

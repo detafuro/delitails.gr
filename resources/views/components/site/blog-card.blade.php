@@ -28,8 +28,8 @@
     </div>
 </a>
 @else
-<a href="{{ route('blog.show', $post->slug) }}" class="group block brush-card bg-bone overflow-hidden">
-    <div class="relative aspect-[4/3] overflow-hidden border-b-2 border-ink">
+<a href="{{ route('blog.show', $post->slug) }}" class="group flex h-full flex-col brush-card bg-bone overflow-hidden">
+    <div class="relative shrink-0 aspect-[4/3] overflow-hidden border-b-2 border-ink">
         @if($post->featured_image)
             <img src="{{ asset('storage/'.$post->featured_image) }}" alt="{{ $post->t('title') }}"
                  class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
@@ -42,7 +42,7 @@
             <span class="absolute left-3 top-3 ribbon text-[10px]">{{ $post->category->t('name') }}</span>
         @endif
     </div>
-    <div class="p-5">
+    <div class="flex flex-1 flex-col p-5">
         <div class="text-xs uppercase tracking-wider text-ink/55">
             {{ $post->published_at?->translatedFormat('j M Y') }} @if($post->author) · {{ $post->author }} @endif
         </div>
@@ -50,7 +50,7 @@
         @if($post->excerpt)
             <p class="mt-2 text-sm text-ink/70">{{ Str::limit($post->t('excerpt'), 120) }}</p>
         @endif
-        <div class="mt-3 inline-flex items-center gap-1 font-display text-sm font-extrabold uppercase tracking-wider text-fire">
+        <div class="mt-auto pt-3 inline-flex items-center gap-1 font-display text-sm font-extrabold uppercase tracking-wider text-fire">
             {{ __('Read it') }} <span class="wiggle inline-block">→</span>
         </div>
     </div>

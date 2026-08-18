@@ -27,7 +27,7 @@
     </section>
 
     {{-- Story block 1 --}}
-    <section class="bg-bone pt-20 md:pt-28 pb-14 md:pb-20">
+    <section class="bg-bone pt-20 md:pt-28 pb-24 md:pb-28">
         <div class="mx-auto max-w-7xl px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
             <div class="relative order-2 lg:order-1">
                 <div class="absolute -inset-4 -rotate-[3deg] bg-fire/15 border-2 border-ink"></div>
