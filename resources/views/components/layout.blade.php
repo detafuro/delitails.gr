@@ -20,6 +20,7 @@
     $pageTitle = $title ?? ($site['seo_default_title'] ?? $siteName);
     $pageDesc = $description ?? ($site['seo_default_description'] ?? '');
     $faviconPath = $site['favicon'] ?? null;
+    $ogImage = $image ?? asset('og-image.png'); // pages may pass an `image` prop (absolute URL) to override
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -36,8 +37,19 @@
         <link rel="alternate" hreflang="{{ $altLocale }}" href="{{ $altUrl }}">
     @endforeach
     <link rel="alternate" hreflang="x-default" href="{{ $alternates[\App\Support\Locale::default()] ?? url('/') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ $siteName }}">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'el' ? 'el_GR' : 'en_US' }}">
+    <meta property="og:url" content="{{ $alternates[app()->getLocale()] ?? url()->current() }}">
     <meta property="og:title" content="{{ $pageTitle }}">
     @if($pageDesc)<meta property="og:description" content="{{ $pageDesc }}">@endif
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $pageTitle }}">
+    @if($pageDesc)<meta name="twitter:description" content="{{ $pageDesc }}">@endif
+    <meta name="twitter:image" content="{{ $ogImage }}">
     @if($faviconPath)<link rel="icon" href="{{ asset('storage/'.$faviconPath) }}">@endif
     <link rel="preload" href="/fonts/cera-pro/CeraPro-Medium.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/cera-pro/CeraPro-Black.woff2" as="font" type="font/woff2" crossorigin>
