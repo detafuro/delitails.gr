@@ -116,7 +116,7 @@
             </aside>
 
             {{-- Grid --}}
-            <div class="lg:col-span-3">
+            <div class="lg:col-span-3 min-w-0">
                 @php
                     $sortOptions = ['featured' => __('Featured'), 'newest' => __('Newest'), 'name' => __('Name A–Z')];
                     $activeFilters = ($activeCategory ? 1 : 0) + ($activeType ? 1 : 0);
