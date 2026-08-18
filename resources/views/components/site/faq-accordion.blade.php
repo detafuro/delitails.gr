@@ -10,7 +10,7 @@
                       x-text="open === {{ $i }} ? '−' : '+'">+</span>
             </button>
             <div x-show="open === {{ $i }}" x-collapse x-cloak>
-                <div class="border-t-2 border-dashed border-ink/30 px-5 py-4 text-ink/80 font-editorial text-xl leading-relaxed">
+                <div class="border-t-2 border-dashed border-ink/30 px-5 py-4 text-ink/85 text-[17px] leading-relaxed">
                     {!! nl2br(e($faq->t('answer'))) !!}
                 </div>
             </div>
