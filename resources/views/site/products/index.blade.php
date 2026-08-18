@@ -119,27 +119,16 @@
             <div class="lg:col-span-3 min-w-0">
                 @php
                     $sortOptions = ['featured' => __('Featured'), 'newest' => __('Newest'), 'name' => __('Name A–Z')];
-                    $activeFilters = ($activeCategory ? 1 : 0) + ($activeType ? 1 : 0);
+                    $activeFilters = ($activeCategory ? 1 : 0) + ($activeType ? 1 : 0) + (request('q') ? 1 : 0);
                 @endphp
 
                 {{-- Mobile / tablet: search + quick chips + filter sheet --}}
                 <div class="lg:hidden mb-6 space-y-4" x-data="{ sheet: false }" x-effect="document.documentElement.classList.toggle('overflow-hidden', sheet)">
-                    <form method="GET" class="relative" @submit="$el.querySelectorAll('input').forEach(i => { if (i.value === '') i.disabled = true })">
-                        @if($activeCategory)<input type="hidden" name="category" value="{{ $activeCategory->slug }}">@endif
-                        @if($activeType)<input type="hidden" name="type" value="{{ $activeType }}">@endif
-                        @if($sort !== 'featured')<input type="hidden" name="sort" value="{{ $sort }}">@endif
-                        <input type="search" name="q" value="{{ request('q') }}" placeholder="{{ __('Find a treat…') }}" enterkeyhint="search"
-                               class="w-full border-2 border-ink bg-bone pl-11 pr-3 py-3 font-display uppercase placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-fire/50">
-                        <button type="submit" class="absolute left-0 top-0 h-full w-11 inline-flex items-center justify-center text-ink" aria-label="{{ __('Search') }}">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
-                        </button>
-                    </form>
-
                     <div class="flex items-center gap-2">
                         <button type="button" @click="sheet = true"
                                 class="inline-flex h-11 items-center gap-2 border-2 border-ink bg-bone px-3 font-display text-xs font-black uppercase tracking-wider">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
-                            {{ __('Filters') }}
+                            {{ __('Filters & search') }}
                             @if($activeFilters)
                                 <span class="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-fire px-1.5 text-[11px] font-black text-bone">{{ $activeFilters }}</span>
                             @endif
@@ -157,21 +146,6 @@
                         </form>
                     </div>
 
-                    {{-- Quick animal chips --}}
-                    <div class="-mx-4 px-4 flex gap-2 overflow-x-auto no-scrollbar snap-x">
-                        <a href="{{ $linkBase(['category' => null]) }}"
-                           class="snap-start shrink-0 inline-flex h-9 items-center border-2 border-ink px-3 font-display text-xs font-bold uppercase tracking-wider {{ !$activeCategory ? 'bg-ink text-bone' : 'bg-bone text-ink' }}">
-                            {{ __('All animals') }}
-                        </a>
-                        @foreach($categories as $cat)
-                            @php $on = $activeCategory && $activeCategory->id === $cat->id; @endphp
-                            <a href="{{ $linkBase(['category' => $on ? null : $cat->slug]) }}"
-                               class="snap-start shrink-0 inline-flex h-9 items-center border-2 border-ink px-3 font-display text-xs font-bold uppercase tracking-wider {{ $on ? 'bg-grass text-ink' : 'bg-bone text-ink' }}">
-                                {{ $cat->t('name') }}
-                            </a>
-                        @endforeach
-                    </div>
-
                     <div class="text-sm text-ink/60">{{ __('Showing :count treats', ['count' => $products->total()]) }}</div>
 
                     {{-- Bottom sheet --}}
@@ -183,7 +157,6 @@
                                   x-transition:leave="transition transform ease-in duration-150" x-transition:leave-start="translate-y-0" x-transition:leave-end="translate-y-full"
                                   class="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto border-t-2 border-ink bg-bone paper"
                                   role="dialog" aria-modal="true" aria-label="{{ __('Filters') }}">
-                                @if(request('q'))<input type="hidden" name="q" value="{{ request('q') }}">@endif
                                 @if($sort !== 'featured')<input type="hidden" name="sort" value="{{ $sort }}">@endif
 
                                 <div class="sticky top-0 z-10 flex items-center justify-between border-b-2 border-ink bg-bone px-5 py-4">
@@ -192,6 +165,17 @@
                                 </div>
 
                                 <div class="px-5 py-5 space-y-6">
+                                    <div>
+                                        <label for="sheet-q" class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Search') }}</label>
+                                        <div class="relative mt-3">
+                                            <input id="sheet-q" type="search" name="q" value="{{ request('q') }}" placeholder="{{ __('Find a treat…') }}" enterkeyhint="search"
+                                                   class="w-full border-2 border-ink bg-bone pl-11 pr-3 py-3 font-display uppercase placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-fire/50">
+                                            <span class="pointer-events-none absolute left-0 top-0 h-full w-11 inline-flex items-center justify-center text-ink">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+                                            </span>
+                                        </div>
+                                    </div>
+
                                     <fieldset>
                                         <legend class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Type') }}</legend>
                                         <div class="mt-3 flex flex-wrap gap-2">
