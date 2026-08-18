@@ -18,8 +18,14 @@
                     <span>★ {{ __('100% Natural') }}</span>
                 </div>
                 <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tight text-ink">
-                    @foreach(explode(' ', $heroHeading) as $i => $word)
-                        <span @if(strtolower(str_replace('.', '', str_replace(',', '', $word))) === 'dogs' || strtolower(str_replace('.', '', str_replace(',', '', $word))) === 'tails') class="text-fire" @endif>{{ $word }}</span>{{ $i < count(explode(' ', $heroHeading)) - 1 ? ' ' : '' }}
+                    @php
+                        // Words highlighted in fire orange (EN + EL), compared without punctuation/accents.
+                        $heroWords = explode(' ', $heroHeading);
+                        $highlight = ['dogs', 'tails', 'σκυλοι', 'σκύλοι', 'ουρες', 'ουρές'];
+                        $norm = fn (string $w) => mb_strtolower(trim($w, ".,!;:—-«»\"'"));
+                    @endphp
+                    @foreach($heroWords as $i => $word)
+                        <span @if(in_array($norm($word), $highlight, true)) class="text-fire" @endif>{{ $word }}</span>{{ $i < count($heroWords) - 1 ? ' ' : '' }}
                     @endforeach
                 </h1>
                 <p class="mt-6 max-w-xl text-xl md:text-2xl text-ink/80 font-editorial italic">
