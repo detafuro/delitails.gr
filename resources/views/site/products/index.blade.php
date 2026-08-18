@@ -59,8 +59,8 @@
 
     <section class="bg-bone pt-20 md:pt-28 pb-14 md:pb-20">
         <div class="mx-auto max-w-7xl px-4 md:px-6 grid lg:grid-cols-4 gap-10">
-            {{-- Sidebar --}}
-            <aside class="lg:col-span-1 space-y-6">
+            {{-- Sidebar (desktop) --}}
+            <aside class="hidden lg:block lg:col-span-1 space-y-6">
                 <div class="brush-card bg-bone p-5">
                     <h3 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Search') }}</h3>
                     <form method="GET" class="mt-3">
@@ -117,18 +117,132 @@
 
             {{-- Grid --}}
             <div class="lg:col-span-3">
-                <form method="GET" class="mb-6 flex flex-wrap items-center gap-3">
+                @php
+                    $sortOptions = ['featured' => __('Featured'), 'newest' => __('Newest'), 'name' => __('Name A–Z')];
+                    $activeFilters = ($activeCategory ? 1 : 0) + ($activeType ? 1 : 0);
+                @endphp
+
+                {{-- Mobile / tablet: search + quick chips + filter sheet --}}
+                <div class="lg:hidden mb-6 space-y-4" x-data="{ sheet: false }" x-effect="document.documentElement.classList.toggle('overflow-hidden', sheet)">
+                    <form method="GET" class="relative" @submit="$el.querySelectorAll('input').forEach(i => { if (i.value === '') i.disabled = true })">
+                        @if($activeCategory)<input type="hidden" name="category" value="{{ $activeCategory->slug }}">@endif
+                        @if($activeType)<input type="hidden" name="type" value="{{ $activeType }}">@endif
+                        @if($sort !== 'featured')<input type="hidden" name="sort" value="{{ $sort }}">@endif
+                        <input type="search" name="q" value="{{ request('q') }}" placeholder="{{ __('Find a treat…') }}" enterkeyhint="search"
+                               class="w-full border-2 border-ink bg-bone pl-11 pr-3 py-3 font-display uppercase placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-fire/50">
+                        <button type="submit" class="absolute left-0 top-0 h-full w-11 inline-flex items-center justify-center text-ink" aria-label="{{ __('Search') }}">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+                        </button>
+                    </form>
+
+                    <div class="flex items-center gap-2">
+                        <button type="button" @click="sheet = true"
+                                class="inline-flex h-11 items-center gap-2 border-2 border-ink bg-bone px-3 font-display text-xs font-black uppercase tracking-wider">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+                            {{ __('Filters') }}
+                            @if($activeFilters)
+                                <span class="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-fire px-1.5 text-[11px] font-black text-bone">{{ $activeFilters }}</span>
+                            @endif
+                        </button>
+                        <form method="GET" class="ml-auto">
+                            @foreach(request()->except(['sort','page']) as $k => $v)
+                                <input type="hidden" name="{{ $k }}" value="{{ $v }}">
+                            @endforeach
+                            <select name="sort" onchange="this.form.submit()" aria-label="{{ __('Sort') }}"
+                                    class="h-11 border-2 border-ink bg-bone px-3 font-display uppercase text-xs">
+                                @foreach($sortOptions as $key => $label)
+                                    <option value="{{ $key }}" @selected($sort === $key)>{{ __('Sort') }}: {{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
+
+                    {{-- Quick animal chips --}}
+                    <div class="-mx-4 px-4 flex gap-2 overflow-x-auto no-scrollbar snap-x">
+                        <a href="{{ $linkBase(['category' => null]) }}"
+                           class="snap-start shrink-0 inline-flex h-9 items-center border-2 border-ink px-3 font-display text-xs font-bold uppercase tracking-wider {{ !$activeCategory ? 'bg-ink text-bone' : 'bg-bone text-ink' }}">
+                            {{ __('All animals') }}
+                        </a>
+                        @foreach($categories as $cat)
+                            @php $on = $activeCategory && $activeCategory->id === $cat->id; @endphp
+                            <a href="{{ $linkBase(['category' => $on ? null : $cat->slug]) }}"
+                               class="snap-start shrink-0 inline-flex h-9 items-center border-2 border-ink px-3 font-display text-xs font-bold uppercase tracking-wider {{ $on ? 'bg-grass text-ink' : 'bg-bone text-ink' }}">
+                                {{ $cat->t('name') }}
+                            </a>
+                        @endforeach
+                    </div>
+
+                    <div class="text-sm text-ink/60">{{ __('Showing :count treats', ['count' => $products->total()]) }}</div>
+
+                    {{-- Bottom sheet --}}
+                    <template x-teleport="body">
+                        <div x-show="sheet" x-cloak class="fixed inset-0 z-[110] lg:hidden" @keydown.escape.window="sheet = false">
+                            <div class="absolute inset-0 bg-ink/70" x-show="sheet" x-transition.opacity @click="sheet = false"></div>
+                            <form method="GET" action="{{ route('products.index') }}" @submit="$el.querySelectorAll('input').forEach(i => { if (i.value === '') i.disabled = true })"
+                                  x-show="sheet" x-transition:enter="transition transform ease-out duration-200" x-transition:enter-start="translate-y-full" x-transition:enter-end="translate-y-0"
+                                  x-transition:leave="transition transform ease-in duration-150" x-transition:leave-start="translate-y-0" x-transition:leave-end="translate-y-full"
+                                  class="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto border-t-2 border-ink bg-bone paper"
+                                  role="dialog" aria-modal="true" aria-label="{{ __('Filters') }}">
+                                @if(request('q'))<input type="hidden" name="q" value="{{ request('q') }}">@endif
+                                @if($sort !== 'featured')<input type="hidden" name="sort" value="{{ $sort }}">@endif
+
+                                <div class="sticky top-0 z-10 flex items-center justify-between border-b-2 border-ink bg-bone px-5 py-4">
+                                    <span class="font-display text-xl font-black uppercase">{{ __('Filters') }}</span>
+                                    <button type="button" @click="sheet = false" class="inline-flex h-9 w-9 items-center justify-center border-2 border-ink text-xl leading-none" aria-label="{{ __('Close') }}">&times;</button>
+                                </div>
+
+                                <div class="px-5 py-5 space-y-6">
+                                    <fieldset>
+                                        <legend class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Type') }}</legend>
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="type" value="" class="peer sr-only" @checked(!$activeType)>
+                                                <span class="inline-flex h-10 items-center border-2 border-ink bg-bone px-3 font-display text-xs font-bold uppercase tracking-wider peer-checked:bg-fire peer-checked:text-bone">{{ __('All types') }}</span>
+                                            </label>
+                                            @foreach($types as $key => $label)
+                                                <label class="cursor-pointer">
+                                                    <input type="radio" name="type" value="{{ $key }}" class="peer sr-only" @checked($activeType === $key)>
+                                                    <span class="inline-flex h-10 items-center border-2 border-ink bg-bone px-3 font-display text-xs font-bold uppercase tracking-wider peer-checked:bg-fire peer-checked:text-bone">{{ __($label) }}</span>
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Animal') }}</legend>
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="category" value="" class="peer sr-only" @checked(!$activeCategory)>
+                                                <span class="inline-flex h-10 items-center border-2 border-ink bg-bone px-3 font-display text-xs font-bold uppercase tracking-wider peer-checked:bg-grass">{{ __('All animals') }}</span>
+                                            </label>
+                                            @foreach($categories as $cat)
+                                                <label class="cursor-pointer">
+                                                    <input type="radio" name="category" value="{{ $cat->slug }}" class="peer sr-only" @checked($activeCategory && $activeCategory->id === $cat->id)>
+                                                    <span class="inline-flex h-10 items-center border-2 border-ink bg-bone px-3 font-display text-xs font-bold uppercase tracking-wider peer-checked:bg-grass">{{ $cat->t('name') }}</span>
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="sticky bottom-0 flex gap-3 border-t-2 border-ink bg-bone px-5 py-4">
+                                    <a href="{{ route('products.index') }}" class="btn-rough is-bone is-sm flex-1 justify-center">{{ __('Clear all') }}</a>
+                                    <button type="submit" class="btn-rough is-fire is-sm flex-1 justify-center">{{ __('Apply') }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </template>
+                </div>
+
+                {{-- Desktop: count + sort --}}
+                <form method="GET" class="hidden lg:flex mb-6 flex-wrap items-center gap-3">
                     @foreach(request()->except(['sort','page']) as $k => $v)
                         <input type="hidden" name="{{ $k }}" value="{{ $v }}">
                     @endforeach
                     <span class="text-sm text-ink/60">{{ __('Showing :count treats', ['count' => $products->total()]) }}</span>
                     <select name="sort" onchange="this.form.submit()"
                             class="ml-auto border-2 border-ink bg-bone px-3 py-2 font-display uppercase text-xs">
-                        @foreach([
-                            'featured' => __('Featured'),
-                            'newest' => __('Newest'),
-                            'name' => __('Name A–Z'),
-                        ] as $key => $label)
+                        @foreach($sortOptions as $key => $label)
                             <option value="{{ $key }}" @selected($sort === $key)>{{ __('Sort') }}: {{ $label }}</option>
                         @endforeach
                     </select>
