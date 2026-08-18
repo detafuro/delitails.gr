@@ -5,7 +5,7 @@
 <x-layout title="{{ $title }}" description="{{ $description }}">
     <section class="bg-bone pt-10 md:pt-14 pb-14 md:pb-20">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
-            <nav class="text-xs uppercase tracking-widest text-ink/60 mb-6">
+            <nav aria-label="{{ __('Breadcrumb') }}" class="text-xs uppercase tracking-widest text-ink/60 mb-6">
                 <a class="hover:text-fire" href="{{ route('home') }}">{{ __('Home') }}</a> /
                 <a class="hover:text-fire" href="{{ route('products.index') }}">{{ __('Products') }}</a>
                 @if($product->category)
@@ -38,10 +38,10 @@
                     @if(count($images) > 1)
                         <div class="grid grid-cols-5 gap-2 pb-6">
                             @foreach($images as $i => $path)
-                                <button type="button" @click="active={{ $i }}"
+                                <button type="button" @click="active={{ $i }}" :aria-pressed="active === {{ $i }}" aria-label="{{ __('Photo :n of :total', ['n' => $i + 1, 'total' => count($images)]) }}"
                                         :class="active === {{ $i }} ? 'border-fire' : 'border-ink'"
                                         class="aspect-square border-2 overflow-hidden">
-                                    <img src="{{ asset('storage/'.$path) }}" class="h-full w-full object-cover">
+                                    <img src="{{ asset('storage/'.$path) }}" alt="" class="h-full w-full object-cover" loading="lazy" decoding="async">
                                 </button>
                             @endforeach
                         </div>

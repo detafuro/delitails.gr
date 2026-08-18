@@ -61,8 +61,10 @@
 </head>
 <body class="min-h-screen bg-bone text-ink antialiased selection:bg-fire selection:text-bone">
 
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:border-2 focus:border-ink focus:bg-bone focus:px-4 focus:py-2 focus:font-bold focus:uppercase focus:text-ink">{{ __('Skip to content') }}</a>
+
     {{-- Announcement bar --}}
-    <div class="relative bg-ink text-bone overflow-hidden border-b-2 border-ink">
+    <div class="relative bg-ink text-bone overflow-hidden border-b-2 border-ink" role="region" aria-label="{{ __('Announcements') }}">
         <div class="marquee-track py-2 text-xs md:text-sm font-bold uppercase tracking-[0.15em]">
             @for($i = 0; $i < 2; $i++)
                 @foreach($announcements as $msg)
@@ -88,7 +90,7 @@
                 @endif
             </a>
 
-            <nav class="hidden lg:flex flex-1 items-center justify-center gap-3">
+            <nav aria-label="{{ __('Main') }}" class="hidden lg:flex flex-1 items-center justify-center gap-3">
                 @php
                     $storesPublic = ($site['stores_page_status'] ?? 'draft') === 'public';
                     $links = array_values(array_filter([
@@ -157,7 +159,7 @@
                     <span class="font-display text-xl font-black uppercase">{{ __('Menu') }}</span>
                     <button @click="mobile=false" class="text-2xl">&times;</button>
                 </div>
-                <nav class="space-y-1">
+                <nav aria-label="{{ __('Mobile') }}" class="space-y-1">
                     @foreach($links as [$route,$label])
                         <a href="{{ route($route) }}" class="block border-b-2 border-ink/10 py-3 font-display font-bold uppercase tracking-wider">{{ __($label) }}</a>
                     @endforeach
@@ -175,7 +177,7 @@
         </template>
 </header>
 
-    <main>
+    <main id="main">
         {{ $slot }}
     </main>
 
@@ -209,7 +211,7 @@
             </div>
 
             <div>
-                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Products</h4>
+                <h2 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Products</h2>
                 <ul class="mt-4 space-y-2 text-bone/80">
                     @foreach(\App\Models\Product::TYPES as $typeKey => $typeLabel)
                         <li><a class="hover:text-grass" href="{{ route('products.index', ['type' => $typeKey]) }}">{{ $typeLabel }}</a></li>
@@ -221,7 +223,7 @@
             </div>
 
             <div>
-                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Inside</h4>
+                <h2 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Inside</h2>
                 <ul class="mt-4 space-y-2 text-bone/80">
                     <li><a class="hover:text-grass" href="{{ route('about') }}">About us</a></li>
                     <li><a class="hover:text-grass" href="{{ route('blog.index') }}">Blog</a></li>
@@ -231,7 +233,7 @@
             </div>
 
             <div>
-                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Get in touch</h4>
+                <h2 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Get in touch</h2>
                 <ul class="mt-4 space-y-2 text-bone/80">
                     @if(!empty($site['contact_email']))<li><a class="hover:text-grass" href="mailto:{{ $site['contact_email'] }}">{{ $site['contact_email'] }}</a></li>@endif
                     @if(!empty($site['contact_phone']))<li>{{ $site['contact_phone'] }}</li>@endif

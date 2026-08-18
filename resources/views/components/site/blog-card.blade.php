@@ -16,7 +16,7 @@
     </div>
     <div class="flex-1 p-5 md:p-6 flex flex-col justify-center">
         <div class="text-xs uppercase tracking-wider text-ink/55">
-            {{ $post->published_at?->translatedFormat('j M Y') }} @if($post->author) · {{ $post->author }} @endif
+            <time datetime="{{ $post->published_at?->toDateString() }}">{{ $post->published_at?->translatedFormat('j M Y') }}</time> @if($post->author) · {{ $post->author }} @endif
         </div>
         <h3 class="mt-1 font-display text-xl md:text-2xl font-black uppercase leading-tight text-ink">{{ $post->t('title') }}</h3>
         @if($post->excerpt)
@@ -44,7 +44,7 @@
     </div>
     <div class="flex flex-1 flex-col p-5">
         <div class="text-xs uppercase tracking-wider text-ink/55">
-            {{ $post->published_at?->translatedFormat('j M Y') }} @if($post->author) · {{ $post->author }} @endif
+            <time datetime="{{ $post->published_at?->toDateString() }}">{{ $post->published_at?->translatedFormat('j M Y') }}</time> @if($post->author) · {{ $post->author }} @endif
         </div>
         <h3 class="mt-1 font-display text-xl md:text-2xl font-black uppercase leading-tight text-ink">{{ $post->t('title') }}</h3>
         @if($post->excerpt)

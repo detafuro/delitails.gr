@@ -32,30 +32,30 @@
                     <input type="text" name="hp_field" class="hidden" tabindex="-1" autocomplete="off">
 
                     <div class="sm:col-span-1">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Your name') }} *</label>
-                        <input name="name" value="{{ old('name') }}" required class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">
+                        <label for="contact-name" class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Your name') }} *</label>
+                        <input id="contact-name" name="name" autocomplete="name" value="{{ old('name') }}" required class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">
                         @error('name')<p class="mt-1 text-xs text-fire">{{ $message }}</p>@enderror
                     </div>
 
                     <div class="sm:col-span-1">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Email') }} *</label>
-                        <input type="email" name="email" value="{{ old('email') }}" required class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">
+                        <label for="contact-email" class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Email') }} *</label>
+                        <input id="contact-email" type="email" name="email" autocomplete="email" value="{{ old('email') }}" required class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">
                         @error('email')<p class="mt-1 text-xs text-fire">{{ $message }}</p>@enderror
                     </div>
 
                     <div class="sm:col-span-1">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Phone') }}</label>
-                        <input name="phone" value="{{ old('phone') }}" class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">
+                        <label for="contact-phone" class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Phone') }}</label>
+                        <input id="contact-phone" type="tel" name="phone" autocomplete="tel" value="{{ old('phone') }}" class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">
                     </div>
 
                     <div class="sm:col-span-1">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Subject') }}</label>
-                        <input name="subject" value="{{ old('subject') }}" class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">
+                        <label for="contact-subject" class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Subject') }}</label>
+                        <input id="contact-subject" name="subject" value="{{ old('subject') }}" class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">
                     </div>
 
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Message') }} *</label>
-                        <textarea name="message" rows="6" required class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">{{ old('message') }}</textarea>
+                        <label for="contact-message" class="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-1">{{ __('Message') }} *</label>
+                        <textarea id="contact-message" name="message" rows="6" required class="w-full border-2 border-ink bg-bone px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fire/60">{{ old('message') }}</textarea>
                         @error('message')<p class="mt-1 text-xs text-fire">{{ $message }}</p>@enderror
                     </div>
 

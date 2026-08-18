@@ -17,7 +17,7 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6 grid lg:grid-cols-4 gap-10">
             <aside class="lg:col-span-1 space-y-6">
                 <form method="GET" class="brush-card bg-bone p-5">
-                    <h3 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Search') }}</h3>
+                    <h2 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Search') }}</h2>
                     <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Find a post…') }}"
                            class="mt-3 w-full border-2 border-ink bg-bone px-3 py-2 font-display uppercase placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-fire/50">
                     <button class="btn-rough is-fire is-sm mt-3 w-full justify-center">{{ __('Search') }}</button>
@@ -25,7 +25,7 @@
 
                 @if($categories->count())
                     <div class="brush-card bg-bone p-5">
-                        <h3 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Categories') }}</h3>
+                        <h2 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Categories') }}</h2>
                         <ul class="mt-3 space-y-1">
                             <li><a href="{{ route('blog.index') }}" class="block border-2 border-transparent px-3 py-2 font-display uppercase tracking-wider text-sm hover:border-ink {{ !$activeCategory ? 'border-ink bg-grass' : '' }}">{{ __('All posts') }}</a></li>
                             @foreach($categories as $cat)

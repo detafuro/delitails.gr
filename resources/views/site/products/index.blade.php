@@ -62,7 +62,7 @@
             {{-- Sidebar (desktop) --}}
             <aside class="hidden lg:block lg:col-span-1 space-y-6">
                 <div class="brush-card bg-bone p-5">
-                    <h3 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Search') }}</h3>
+                    <h2 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Search') }}</h2>
                     <form method="GET" class="mt-3">
                         @if($activeCategory)<input type="hidden" name="category" value="{{ $activeCategory->slug }}">@endif
                         @if($activeType)<input type="hidden" name="type" value="{{ $activeType }}">@endif
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="brush-card bg-bone p-5">
-                    <h3 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Type') }}</h3>
+                    <h2 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Type') }}</h2>
                     <ul class="mt-3 space-y-1">
                         <li>
                             <a href="{{ $linkBase(['type' => null]) }}"
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="brush-card bg-bone p-5">
-                    <h3 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Animal') }}</h3>
+                    <h2 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Animal') }}</h2>
                     <ul class="mt-3 space-y-1">
                         <li>
                             <a href="{{ $linkBase(['category' => null]) }}"
@@ -224,7 +224,7 @@
                         <input type="hidden" name="{{ $k }}" value="{{ $v }}">
                     @endforeach
                     <span class="text-sm text-ink/60">{{ __('Showing :count treats', ['count' => $products->total()]) }}</span>
-                    <select name="sort" onchange="this.form.submit()"
+                    <select name="sort" onchange="this.form.submit()" aria-label="{{ __('Sort') }}"
                             class="ml-auto border-2 border-ink bg-bone px-3 py-2 font-display uppercase text-xs">
                         @foreach($sortOptions as $key => $label)
                             <option value="{{ $key }}" @selected($sort === $key)>{{ __('Sort') }}: {{ $label }}</option>

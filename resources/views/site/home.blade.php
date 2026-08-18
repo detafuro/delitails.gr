@@ -300,7 +300,7 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($testimonials as $t)
                     <div class="brush-card bg-bone p-6 {{ $loop->iteration % 2 === 0 ? 'rotate-tilt-2' : 'rotate-tilt-1' }}">
-                        <div class="flex items-center gap-1.5 text-fire mb-2" aria-label="{{ $t->rating }} out of 5">
+                        <div class="flex items-center gap-1.5 text-fire mb-2" role="img" aria-label="{{ __(':rating out of 5 stars', ['rating' => $t->rating]) }}">
                             @for($star = 0; $star < $t->rating; $star++)
                                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-6 w-6 {{ $star % 2 === 0 ? 'rotate-[-8deg]' : 'rotate-[8deg]' }}">
                                     <ellipse cx="5.2" cy="9" rx="2.1" ry="2.9" transform="rotate(-24 5.2 9)"/>

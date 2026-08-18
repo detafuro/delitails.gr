@@ -7,7 +7,7 @@
         {{-- Hero --}}
         <header class="relative bg-grass paper">
             <div class="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-14">
-                <nav class="text-xs uppercase tracking-widest text-ink/60 mb-5">
+                <nav aria-label="{{ __('Breadcrumb') }}" class="text-xs uppercase tracking-widest text-ink/60 mb-5">
                     <a href="{{ route('home') }}" class="hover:text-fire">{{ __('Home') }}</a> /
                     <a href="{{ route('blog.index') }}" class="hover:text-fire">{{ __('Blog') }}</a>
                     @if($post->category) / <a href="{{ route('blog.index', ['category' => $post->category->slug]) }}" class="hover:text-fire">{{ $post->category->t('name') }}</a> @endif
@@ -15,7 +15,7 @@
                 <h1 class="font-display text-4xl md:text-6xl font-black uppercase leading-[0.95]">{{ $post->t('title') }}</h1>
                 <div class="mt-4 flex flex-wrap items-center gap-3 text-sm">
                     @if($post->author) <span class="font-display font-bold uppercase">{{ $post->author }}</span> @endif
-                    @if($post->published_at) <span class="text-ink/60">· {{ $post->published_at->translatedFormat('j M Y') }}</span> @endif
+                    @if($post->published_at) <span class="text-ink/60">· <time datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->translatedFormat('j M Y') }}</time></span> @endif
                     @if($post->category) <span class="ribbon text-[10px]">{{ $post->category->t('name') }}</span> @endif
                 </div>
             </div>
