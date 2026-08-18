@@ -23,20 +23,12 @@
             </div>
         @endif
 
-        @if($product->is_featured)
-            <span class="absolute right-3 top-3 z-10 inline-flex items-center gap-1 border-2 border-ink bg-grass text-ink px-2 py-0.5 text-[10px] font-bold uppercase">★ {{ __('Fave') }}</span>
-        @endif
         @if($product->type_label)
             <span class="absolute left-3 bottom-3 z-10 inline-flex items-center gap-1 border-2 border-ink bg-bone text-ink px-2 py-0.5 text-[10px] font-bold uppercase">{{ __($product->type_label) }}</span>
         @endif
     </div>
-    <div class="mt-3 flex items-end justify-between gap-2">
-        <div>
-            <h3 class="font-display text-lg font-extrabold uppercase leading-tight">{{ $product->t('title') }}</h3>
-            <div class="text-xs uppercase tracking-wider text-ink/55">{{ $product->category?->t('name') }}</div>
-        </div>
-        <span class="inline-flex items-center gap-1 font-display text-xs font-extrabold uppercase tracking-wider text-fire">
-            {{ __('View') }} <span class="wiggle inline-block">→</span>
-        </span>
+    <div class="mt-3">
+        <h3 class="font-display text-lg font-extrabold uppercase leading-tight">{{ $product->t('title') }}</h3>
+        <div class="text-xs uppercase tracking-wider text-ink/55">{{ $product->category?->t('name') }}</div>
     </div>
 </a>

@@ -173,6 +173,9 @@
     .btn-rough.is-ghost { background: transparent; border-color: var(--color-ink); color: var(--color-ink); }
     .btn-rough.is-sm { padding: 0.55rem 1rem; font-size: 0.8rem; }
 
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+
     /* Main-nav sticker buttons */
     .nav-btn {
         display: inline-flex;

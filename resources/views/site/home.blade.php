@@ -155,16 +155,51 @@
                     <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">{{ __('Customer favourites') }}</div>
                     <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase text-bone">{{ __('The hot picks') }}</h2>
                 </div>
-                <x-site.rough-button href="{{ route('products.index') }}" variant="ink">{{ __('View everything') }}</x-site.rough-button>
+                <x-site.rough-button href="{{ route('products.index') }}" variant="ink" class="hidden md:inline-flex">{{ __('View everything') }}</x-site.rough-button>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                @forelse($featured as $product)
-                    <x-site.product-card :product="$product"/>
-                @empty
-                    <div class="col-span-full text-center text-bone/70 py-10">{{ __('No products yet. Stand by.') }}</div>
-                @endforelse
-            </div>
+            @if($featured->isEmpty())
+                <div class="text-center text-bone/70 py-10">{{ __('No products yet. Stand by.') }}</div>
+            @else
+                {{-- Mobile: one-card scroll-snap carousel. md+: grid. --}}
+                <div x-data="{
+                        i: 0, n: {{ $featured->count() }},
+                        go(k) { const el = this.$refs.track; const c = el.children[Math.max(0, Math.min(k, this.n - 1))]; if (c) el.scrollTo({ left: c.offsetLeft - el.offsetLeft, behavior: 'smooth' }); },
+                        sync() { const el = this.$refs.track; let best = 0, d = Infinity; [...el.children].forEach((c, k) => { const dist = Math.abs((c.offsetLeft - el.offsetLeft) - el.scrollLeft); if (dist < d) { d = dist; best = k; } }); this.i = best; }
+                     }">
+                    <div x-ref="track" @scroll.passive.debounce.80ms="sync()"
+                         class="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 -mx-4 px-4 no-scrollbar
+                                md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-3 lg:grid-cols-4 md:gap-5 md:overflow-visible md:snap-none">
+                        @foreach($featured as $product)
+                            <div class="snap-center shrink-0 w-[85%] sm:w-[70%] md:w-auto md:shrink">
+                                <x-site.product-card :product="$product"/>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{-- Mobile controls: arrows + dots --}}
+                    <div class="mt-5 flex items-center justify-between md:hidden" x-show="n > 1">
+                        <button type="button" @click="go(i - 1)" :disabled="i === 0"
+                                class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-bone text-ink font-black disabled:opacity-40"
+                                aria-label="{{ __('Previous') }}">←</button>
+                        <div class="flex items-center gap-2" role="tablist">
+                            <template x-for="k in n" :key="k">
+                                <button type="button" @click="go(k - 1)"
+                                        class="h-2.5 w-2.5 border-2 border-ink transition"
+                                        :class="i === k - 1 ? 'bg-ink' : 'bg-bone'"
+                                        :aria-label="'{{ __('Slide') }} ' + k"></button>
+                            </template>
+                        </div>
+                        <button type="button" @click="go(i + 1)" :disabled="i === n - 1"
+                                class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-bone text-ink font-black disabled:opacity-40"
+                                aria-label="{{ __('Next') }}">→</button>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-center md:hidden">
+                    <x-site.rough-button href="{{ route('products.index') }}" variant="ink">{{ __('View everything') }}</x-site.rough-button>
+                </div>
+            @endif
         </div>
     </x-site.torn-section>
 
