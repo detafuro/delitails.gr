@@ -1,4 +1,7 @@
-@php $title = __('Contact').' — '.($site['site_name'] ?? config('app.name')); @endphp
+@php
+    $title = __('Contact').' — '.($site['site_name'] ?? config('app.name'));
+    $contactAddress = (app()->getLocale() === 'el' ? ($site['contact_address_el'] ?? null) : null) ?: ($site['contact_address'] ?? null);
+@endphp
 <x-layout title="{{ $title }}" description="{{ __('Get in touch. We answer every message — usually with treats in hand.') }}">
     <section class="bg-ink text-bone paper">
         <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-20">
@@ -77,10 +80,10 @@
                             <a href="tel:{{ preg_replace('/[^+\d]/','',$site['contact_phone']) }}" class="font-display font-bold hover:text-fire">{{ $site['contact_phone'] }}</a>
                         </div>
                     @endif
-                    @if(!empty($site['contact_address']))
+                    @if(!empty($contactAddress))
                         <div>
                             <div class="text-xs uppercase tracking-widest text-ink/55">{{ __('Address') }}</div>
-                            <div class="font-editorial italic text-ink/80">{{ $site['contact_address'] }}</div>
+                            <div class="font-editorial italic text-ink/80">{{ $contactAddress }}</div>
                         </div>
                     @endif
                 </div>

@@ -39,7 +39,11 @@
                 <x-admin.form-input name="contact_email" label="Contact email" type="email" :value="$settings['contact_email'] ?? ''"/>
                 <x-admin.form-input name="contact_phone" label="Phone" :value="$settings['contact_phone'] ?? ''"/>
             </div>
-            <x-admin.textarea name="contact_address" label="Address" :value="$settings['contact_address'] ?? ''" rows="2"/>
+            <div class="grid sm:grid-cols-2 gap-5">
+                <x-admin.textarea name="contact_address" label="Address" :value="$settings['contact_address'] ?? ''" rows="2"/>
+                <x-admin.textarea name="contact_address_el" label="Address (Ελληνικά)" :value="$settings['contact_address_el'] ?? ''" rows="2"
+                    hint="Shown to Greek visitors; falls back to the English address when empty."/>
+            </div>
             <div class="grid sm:grid-cols-2 gap-5">
                 <x-admin.form-input name="social_facebook" label="Facebook URL" :value="$settings['social_facebook'] ?? ''"/>
                 <x-admin.form-input name="social_instagram" label="Instagram URL" :value="$settings['social_instagram'] ?? ''"/>

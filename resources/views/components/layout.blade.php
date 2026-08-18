@@ -1,6 +1,7 @@
 @php
     use Illuminate\Support\Str;
     $siteName = $site['site_name'] ?? config('app.name', 'Delitails');
+    $contactAddress = (app()->getLocale() === 'el' ? ($site['contact_address_el'] ?? null) : null) ?: ($site['contact_address'] ?? null);
     $announcementRaw = $site['announcement_messages'] ?? '';
     if (app()->getLocale() === 'el' && trim($site['announcement_messages_el'] ?? '') !== '') {
         $announcementRaw = $site['announcement_messages_el'];
@@ -218,7 +219,7 @@
                 <ul class="mt-4 space-y-2 text-bone/80">
                     @if(!empty($site['contact_email']))<li><a class="hover:text-grass" href="mailto:{{ $site['contact_email'] }}">{{ $site['contact_email'] }}</a></li>@endif
                     @if(!empty($site['contact_phone']))<li>{{ $site['contact_phone'] }}</li>@endif
-                    @if(!empty($site['contact_address']))<li class="text-bone/60">{{ $site['contact_address'] }}</li>@endif
+                    @if(!empty($contactAddress))<li class="text-bone/60">{{ $contactAddress }}</li>@endif
                 </ul>
             </div>
         </div>

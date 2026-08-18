@@ -21,6 +21,7 @@ class UpdateSettingsRequest extends FormRequest
             'contact_email' => ['nullable', 'email', 'max:255'],
             'contact_phone' => ['nullable', 'string', 'max:64'],
             'contact_address' => ['nullable', 'string', 'max:500'],
+            'contact_address_el' => ['nullable', 'string', 'max:500'],
             'social_facebook' => ['nullable', 'url', 'max:255'],
             'social_instagram' => ['nullable', 'url', 'max:255'],
             'social_tiktok' => ['nullable', 'url', 'max:255'],
