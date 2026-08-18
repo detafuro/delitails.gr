@@ -171,16 +171,16 @@
     <footer class="relative bg-ink text-bone">
         <div aria-hidden="true" class="absolute bottom-full -mb-px left-0 right-0 h-10 paper torn-top bg-ink"></div>
 
-        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div class="mx-auto max-w-7xl px-4 md:px-6 py-16 grid md:grid-cols-2 lg:grid-cols-5 gap-10 text-center md:text-left">
             <div class="lg:col-span-2">
                 @if(!empty($site['footer_logo']))
-                    <img src="{{ asset('storage/'.$site['footer_logo']) }}" alt="" class="h-24 mb-4">
+                    <img src="{{ asset('storage/'.$site['footer_logo']) }}" alt="" class="h-24 mb-4 mx-auto md:mx-0">
                 @else
                     <div class="font-display text-3xl font-black uppercase mb-3">{{ $siteName }}</div>
                 @endif
                 <p class="font-editorial text-bone/70 leading-relaxed">{{ $footerText ?? __('Loud treats for good dogs and louder cats. Hand-baked, small batch, raised on rebellion.') }}</p>
 
-                <div class="mt-5 flex gap-2">
+                <div class="mt-5 flex gap-2 justify-center md:justify-start">
                     @foreach([
                         'social_facebook' => 'Facebook',
                         'social_instagram' => 'Instagram',
@@ -197,42 +197,42 @@
             </div>
 
             <div>
-                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">{{ __('Products') }}</h4>
+                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Products</h4>
                 <ul class="mt-4 space-y-2 text-bone/80">
                     @foreach(\App\Models\Product::TYPES as $typeKey => $typeLabel)
-                        <li><a class="hover:text-grass" href="{{ route('products.index', ['type' => $typeKey]) }}">{{ __($typeLabel) }}</a></li>
+                        <li><a class="hover:text-grass" href="{{ route('products.index', ['type' => $typeKey]) }}">{{ $typeLabel }}</a></li>
                     @endforeach
                     @if(($site['stores_page_status'] ?? 'draft') === 'public')
-                        <li><a class="hover:text-grass" href="{{ route('stores') }}">{{ __('Find a store') }}</a></li>
+                        <li><a class="hover:text-grass" href="{{ route('stores') }}">Find a store</a></li>
                     @endif
                 </ul>
             </div>
 
             <div>
-                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">{{ __('Inside') }}</h4>
+                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Inside</h4>
                 <ul class="mt-4 space-y-2 text-bone/80">
-                    <li><a class="hover:text-grass" href="{{ route('about') }}">{{ __('About us') }}</a></li>
-                    <li><a class="hover:text-grass" href="{{ route('blog.index') }}">{{ __('Blog') }}</a></li>
-                    <li><a class="hover:text-grass" href="{{ route('faq') }}">{{ __('FAQ') }}</a></li>
-                    <li><a class="hover:text-grass" href="{{ route('contact') }}">{{ __('Contact') }}</a></li>
+                    <li><a class="hover:text-grass" href="{{ route('about') }}">About us</a></li>
+                    <li><a class="hover:text-grass" href="{{ route('blog.index') }}">Blog</a></li>
+                    <li><a class="hover:text-grass" href="{{ route('faq') }}">FAQ</a></li>
+                    <li><a class="hover:text-grass" href="{{ route('contact') }}">Contact</a></li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">{{ __('Get in touch') }}</h4>
+                <h4 class="font-display text-sm font-extrabold uppercase tracking-widest text-grass">Get in touch</h4>
                 <ul class="mt-4 space-y-2 text-bone/80">
                     @if(!empty($site['contact_email']))<li><a class="hover:text-grass" href="mailto:{{ $site['contact_email'] }}">{{ $site['contact_email'] }}</a></li>@endif
                     @if(!empty($site['contact_phone']))<li>{{ $site['contact_phone'] }}</li>@endif
-                    @if(!empty($contactAddress))<li class="text-bone/60">{{ $contactAddress }}</li>@endif
+                    @if(!empty($site['contact_address']))<li class="text-bone/60">{{ $site['contact_address'] }}</li>@endif
                 </ul>
             </div>
         </div>
 
         <div class="border-t-2 border-bone/20">
-            <div class="mx-auto max-w-7xl px-4 md:px-6 py-5 flex flex-col md:flex-row gap-3 items-center justify-between text-xs uppercase tracking-widest text-bone/50">
-                <div>&copy; {{ date('Y') }} {{ $siteName }}. {{ __('All rights reserved.') }}</div>
+            <div class="mx-auto max-w-7xl px-4 md:px-6 py-5 flex flex-col md:flex-row gap-3 items-center justify-between text-center md:text-left text-xs uppercase tracking-widest text-bone/50">
+                <div>&copy; {{ date('Y') }} {{ $siteName }}. All rights reserved.</div>
                 <div class="font-sans text-bone/60 normal-case tracking-normal text-sm">
-                    {{ __('Designed & developed by') }} <a href="https://nifty.gr/" target="_blank" rel="noopener" class="font-semibold text-bone/80 hover:text-fire-light">Nifty</a>.
+                    Designed &amp; developed by <a href="https://nifty.gr/" target="_blank" rel="noopener" class="font-semibold text-bone/80 hover:text-fire-light">Nifty</a>.
                 </div>
             </div>
         </div>
