@@ -84,11 +84,19 @@
         font-family: var(--font-sans);
         background-color: var(--color-bone);
         color: var(--color-ink);
+        /* Rotated frames/stamps poke past the mobile gutter; clip (not hidden)
+           so no scroll container is created and the sticky header keeps working. */
+        overflow-x: clip;
     }
 
     body {
         background-color: var(--color-bone);
         color: var(--color-ink);
+        overflow-x: clip;
+    }
+
+    [x-cloak] {
+        display: none !important;
     }
 
     h1, h2, h3, h4, h5, h6 {

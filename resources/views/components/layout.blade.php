@@ -41,7 +41,7 @@
         {!! $site['analytics_scripts'] !!}
     @endif
 </head>
-<body class="min-h-screen bg-bone text-ink antialiased selection:bg-fire selection:text-bone overflow-x-hidden">
+<body class="min-h-screen bg-bone text-ink antialiased selection:bg-fire selection:text-bone">
 
     {{-- Announcement bar --}}
     <div class="relative bg-ink text-bone overflow-hidden border-b-2 border-ink">
@@ -130,9 +130,10 @@
             </form>
         </div>
 
-        {{-- Mobile drawer --}}
-        <div x-show="mobile" x-cloak x-transition.opacity class="fixed inset-0 z-50 bg-ink/70 lg:hidden" @click.self="mobile=false">
-            <div class="absolute right-0 top-0 h-full w-80 bg-bone border-l-2 border-ink p-5 overflow-y-auto"
+        {{-- Mobile drawer (teleported to <body>: the sticky header's backdrop-blur would otherwise trap the fixed overlay) --}}
+        <template x-teleport="body">
+        <div x-show="mobile" x-cloak x-transition.opacity class="fixed inset-0 z-[100] bg-ink/70 lg:hidden" @click.self="mobile=false" @keydown.escape.window="mobile=false">
+            <div class="absolute right-0 top-0 h-full w-80 max-w-full bg-bone border-l-2 border-ink p-5 overflow-y-auto"
                  x-show="mobile" x-transition:enter="transition transform" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0">
                 <div class="flex justify-between items-center mb-6">
                     <span class="font-display text-xl font-black uppercase">{{ __('Menu') }}</span>
@@ -159,7 +160,8 @@
                 </div>
             </div>
         </div>
-    </header>
+        </template>
+</header>
 
     <main>
         {{ $slot }}
