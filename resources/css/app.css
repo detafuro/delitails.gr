@@ -291,15 +291,31 @@
         50% { transform: rotate(2deg); }
     }
 
+    .marquee {
+        --marquee-gap: 3rem;
+        --marquee-shift: -50%;
+        --marquee-duration: 28s;
+        overflow: hidden;
+    }
     .marquee-track {
         display: flex;
-        gap: 3rem;
+        width: max-content;
         white-space: nowrap;
-        animation: marquee 28s linear infinite;
+        will-change: transform;
+    }
+    /* Animate only once JS has cloned enough copies for a seamless loop. */
+    .marquee[data-marquee-ready] .marquee-track {
+        animation: marquee var(--marquee-duration) linear infinite;
+    }
+    .marquee-group {
+        display: flex;
+        gap: var(--marquee-gap);
+        padding-right: var(--marquee-gap);
+        flex: none;
     }
     @keyframes marquee {
         from { transform: translateX(0); }
-        to { transform: translateX(-50%); }
+        to { transform: translateX(var(--marquee-shift)); }
     }
 
     .ribbon {

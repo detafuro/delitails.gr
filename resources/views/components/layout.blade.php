@@ -104,15 +104,17 @@
 
     {{-- Announcement bar --}}
     <div class="relative bg-ink text-bone overflow-hidden border-b-2 border-ink" role="region" aria-label="{{ __('Announcements') }}">
-        <div class="marquee-track py-2 text-xs md:text-sm font-bold uppercase tracking-[0.15em]">
-            @for($i = 0; $i < 2; $i++)
-                @foreach($announcements as $msg)
-                    <span class="flex items-center gap-3">
-                        <span class="inline-block h-1.5 w-1.5 rounded-full bg-fire"></span>
-                        {{ $msg }}
-                    </span>
-                @endforeach
-            @endfor
+        <div class="marquee py-2 text-xs md:text-sm font-bold uppercase tracking-[0.15em]" data-marquee>
+            <div class="marquee-track" data-marquee-track>
+                <div class="marquee-group" data-marquee-group>
+                    @foreach($announcements as $msg)
+                        <span class="flex items-center gap-3">
+                            <span class="inline-block h-1.5 w-1.5 rounded-full bg-fire"></span>
+                            {{ $msg }}
+                        </span>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 
