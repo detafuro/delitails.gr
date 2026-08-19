@@ -280,7 +280,7 @@
                 <ul class="mt-4 space-y-2 text-bone/80">
                     @if(!empty($site['contact_email']))<li><a class="hover:text-grass" href="mailto:{{ $site['contact_email'] }}">{{ $site['contact_email'] }}</a></li>@endif
                     @if(!empty($site['contact_phone']))<li>{{ $site['contact_phone'] }}</li>@endif
-                    @if(!empty($site['contact_address']))<li class="text-bone/60">{{ $site['contact_address'] }}</li>@endif
+                    @if(!empty($contactAddress))<li class="text-bone/60">{{ $contactAddress }}</li>@endif
                 </ul>
             </div>
         </div>
