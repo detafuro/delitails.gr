@@ -42,7 +42,7 @@
 
                 <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-bold uppercase tracking-widest text-ink/70">
                     <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> {{ __('Small batch') }}</span>
-                    <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> {{ __('No nasties') }}</span>
+                    <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> {{ __('Single-protein') }}</span>
                     <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-fire"></span> {{ __('Vet-approved') }}</span>
                 </div>
             </div>
