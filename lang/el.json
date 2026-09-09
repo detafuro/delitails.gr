@@ -321,5 +321,21 @@
     "Automatic (scheduler)": "Αυτόματα (χρονοπρογραμματιστής)",
     "Unknown": "Άγνωστο",
     "Yes": "Ναι",
-    "No": "Όχι"
+    "No": "Όχι",
+    "Free to enter": "Δωρεάν συμμετοχή",
+    "Entries closed": "Οι συμμετοχές έκλεισαν",
+    "You could win": "Μπορείτε να κερδίσετε",
+    "Fill in the form": "Συμπληρώστε τη φόρμα",
+    "Name and email. Twenty seconds, one entry per person.": "Όνομα και email. Είκοσι δευτερόλεπτα, μία συμμετοχή ανά άτομο.",
+    "We draw at random": "Κληρώνουμε στην τύχη",
+    "Automatically, the moment entries close.": "Αυτόματα, μόλις κλείσουν οι συμμετοχές.",
+    "The winner is announced": "Ανακοινώνεται ο νικητής",
+    "By email, and right here on this page.": "Με email, αλλά και εδώ σε αυτή τη σελίδα.",
+    "Entry": "Συμμετοχή",
+    "One per email address": "Μία ανά διεύθυνση email",
+    "One winner": "Ένας νικητής",
+    ":count winners": ":count νικητές",
+    "one runner-up": "ένας επιλαχών",
+    ":count runners-up": ":count επιλαχόντες",
+    "Shop the treats": "Δείτε τις λιχουδιές"
 }

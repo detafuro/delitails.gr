@@ -7,23 +7,21 @@
     $title = Seo::title(__('Winner'), $contest->t('title'));
     $banner = $contest->banner_image ? asset('storage/'.$contest->banner_image) : null;
 @endphp
-<x-layout :title="$title"
-          :description="__('The winner of :contest has been drawn.', ['contest' => $contest->t('title')])"
-          :image="$banner">
-    <section class="relative overflow-hidden bg-grass paper">
-        <div class="relative mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-20 text-center">
+<x-contest-layout :title="$title"
+                  :description="__('The winner of :contest has been drawn.', ['contest' => $contest->t('title')])"
+                  :image="$banner"
+                  :logoOnDark="false">
+    <section class="relative overflow-hidden bg-grass">
+        <div class="relative mx-auto max-w-6xl px-4 md:px-6 pt-28 md:pt-36 pb-14 md:pb-20 text-center">
             <div class="text-xs font-bold uppercase tracking-[0.3em] text-ink/60">{{ __('The draw is done') }}</div>
             <h1 class="mt-3 font-display text-4xl md:text-7xl font-black uppercase leading-[0.95]">
                 {{ __('We have a winner') }}
             </h1>
             <p class="mt-4 font-editorial italic text-xl text-ink/75">{{ $contest->t('title') }}</p>
         </div>
-        <div aria-hidden="true" class="relative">
-            <div class="absolute top-full -mt-px left-0 right-0 h-10 paper torn-bottom bg-grass"></div>
-        </div>
     </section>
 
-    <section class="bg-bone pt-20 md:pt-28 pb-14 md:pb-20">
+    <section class="bg-bone py-14 md:py-20">
         <div class="mx-auto max-w-3xl px-4 md:px-6">
             @if($contest->t('winner_message'))
                 <div class="quill-content mb-8 text-center font-editorial text-lg text-ink/80">{!! $contest->t('winner_message') !!}</div>
@@ -73,10 +71,10 @@
                 <x-site.rough-button :href="route('contests.show', ['contest' => $contest->slug])" variant="bone">
                     {{ __('Back to the contest') }}
                 </x-site.rough-button>
-                <x-site.rough-button :href="route('contests.index')" variant="fire">
-                    {{ __('All contests') }}
+                <x-site.rough-button :href="route('home')" variant="fire">
+                    {{ __('Shop the treats') }}
                 </x-site.rough-button>
             </div>
         </div>
     </section>
-</x-layout>
+</x-contest-layout>

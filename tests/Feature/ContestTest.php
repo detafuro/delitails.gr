@@ -59,6 +59,22 @@ class ContestTest extends TestCase
             ->assertSee('accept_terms', escape: false);
     }
 
+    public function test_the_landing_page_is_standalone_without_site_chrome(): void
+    {
+        $contest = $this->contest();
+
+        $html = $this->get(route('contests.show', ['locale' => 'el', 'contest' => $contest->slug]))
+            ->assertOk()->getContent();
+
+        // No site header, nav or footer links — it is a campaign page, not a site page.
+        $this->assertStringNotContainsString('nav-btn', $html);
+        $this->assertStringNotContainsString('marquee', $html);
+        $this->assertStringNotContainsString(route('products.index'), $html);
+        // …but still branded: the logo links home and the form is right there.
+        $this->assertStringContainsString(route('home'), $html);
+        $this->assertStringContainsString('accept_terms', $html);
+    }
+
     public function test_pages_are_hidden_while_the_section_is_draft(): void
     {
         Setting::set('contests_page_status', 'draft');

@@ -5,125 +5,166 @@
 
     $state = $contest->state;
     $title = Seo::title($contest->t('seo_title') ?: $contest->t('title'));
-    $description = $contest->t('seo_description') ?: ($contest->t('excerpt') ?: __('Enter our contest and win :prize.', ['prize' => $contest->t('prize') ?: __('a treat bundle')]));
+    $description = $contest->t('seo_description')
+        ?: ($contest->t('excerpt') ?: __('Enter our contest and win :prize.', ['prize' => $contest->t('prize') ?: __('a treat bundle')]));
     $banner = $contest->banner_image ? asset('storage/'.$contest->banner_image) : null;
+    $isOpen = $state === Contest::STATE_ACTIVE;
 @endphp
-<x-layout :title="$title" :description="$description" :image="$banner">
-    {{-- Hero --}}
-    <section class="relative overflow-hidden bg-ink text-bone paper">
+<x-contest-layout :title="$title" :description="$description" :image="$banner">
+
+    {{-- ===================== THE OFFER ===================== --}}
+    <section class="relative overflow-hidden bg-ink text-bone">
         @if($contest->banner_image)
-            <x-site.img :src="$contest->banner_image" alt="" loading="eager" fetchpriority="high"
-                        sizes="100vw" class="absolute inset-0 h-full w-full object-cover opacity-30"/>
-            <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40"></div>
+            <x-site.img :src="$contest->banner_image" alt="" loading="eager" fetchpriority="high" sizes="100vw"
+                        class="absolute inset-0 h-full w-full object-cover opacity-25"/>
+            <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-ink via-ink/90 to-ink"></div>
         @endif
 
-        <div class="relative mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-20">
-            <div class="flex flex-wrap items-center gap-3">
-                <a href="{{ route('contests.index') }}" class="text-xs font-bold uppercase tracking-[0.3em] text-bone/60 hover:text-fire-light">{{ __('Contests') }}</a>
-                <span class="inline-flex items-center gap-2 border-2 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider
-                    {{ $state === Contest::STATE_ACTIVE ? 'border-grass bg-grass text-ink' : 'border-bone/40 text-bone/80' }}">
-                    @switch($state)
-                        @case(Contest::STATE_ACTIVE) <span class="h-1.5 w-1.5 rounded-full bg-ink animate-pulse"></span>{{ __('Open for entries') }} @break
-                        @case(Contest::STATE_SCHEDULED) {{ __('Coming soon') }} @break
-                        @case(Contest::STATE_COMPLETED) {{ __('Winner announced') }} @break
-                        @case(Contest::STATE_DRAFT) {{ __('Draft — admin preview') }} @break
-                        @default {{ __('Closed') }}
-                    @endswitch
-                </span>
-            </div>
+        <div class="relative mx-auto max-w-6xl px-4 md:px-6 pt-28 md:pt-36 pb-16 md:pb-24">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
 
-            <h1 class="mt-4 font-display text-4xl md:text-7xl font-black uppercase leading-[0.95] max-w-4xl">{{ $contest->t('title') }}</h1>
-
-            @if($contest->t('prize'))
-                <p class="mt-4 max-w-2xl font-editorial italic text-xl md:text-2xl text-bone/85">
-                    <span class="text-fire-light font-bold not-italic uppercase text-sm tracking-[0.2em] block mb-1">{{ __('The prize') }}</span>
-                    {{ $contest->t('prize') }}
-                </p>
-            @endif
-
-            <div class="mt-8 flex flex-wrap items-end gap-6">
-                @if($state === Contest::STATE_ACTIVE)
-                    <x-site.countdown :to="$contest->ends_at" :label="__('Entries close in')" tone="ink"/>
-                    <x-site.rough-button href="#enter" variant="fire">{{ __('Enter now') }}</x-site.rough-button>
-                @elseif($state === Contest::STATE_SCHEDULED)
-                    <x-site.countdown :to="$contest->starts_at" :label="__('Opens in')" tone="ink"/>
-                @elseif($contest->isDrawn())
-                    <x-site.rough-button :href="route('contests.winner', ['contest' => $contest->slug])" variant="fire">
-                        {{ __('See the winner') }}
-                    </x-site.rough-button>
-                @endif
-            </div>
-
-            <p class="mt-6 text-sm text-bone/60">
-                {{ __('Runs') }}: {{ Dates::format($contest->starts_at) }} → {{ Dates::format($contest->ends_at) }}
-            </p>
-        </div>
-
-        <div aria-hidden="true" class="relative">
-            <div class="absolute top-full -mt-px left-0 right-0 h-10 paper torn-bottom bg-ink"></div>
-        </div>
-    </section>
-
-    {{-- Body --}}
-    <section class="bg-bone pt-20 md:pt-28 pb-14 md:pb-20">
-        <div class="mx-auto max-w-7xl px-4 md:px-6 grid lg:grid-cols-5 gap-10">
-            <div class="lg:col-span-3 space-y-10">
-                @if($contest->t('description'))
-                    <div class="quill-content font-editorial text-lg leading-relaxed text-ink/85">
-                        {!! $contest->t('description') !!}
+                {{-- Message + prize --}}
+                <div class="lg:pt-6">
+                    <div class="inline-flex items-center gap-2 border-2 px-3 py-1 text-[11px] font-black uppercase tracking-[0.2em]
+                        {{ $isOpen ? 'border-grass bg-grass text-ink' : 'border-bone/40 text-bone/70' }}">
+                        @if($isOpen)
+                            <span class="h-1.5 w-1.5 rounded-full bg-ink animate-pulse"></span>{{ __('Free to enter') }}
+                        @elseif($state === Contest::STATE_SCHEDULED)
+                            {{ __('Coming soon') }}
+                        @elseif($contest->isDrawn())
+                            {{ __('Winner announced') }}
+                        @else
+                            {{ __('Entries closed') }}
+                        @endif
                     </div>
-                @endif
 
-                <div id="terms" class="brush-card bg-bone p-6 md:p-8 scroll-mt-28">
-                    <h2 class="font-display text-2xl font-extrabold uppercase">{{ __('Terms & conditions') }}</h2>
-                    @if($contest->t('terms'))
-                        <div class="quill-content mt-4 text-sm leading-relaxed text-ink/80">{!! $contest->t('terms') !!}</div>
-                    @else
-                        <p class="mt-3 text-sm text-ink/70">{{ __('Full terms are published before entries open.') }}</p>
+                    <h1 class="mt-5 font-display text-[2.75rem] leading-[0.92] md:text-7xl lg:text-[5rem] font-black uppercase">
+                        {{ $contest->t('title') }}
+                    </h1>
+
+                    @if($contest->t('excerpt'))
+                        <p class="mt-5 max-w-xl font-editorial italic text-xl md:text-2xl text-bone/75 leading-snug">
+                            {{ $contest->t('excerpt') }}
+                        </p>
                     @endif
-                    <p class="mt-5 border-t-2 border-dashed border-ink/25 pt-4 text-xs text-ink/55">
-                        {{ __('One entry per email address. The winner is drawn at random and contacted by email at the address given.') }}
-                    </p>
-                </div>
-            </div>
 
-            {{-- Entry column --}}
-            <div class="lg:col-span-2">
-                <div class="lg:sticky lg:top-28 space-y-5">
-                    @if($state === Contest::STATE_ACTIVE)
+                    @if($contest->t('prize'))
+                        <div class="mt-8 border-l-4 border-fire pl-5">
+                            <div class="text-[11px] font-black uppercase tracking-[0.3em] text-fire-light">{{ __('You could win') }}</div>
+                            <div class="mt-1 font-display text-2xl md:text-4xl font-black uppercase leading-tight">{{ $contest->t('prize') }}</div>
+                        </div>
+                    @endif
+
+                    @if($isOpen)
+                        <div class="mt-10">
+                            <x-site.countdown :to="$contest->ends_at" :label="__('Entries close in')" tone="ink"/>
+                        </div>
+                    @elseif($state === Contest::STATE_SCHEDULED)
+                        <div class="mt-10">
+                            <x-site.countdown :to="$contest->starts_at" :label="__('Opens in')" tone="ink"/>
+                        </div>
+                    @endif
+                </div>
+
+                {{-- The one action on the page --}}
+                <div id="enter" class="scroll-mt-6">
+                    @if($isOpen)
                         @include('site.contests._entry-form')
                     @elseif($state === Contest::STATE_SCHEDULED)
-                        <div class="brush-card bg-grass p-6 md:p-8 text-center">
+                        <div class="border-2 border-bone/30 bg-bone/5 p-8 text-center">
                             <div class="font-display text-2xl font-black uppercase">{{ __('Not open yet') }}</div>
-                            <p class="mt-2 text-ink/75">{{ __('Entries open on :date. Come back then — or follow us so you do not miss it.', ['date' => Dates::format($contest->starts_at)]) }}</p>
-                            <div class="mt-5 flex justify-center"><x-site.countdown :to="$contest->starts_at"/></div>
+                            <p class="mt-3 text-bone/70">{{ __('Entries open on :date. Come back then — or follow us so you do not miss it.', ['date' => Dates::format($contest->starts_at)]) }}</p>
                         </div>
                     @elseif($contest->isDrawn())
-                        <div class="brush-card bg-ink text-bone p-6 md:p-8 text-center">
+                        <div class="border-2 border-bone/30 bg-bone/5 p-8 text-center">
                             <div class="font-display text-2xl font-black uppercase">{{ __('This contest is over') }}</div>
-                            <p class="mt-2 text-bone/75">{{ __('The winner has been drawn and announced.') }}</p>
-                            <a href="{{ route('contests.winner', ['contest' => $contest->slug]) }}" class="btn-rough is-fire mt-5">{{ __('See the winner') }}</a>
+                            <p class="mt-3 text-bone/70">{{ __('The winner has been drawn and announced.') }}</p>
+                            <a href="{{ route('contests.winner', ['contest' => $contest->slug]) }}" class="btn-rough is-fire mt-6">{{ __('See the winner') }}</a>
                         </div>
                     @else
-                        <div class="brush-card bg-bone p-6 md:p-8 text-center">
+                        <div class="border-2 border-bone/30 bg-bone/5 p-8 text-center">
                             <div class="font-display text-2xl font-black uppercase">{{ __('Entries are closed') }}</div>
-                            <p class="mt-2 text-ink/75">{{ __('The draw is happening — the winner will be announced on this page shortly.') }}</p>
+                            <p class="mt-3 text-bone/70">{{ __('The draw is happening — the winner will be announced on this page shortly.') }}</p>
                         </div>
                     @endif
-
-                    <div class="brush-card bg-bone p-5">
-                        <div class="text-xs font-bold uppercase tracking-widest text-ink/55">{{ __('How the draw works') }}</div>
-                        <ul class="mt-3 space-y-2 text-sm text-ink/75">
-                            <li class="flex gap-2"><span class="text-fire font-black">1.</span>{{ __('Every valid entry goes in the hat, once per email.') }}</li>
-                            <li class="flex gap-2"><span class="text-fire font-black">2.</span>{{ __('At closing time the system draws at random.') }}</li>
-                            <li class="flex gap-2"><span class="text-fire font-black">3.</span>{{ __('The winner is emailed and announced here.') }}</li>
-                            @if($contest->runners_up_count)
-                                <li class="flex gap-2"><span class="text-fire font-black">4.</span>{{ __('Runners-up are drawn too, in case the winner does not reply.') }}</li>
-                            @endif
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
-</x-layout>
+
+    {{-- ===================== HOW IT WORKS (only while it still matters) ===================== --}}
+    @unless($contest->hasEnded())
+    <section class="bg-fire text-bone">
+        <div class="mx-auto max-w-6xl px-4 md:px-6 py-10 md:py-12">
+            <div class="grid sm:grid-cols-3 gap-8 sm:gap-6">
+                @foreach([
+                    ['01', __('Fill in the form'), __('Name and email. Twenty seconds, one entry per person.')],
+                    ['02', __('We draw at random'), __('Automatically, the moment entries close.')],
+                    ['03', __('The winner is announced'), __('By email, and right here on this page.')],
+                ] as [$step, $heading, $copy])
+                    <div class="flex gap-4">
+                        <div class="font-display text-3xl font-black leading-none text-bone/50">{{ $step }}</div>
+                        <div>
+                            <div class="font-display text-lg font-black uppercase leading-tight">{{ $heading }}</div>
+                            <p class="mt-1 text-sm text-bone/85 leading-relaxed">{{ $copy }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endunless
+
+    {{-- ===================== DETAIL + TERMS ===================== --}}
+    <section class="bg-bone">
+        <div class="mx-auto max-w-3xl px-4 md:px-6 py-16 md:py-20">
+            @if($contest->t('description'))
+                <div class="quill-content text-lg leading-relaxed text-ink/85">
+                    {!! $contest->t('description') !!}
+                </div>
+            @endif
+
+            <div id="terms" class="mt-12 scroll-mt-8 border-2 border-ink bg-bone">
+                <h2 class="border-b-2 border-ink bg-ink px-5 py-3 font-display text-lg font-black uppercase tracking-wider text-bone">
+                    {{ __('Terms & conditions') }}
+                </h2>
+                <div class="px-5 py-5">
+                    @if($contest->t('terms'))
+                        <div class="quill-content text-sm leading-relaxed text-ink/80">{!! $contest->t('terms') !!}</div>
+                    @else
+                        <p class="text-sm text-ink/70">{{ __('Full terms are published before entries open.') }}</p>
+                    @endif
+
+                    <dl class="mt-6 grid sm:grid-cols-2 gap-x-8 gap-y-3 border-t-2 border-dashed border-ink/25 pt-5 text-sm">
+                        <div class="flex justify-between gap-4 sm:block">
+                            <dt class="text-[11px] font-bold uppercase tracking-widest text-ink/50">{{ __('Opens') }}</dt>
+                            <dd class="font-semibold">{{ Dates::format($contest->starts_at) }}</dd>
+                        </div>
+                        <div class="flex justify-between gap-4 sm:block">
+                            <dt class="text-[11px] font-bold uppercase tracking-widest text-ink/50">{{ __('Closes') }}</dt>
+                            <dd class="font-semibold">{{ Dates::format($contest->ends_at) }}</dd>
+                        </div>
+                        <div class="flex justify-between gap-4 sm:block">
+                            <dt class="text-[11px] font-bold uppercase tracking-widest text-ink/50">{{ __('Entry') }}</dt>
+                            <dd class="font-semibold">{{ __('One per email address') }}</dd>
+                        </div>
+                        <div class="flex justify-between gap-4 sm:block">
+                            <dt class="text-[11px] font-bold uppercase tracking-widest text-ink/50">{{ __('Winner') }}</dt>
+                            <dd class="font-semibold">
+                                {{ $contest->winners_count === 1 ? __('One winner') : __(':count winners', ['count' => $contest->winners_count]) }}@if($contest->runners_up_count)
+                                    · {{ $contest->runners_up_count === 1 ? __('one runner-up') : __(':count runners-up', ['count' => $contest->runners_up_count]) }}
+                                @endif
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            @if($isOpen)
+                <div class="mt-12 text-center">
+                    <x-site.rough-button href="#enter" variant="fire">{{ __('Enter the contest') }}</x-site.rough-button>
+                </div>
+            @endif
+        </div>
+    </section>
+</x-contest-layout>
