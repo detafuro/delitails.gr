@@ -4,6 +4,8 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ConstructionAccessController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContestController;
+use App\Http\Controllers\ContestEntryController;
 use App\Http\Controllers\FaqPageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MediaController;
@@ -29,6 +31,11 @@ Route::prefix('{locale}')
         Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
         Route::get('/faq', FaqPageController::class)->name('faq');
         Route::get('/stores', StoreLocatorController::class)->name('stores');
+        Route::get('/contests', [ContestController::class, 'index'])->name('contests.index');
+        Route::get('/contests/{contest:slug}', [ContestController::class, 'show'])->name('contests.show');
+        Route::get('/contests/{contest:slug}/winner', [ContestController::class, 'winner'])->name('contests.winner');
+        Route::post('/contests/{contest:slug}/enter', [ContestEntryController::class, 'store'])
+            ->middleware('throttle:10,1')->name('contests.enter');
         Route::get('/contact', [ContactController::class, 'show'])->name('contact');
         Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
         Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');

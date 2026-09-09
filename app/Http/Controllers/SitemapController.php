@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\SetLocale;
+use App\Models\Contest;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -39,6 +40,16 @@ class SitemapController extends Controller
         $add('contact', [], null, 'yearly', '0.5');
         if (Setting::get('stores_page_status', 'draft') === 'public') {
             $add('stores', [], null, 'monthly', '0.6');
+        }
+        if (Setting::get('contests_page_status', 'draft') === 'public') {
+            $add('contests.index', [], null, 'daily', '0.7');
+
+            foreach (Contest::published()->get() as $contest) {
+                $add('contests.show', ['contest' => $contest->slug], $contest->updated_at?->toDateString(), 'daily', '0.7');
+                if ($contest->isDrawn()) {
+                    $add('contests.winner', ['contest' => $contest->slug], $contest->drawn_at?->toDateString(), 'monthly', '0.5');
+                }
+            }
         }
 
         foreach (ProductCategory::active()->ordered()->get() as $cat) {

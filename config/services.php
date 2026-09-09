@@ -14,6 +14,13 @@ return [
     |
     */
 
+    // Cloudflare Turnstile — anti-bot on the contest entry form. Site settings
+    // override these, so the client can rotate keys without a deploy.
+    'turnstile' => [
+        'site_key' => env('TURNSTILE_SITE_KEY'),
+        'secret_key' => env('TURNSTILE_SECRET_KEY'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

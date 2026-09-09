@@ -14,6 +14,7 @@
                     'seo' => 'SEO & scripts',
                     'footer' => 'Footer',
                     'pages' => 'Pages',
+                    'contests' => 'Contests',
                 ];
             @endphp
             @foreach($tabs as $key => $label)
@@ -178,6 +179,36 @@
                 with the passcode can browse the full site for their session. Changing the passcode
                 kicks existing guests back out; leaving it empty hides the button.
             </p>
+        </section>
+
+        {{-- Contests --}}
+        <section x-show="tab==='contests'" x-cloak class="brush-card p-6 space-y-5">
+            <div class="grid sm:grid-cols-2 gap-5">
+                <x-admin.select name="contests_page_status" label="Contests pages"
+                    :options="['draft' => 'Draft (hidden)', 'public' => 'Public']"
+                    :value="$settings['contests_page_status'] ?? 'draft'"/>
+                <x-admin.form-input name="contest_notify_email" label="Draw notification email" type="email"
+                    :value="$settings['contest_notify_email'] ?? ''"
+                    hint="Who gets told when a contest is drawn. Falls back to the contact email."/>
+            </div>
+            <p class="text-xs text-ink/60">
+                Draft hides every contest page (404 for visitors — admins can still preview them) and
+                removes the Contests link from the header, the mobile menu and the sitemap. Individual
+                contests also have their own Published switch.
+            </p>
+
+            <div class="border-t-2 border-dashed border-ink/30 pt-5">
+                <h3 class="font-display text-lg font-extrabold uppercase mb-1">Anti-bot (Cloudflare Turnstile)</h3>
+                <p class="text-xs text-ink/60 mb-4">
+                    Free at dash.cloudflare.com → Turnstile. Add a widget for delitails.gr and paste both keys
+                    here. Leave them empty and the entry form still uses the invisible honeypot, but without
+                    the Cloudflare check.
+                </p>
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <x-admin.form-input name="turnstile_site_key" label="Site key" :value="$settings['turnstile_site_key'] ?? ''"/>
+                    <x-admin.form-input name="turnstile_secret_key" label="Secret key" :value="$settings['turnstile_secret_key'] ?? ''"/>
+                </div>
+            </div>
         </section>
 
         <div class="flex gap-3">

@@ -1,0 +1,82 @@
+@php
+    use App\Support\Dates;
+    use App\Support\Seo;
+
+    $winners = $contest->awarded->where('award_rank', 1);
+    $runnersUp = $contest->awarded->where('award_rank', '>', 1);
+    $title = Seo::title(__('Winner'), $contest->t('title'));
+    $banner = $contest->banner_image ? asset('storage/'.$contest->banner_image) : null;
+@endphp
+<x-layout :title="$title"
+          :description="__('The winner of :contest has been drawn.', ['contest' => $contest->t('title')])"
+          :image="$banner">
+    <section class="relative overflow-hidden bg-grass paper">
+        <div class="relative mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-20 text-center">
+            <div class="text-xs font-bold uppercase tracking-[0.3em] text-ink/60">{{ __('The draw is done') }}</div>
+            <h1 class="mt-3 font-display text-4xl md:text-7xl font-black uppercase leading-[0.95]">
+                {{ __('We have a winner') }}
+            </h1>
+            <p class="mt-4 font-editorial italic text-xl text-ink/75">{{ $contest->t('title') }}</p>
+        </div>
+        <div aria-hidden="true" class="relative">
+            <div class="absolute top-full -mt-px left-0 right-0 h-10 paper torn-bottom bg-grass"></div>
+        </div>
+    </section>
+
+    <section class="bg-bone pt-20 md:pt-28 pb-14 md:pb-20">
+        <div class="mx-auto max-w-3xl px-4 md:px-6">
+            @if($contest->t('winner_message'))
+                <div class="quill-content mb-8 text-center font-editorial text-lg text-ink/80">{!! $contest->t('winner_message') !!}</div>
+            @endif
+
+            @foreach($winners as $winner)
+                <div class="brush-card bg-fire text-bone p-8 md:p-10 text-center">
+                    <div class="text-xs font-bold uppercase tracking-[0.3em] text-bone/70">{{ __('Winner') }}</div>
+                    <div class="mt-3 font-display text-4xl md:text-6xl font-black uppercase">{{ $winner->masked_name }}</div>
+                    @if($contest->t('prize'))
+                        <p class="mt-4 font-editorial italic text-xl text-bone/85">{{ $contest->t('prize') }}</p>
+                    @endif
+                </div>
+            @endforeach
+
+            @if($runnersUp->isNotEmpty())
+                <div class="mt-8 brush-card bg-bone p-6 md:p-8">
+                    <h2 class="font-display text-xl font-extrabold uppercase">{{ __('Runners-up') }}</h2>
+                    <p class="mt-1 text-sm text-ink/60">{{ __('In line if the winner does not reply in time.') }}</p>
+                    <ol class="mt-4 space-y-2">
+                        @foreach($runnersUp as $i => $entry)
+                            <li class="flex items-center gap-3 border-2 border-ink bg-bone px-4 py-2">
+                                <span class="font-display text-lg font-black text-fire">{{ $loop->iteration }}</span>
+                                <span class="font-semibold">{{ $entry->masked_name }}</span>
+                            </li>
+                        @endforeach
+                    </ol>
+                </div>
+            @endif
+
+            {{-- Transparency record --}}
+            <div class="mt-8 border-2 border-dashed border-ink/30 p-5 text-sm text-ink/70">
+                <div class="font-bold uppercase tracking-wider text-ink">{{ __('For the record') }}</div>
+                <ul class="mt-2 space-y-1">
+                    <li>{{ __('Drawn on') }}: {{ Dates::format($contest->drawn_at) }}</li>
+                    @if($contest->latestDraw)
+                        <li>{{ __('Entries in the draw') }}: {{ $contest->latestDraw->entries_count }}</li>
+                    @endif
+                    <li>{{ __('Method') }}: {{ __('random selection by the site, one entry per email address') }}</li>
+                </ul>
+                <p class="mt-3 text-xs text-ink/55">
+                    {{ __('Winners are shown by first name and last initial to protect their privacy.') }}
+                </p>
+            </div>
+
+            <div class="mt-10 flex flex-wrap justify-center gap-3">
+                <x-site.rough-button :href="route('contests.show', ['contest' => $contest->slug])" variant="bone">
+                    {{ __('Back to the contest') }}
+                </x-site.rough-button>
+                <x-site.rough-button :href="route('contests.index')" variant="fire">
+                    {{ __('All contests') }}
+                </x-site.rough-button>
+            </div>
+        </div>
+    </section>
+</x-layout>

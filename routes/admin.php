@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\ContestController;
+use App\Http\Controllers\Admin\ContestDrawController;
+use App\Http\Controllers\Admin\ContestEntryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FaqGroupController;
@@ -46,6 +49,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Testimonials
     Route::resource('testimonials', TestimonialController::class)->except(['show']);
+
+    // Contests
+    Route::resource('contests', ContestController::class)->except(['show']);
+    Route::get('contests/{contest}/entries', [ContestEntryController::class, 'index'])->name('contests.entries.index');
+    Route::get('contests/{contest}/entries/export', [ContestEntryController::class, 'export'])->name('contests.entries.export');
+    Route::delete('contests/{contest}/entries/purge', [ContestEntryController::class, 'purge'])->name('contests.entries.purge');
+    Route::delete('contests/{contest}/entries/{entry}', [ContestEntryController::class, 'destroy'])->name('contests.entries.destroy');
+    Route::post('contests/{contest}/draw', [ContestDrawController::class, 'store'])->name('contests.draw');
 
     // Messages
     Route::get('messages', [ContactMessageController::class, 'index'])->name('messages.index');
