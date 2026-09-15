@@ -121,7 +121,7 @@
         <div class="mx-auto flex max-w-7xl items-center gap-3 md:gap-4 px-4 md:px-6 py-2.5 md:py-4">
             <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0 min-w-0">
                 @if(!empty($site['logo']))
-                    <x-site.img :src="$site['logo']" :alt="$siteName" :widths="[320]" loading="eager"
+                    <x-site.img :src="$site['logo']" :alt="$siteName" :widths="[320, 480]" loading="eager"
                                 sizes="(min-width: 1024px) 248px, (min-width: 768px) 198px, 149px"
                                 class="h-12 md:h-16 lg:h-20 w-auto max-w-[48vw] md:max-w-none object-contain object-left"/>
                 @else
