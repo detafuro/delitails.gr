@@ -45,11 +45,14 @@ function init() {
         const layout = build(root);
         if (!layout) return;
 
-        layout();
-
-        // Re-measure once webfonts land (text width changes).
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(layout).catch(() => {});
+        // First measure after `load` (webfonts are in by then), inside a frame.
+        // Measuring during startup forced a synchronous layout in the critical
+        // rendering window; the bar is static until data-marquee-ready anyway.
+        const start = () => requestAnimationFrame(layout);
+        if (document.readyState === 'complete') {
+            start();
+        } else {
+            window.addEventListener('load', start, { once: true });
         }
 
         if ('ResizeObserver' in window) {

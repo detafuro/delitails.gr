@@ -94,9 +94,6 @@
     @foreach($jsonLdBlocks as $block)
         <script type="application/ld+json">{!! json_encode($block, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endforeach
-    @if(!empty($site['analytics_scripts']))
-        {!! $site['analytics_scripts'] !!}
-    @endif
 </head>
 <body class="min-h-screen bg-bone text-ink antialiased selection:bg-fire selection:text-bone">
 
@@ -124,8 +121,9 @@
         <div class="mx-auto flex max-w-7xl items-center gap-3 md:gap-4 px-4 md:px-6 py-2.5 md:py-4">
             <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0 min-w-0">
                 @if(!empty($site['logo']))
-                    @php [$lw, $lh] = \App\Support\Media::dimensions($site['logo']) ?? [400, 129]; @endphp
-                    <img src="{{ asset('storage/'.$site['logo']) }}" alt="{{ $siteName }}" width="{{ $lw }}" height="{{ $lh }}" fetchpriority="high" class="h-12 md:h-16 lg:h-20 w-auto max-w-[48vw] md:max-w-none object-contain object-left">
+                    <x-site.img :src="$site['logo']" :alt="$siteName" :widths="[320]" loading="eager"
+                                sizes="(min-width: 1024px) 248px, (min-width: 768px) 198px, 149px"
+                                class="h-12 md:h-16 lg:h-20 w-auto max-w-[48vw] md:max-w-none object-contain object-left"/>
                 @else
                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-fire text-bone font-black text-lg shadow-[3px_3px_0_0_#191818]">D</span>
                     <span class="font-display text-xl md:text-2xl font-black uppercase tracking-tight">{{ $siteName }}</span>
@@ -296,5 +294,7 @@
             </div>
         </div>
     </footer>
+
+    @include('partials.analytics')
 </body>
 </html>
