@@ -28,10 +28,30 @@
                     }
                 });
             }
-            function schedule() {
+            function whenIdle() {
                 if ('requestIdleCallback' in window) requestIdleCallback(inject, { timeout: 3000 });
                 else setTimeout(inject, 1500);
             }
+            // Never start before the first contentful paint: `load` alone can fire
+            // while the first frame is still pending, and then the tags' download
+            // and parse get counted against the LCP.
+            function afterFirstPaint(cb) {
+                var fired = false;
+                function go() { if (!fired) { fired = true; cb(); } }
+                try {
+                    var po = new PerformanceObserver(function (list) {
+                        if (list.getEntriesByName('first-contentful-paint').length) {
+                            po.disconnect();
+                            go();
+                        }
+                    });
+                    po.observe({ type: 'paint', buffered: true });
+                } catch (e) {
+                    setTimeout(go, 2500); // no Paint Timing API: a safe margin after load
+                }
+                setTimeout(go, 8000); // tracking must never be lost
+            }
+            function schedule() { afterFirstPaint(whenIdle); }
             if (document.readyState === 'complete') schedule();
             else window.addEventListener('load', schedule, { once: true });
             ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (type) {
