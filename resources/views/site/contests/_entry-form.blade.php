@@ -12,7 +12,7 @@
 @endif
 
 {{-- Sits on the dark hero: a hard fire-coloured offset instead of the site's ink one, and no hover tilt on a form. --}}
-<div class="border-2 border-ink bg-bone p-6 md:p-8 shadow-[8px_8px_0_0_var(--color-fire)]"
+<div class="border-2 border-ink bg-bone text-ink p-6 md:p-8 shadow-[8px_8px_0_0_var(--color-fire)]"
      x-data="{
         sending: false,
         done: {{ session('success') ? 'true' : 'false' }},
