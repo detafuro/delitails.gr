@@ -56,7 +56,7 @@ class ContestEntryRequest extends FormRequest
         $contest = $this->route('contest');
 
         $names = [
-            'name' => __('Your name'),
+            'name' => $contest->nameLabel(),
             'email' => __('Email'),
             'phone' => __('Phone'),
             'accept_terms' => __('Terms & conditions'),

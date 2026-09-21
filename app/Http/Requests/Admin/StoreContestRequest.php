@@ -22,6 +22,7 @@ class StoreContestRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'alpha_dash', Rule::unique('contests', 'slug')->ignore($id)],
             'prize' => ['nullable', 'string', 'max:255'],
+            'name_label' => ['nullable', 'string', 'max:120'],
             'excerpt' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
             'terms' => ['nullable', 'string'],

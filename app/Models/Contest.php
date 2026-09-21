@@ -14,7 +14,7 @@ class Contest extends Model
     use HasTranslations;
 
     protected array $translatable = [
-        'title', 'prize', 'excerpt', 'description', 'terms', 'winner_message',
+        'title', 'prize', 'excerpt', 'description', 'terms', 'winner_message', 'name_label',
         'seo_title', 'seo_description',
     ];
 
@@ -43,7 +43,7 @@ class Contest extends Model
     ];
 
     protected $fillable = [
-        'title', 'slug', 'prize', 'excerpt', 'description', 'terms', 'winner_message',
+        'title', 'slug', 'prize', 'excerpt', 'description', 'terms', 'winner_message', 'name_label',
         'banner_image', 'starts_at', 'ends_at', 'is_published', 'auto_draw',
         'winners_count', 'runners_up_count', 'phone_field', 'newsletter_opt_in',
         'extra_fields', 'seo_title', 'seo_description',
@@ -261,6 +261,12 @@ class Contest extends Model
         }
 
         return $out;
+    }
+
+    /** Label of the name field: the contest's own ("Company name") or the default. */
+    public function nameLabel(): string
+    {
+        return $this->t('name_label') ?: __('Your name');
     }
 
     public function collectsPhone(): bool

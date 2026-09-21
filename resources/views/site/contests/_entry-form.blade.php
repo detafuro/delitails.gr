@@ -82,7 +82,7 @@
             <input type="text" name="hp_field" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <div class="sm:col-span-1">
-                <label for="entry-name" class="{{ $labelClass }}">{{ __('Your name') }} *</label>
+                <label for="entry-name" class="{{ $labelClass }}">{{ $contest->nameLabel() }} *</label>
                 <input id="entry-name" name="name" required autocomplete="name" value="{{ old('name') }}" class="{{ $inputClass }}">
                 <p class="mt-1 text-xs text-fire" x-show="first('name')" x-text="first('name')" x-cloak></p>
                 @error('name')<p class="mt-1 text-xs text-fire">{{ $message }}</p>@enderror

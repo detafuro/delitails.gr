@@ -49,6 +49,10 @@
             </div>
 
             <div class="grid sm:grid-cols-2 gap-5">
+                <x-admin.form-input name="name_label" label="Name field label" :value="$contest->name_label"
+                    hint="Leave blank for “Your name”. E.g. “Company name” for business contests."/>
+                <x-admin.form-input name="el[name_label]" label="Name field label (Ελληνικά)" :value="$contest->translation('name_label')"
+                    hint="Κενό = «Το όνομά σας»."/>
                 <x-admin.select name="phone_field" label="Phone number"
                     :options="[Contest::PHONE_OFF => 'Do not ask', Contest::PHONE_OPTIONAL => 'Ask (optional)', Contest::PHONE_REQUIRED => 'Ask (required)']"
                     :value="$contest->phone_field ?? Contest::PHONE_OPTIONAL" required/>

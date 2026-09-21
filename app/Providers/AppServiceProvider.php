@@ -15,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Admin-edited translations overlay the lang/*.json defaults.
-        $this->app->extend('translation.loader', fn ($loader, $app) => new DatabaseTranslationLoader($app['files'], $app['path.lang']));
+        // Keep the original loader's paths: they include the framework's own lang/
+        // folder, which is where the English validation messages live.
+        $this->app->extend('translation.loader', fn ($loader, $app) => new DatabaseTranslationLoader($app['files'], $loader->paths()));
     }
 
     public function boot(): void

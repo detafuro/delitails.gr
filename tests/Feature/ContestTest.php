@@ -75,6 +75,22 @@ class ContestTest extends TestCase
         $this->assertStringContainsString('accept_terms', $html);
     }
 
+    public function test_a_contest_can_relabel_the_name_field_without_touching_the_contact_form(): void
+    {
+        $contest = $this->contest(['name_label' => 'Company name']);
+        $contest->saveTranslations(['name_label' => 'Όνομα εταιρείας']);
+
+        $this->get(route('contests.show', ['locale' => 'el', 'contest' => $contest->slug]))
+            ->assertOk()->assertSee('Όνομα εταιρείας')->assertDontSee('Το όνομά σας');
+        $this->get(route('contests.show', ['locale' => 'en', 'contest' => $contest->slug]))
+            ->assertOk()->assertSee('Company name');
+        $this->get(route('contact', ['locale' => 'el']))->assertOk()->assertSee('Το όνομά σας');
+
+        // Validation messages name the field by its contest label too.
+        $this->postJson(route('contests.enter', ['locale' => 'en', 'contest' => $contest->slug]), $this->entryPayload(['name' => '']))
+            ->assertStatus(422)->assertJsonPath('errors.name.0', fn ($m) => str_contains($m, 'Company name'));
+    }
+
     public function test_pages_are_hidden_while_the_section_is_draft(): void
     {
         Setting::set('contests_page_status', 'draft');
