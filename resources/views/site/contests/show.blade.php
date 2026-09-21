@@ -117,9 +117,9 @@
 
     {{-- ===================== DETAIL + TERMS ===================== --}}
     <section class="bg-bone">
-        <div class="mx-auto max-w-3xl px-4 md:px-6 py-16 md:py-20">
+        <div class="mx-auto max-w-6xl px-4 md:px-6 py-16 md:py-20">
             @if($contest->t('description'))
-                <div class="quill-content text-lg leading-relaxed text-ink/85">
+                <div class="quill-content text-lg leading-relaxed text-ink/85 [&>*+*]:mt-6 [&_li+li]:mt-2">
                     {!! $contest->t('description') !!}
                 </div>
             @endif
