@@ -111,12 +111,12 @@
                     $id = 'entry-'.$field['key'];
                     $old = old('extra.'.$field['key']);
                 @endphp
-                <div class="{{ $field['type'] === 'textarea' ? 'sm:col-span-2' : 'sm:col-span-1' }}">
+                <div class="{{ in_array($field['type'], ['textarea', 'checkbox'], true) ? 'sm:col-span-2' : 'sm:col-span-1' }}">
                     @if($field['type'] === 'checkbox')
                         <label class="flex items-start gap-3 cursor-pointer select-none pt-1">
                             <input type="checkbox" id="{{ $id }}" name="{{ $name }}" value="1" @checked($old)
                                    @if($field['required']) required @endif
-                                   class="mt-0.5 h-5 w-5 border-2 border-ink accent-fire cursor-pointer">
+                                   class="mt-0.5 h-5 w-5 shrink-0 border-2 border-ink accent-fire cursor-pointer">
                             <span class="text-sm font-semibold">{{ $field['label'] }} @if($field['required'])<span class="text-fire">*</span>@endif</span>
                         </label>
                     @else
@@ -143,7 +143,7 @@
             <div class="sm:col-span-2 space-y-3 border-t-2 border-dashed border-ink/25 pt-4">
                 <label class="flex items-start gap-3 cursor-pointer select-none">
                     <input type="checkbox" name="accept_terms" value="1" required @checked(old('accept_terms'))
-                           class="mt-0.5 h-5 w-5 border-2 border-ink accent-fire cursor-pointer">
+                           class="mt-0.5 h-5 w-5 shrink-0 border-2 border-ink accent-fire cursor-pointer">
                     <span class="text-sm">
                         {!! __('I accept the <a href=":url" class="font-bold underline hover:text-fire">terms &amp; conditions</a> of this contest.', ['url' => '#terms']) !!}
                         <span class="text-fire">*</span>
@@ -155,7 +155,7 @@
                 @if($contest->newsletter_opt_in)
                     <label class="flex items-start gap-3 cursor-pointer select-none">
                         <input type="checkbox" name="marketing_consent" value="1" @checked(old('marketing_consent'))
-                               class="mt-0.5 h-5 w-5 border-2 border-ink accent-fire cursor-pointer">
+                               class="mt-0.5 h-5 w-5 shrink-0 border-2 border-ink accent-fire cursor-pointer">
                         <span class="text-sm">{{ __('Yes, email me treats, news and future contests. (Optional — you can unsubscribe any time.)') }}</span>
                     </label>
                 @endif
