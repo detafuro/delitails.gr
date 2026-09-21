@@ -99,7 +99,7 @@
             <div class="grid sm:grid-cols-3 gap-8 sm:gap-6">
                 @foreach([
                     ['01', __('Fill in the form'), __('Twenty seconds, one entry per email.')],
-                    ['02', __('Follow us'), __('On Instagram, so we can find you if you win.')],
+                    ['02', __('Follow us'), __('Follow us on Instagram.')],
                     ['03', __('Get into the draw!'), __('It runs automatically the moment entries close.')],
                 ] as [$step, $heading, $copy])
                     <div class="flex gap-4">
