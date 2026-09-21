@@ -92,14 +92,46 @@ class Contest extends Model
         return $this->hasMany(ContestEntry::class)->whereNotNull('award_rank')->orderBy('award_rank');
     }
 
+    /** Ranks 1..winners_count win; the ranks after them are the runners-up, in order. */
     public function winners(): HasMany
     {
-        return $this->hasMany(ContestEntry::class)->where('award_rank', 1);
+        return $this->hasMany(ContestEntry::class)
+            ->whereBetween('award_rank', [1, $this->winnerSlots()])
+            ->orderBy('award_rank');
     }
 
     public function runnersUp(): HasMany
     {
-        return $this->hasMany(ContestEntry::class)->where('award_rank', '>', 1)->orderBy('award_rank');
+        return $this->hasMany(ContestEntry::class)
+            ->where('award_rank', '>', $this->winnerSlots())
+            ->orderBy('award_rank');
+    }
+
+    public function winnerSlots(): int
+    {
+        return max(1, (int) $this->winners_count);
+    }
+
+    public function isWinningRank(?int $rank): bool
+    {
+        return $rank !== null && $rank >= 1 && $rank <= $this->winnerSlots();
+    }
+
+    /**
+     * "Winner" / "Winner #2" / "Runner-up 1" for a draw rank. Public pages get
+     * the translated label; the admin (English UI) passes $translate = false.
+     */
+    public function awardLabel(int $rank, bool $translate = true): string
+    {
+        $t = fn (string $key, array $r = []) => $translate ? __($key, $r) : strtr($key, array_combine(
+            array_map(fn ($k) => ':'.$k, array_keys($r)), array_values($r)
+        ) ?: []);
+
+        if ($this->isWinningRank($rank)) {
+            return $this->winnerSlots() === 1 ? $t('Winner') : $t('Winner #:n', ['n' => $rank]);
+        }
+
+        return $t('Runner-up :n', ['n' => $rank - $this->winnerSlots()]);
     }
 
     /* ---------------------------------------------------------------- state */

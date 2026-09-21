@@ -202,6 +202,27 @@ class ContestTest extends TestCase
         Mail::assertSent(ContestDrawCompleted::class);
     }
 
+    public function test_a_multi_winner_draw_emails_every_winner_and_ranks_the_rest_as_runners_up(): void
+    {
+        Mail::fake();
+        $contest = $this->contest(['winners_count' => 3, 'runners_up_count' => 3]);
+        foreach (range(1, 10) as $i) {
+            $contest->entries()->create(['name' => "Entrant {$i}", 'email' => "e{$i}@example.com"]);
+        }
+
+        ContestDrawRunner::run($contest);
+        $contest->refresh();
+
+        $this->assertSame([1, 2, 3], $contest->winners()->pluck('award_rank')->all());
+        $this->assertSame([4, 5, 6], $contest->runnersUp()->pluck('award_rank')->all());
+        $this->assertSame('Winner #3', $contest->awardLabel(3, false));
+        $this->assertSame('Runner-up 1', $contest->awardLabel(4, false));
+        Mail::assertSent(ContestWinnerSelected::class, 3);
+
+        $this->get(route('contests.winner', ['locale' => 'en', 'contest' => $contest->slug]))
+            ->assertOk()->assertSee('Winner #1')->assertSee('Winner #3')->assertSee('Runners-up')->assertDontSee('Winner #4');
+    }
+
     public function test_the_winner_page_only_exists_after_the_draw(): void
     {
         Mail::fake();

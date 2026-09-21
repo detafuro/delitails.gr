@@ -2,8 +2,8 @@
     use App\Support\Dates;
     use App\Support\Seo;
 
-    $winners = $contest->awarded->where('award_rank', 1);
-    $runnersUp = $contest->awarded->where('award_rank', '>', 1);
+    $winners = $contest->awarded->filter(fn ($e) => $contest->isWinningRank($e->award_rank));
+    $runnersUp = $contest->awarded->reject(fn ($e) => $contest->isWinningRank($e->award_rank));
     $title = Seo::title(__('Winner'), $contest->t('title'));
     $banner = $contest->banner_image ? asset('storage/'.$contest->banner_image) : null;
 @endphp
@@ -15,7 +15,7 @@
         <div class="relative mx-auto max-w-6xl px-4 md:px-6 pt-28 md:pt-36 pb-14 md:pb-20 text-center">
             <div class="text-xs font-bold uppercase tracking-[0.3em] text-ink/60">{{ __('The draw is done') }}</div>
             <h1 class="mt-3 font-display text-4xl md:text-7xl font-black uppercase leading-[0.95]">
-                {{ __('We have a winner') }}
+                {{ $contest->winnerSlots() > 1 ? __('We have our winners') : __('We have a winner') }}
             </h1>
             <p class="mt-4 font-editorial italic text-xl text-ink/75">{{ $contest->t('title') }}</p>
         </div>
@@ -27,15 +27,20 @@
                 <div class="quill-content mb-8 text-center font-editorial text-lg text-ink/80">{!! $contest->t('winner_message') !!}</div>
             @endif
 
-            @foreach($winners as $winner)
-                <div class="brush-card bg-fire text-bone p-8 md:p-10 text-center">
-                    <div class="text-xs font-bold uppercase tracking-[0.3em] text-bone/70">{{ __('Winner') }}</div>
-                    <div class="mt-3 font-display text-4xl md:text-6xl font-black uppercase">{{ $winner->masked_name }}</div>
-                    @if($contest->t('prize'))
-                        <p class="mt-4 font-editorial italic text-xl text-bone/85">{{ $contest->t('prize') }}</p>
-                    @endif
-                </div>
-            @endforeach
+            <div class="space-y-5">
+                @foreach($winners as $winner)
+                    <div class="brush-card bg-fire text-bone p-8 md:p-10 text-center">
+                        <div class="text-xs font-bold uppercase tracking-[0.3em] text-bone/70">{{ $contest->awardLabel($winner->award_rank) }}</div>
+                        <div class="mt-3 font-display text-4xl md:text-6xl font-black uppercase">{{ $winner->masked_name }}</div>
+                        @if($winners->count() === 1 && $contest->t('prize'))
+                            <p class="mt-4 font-editorial italic text-xl text-bone/85">{{ $contest->t('prize') }}</p>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+            @if($winners->count() > 1 && $contest->t('prize'))
+                <p class="mt-6 text-center font-editorial italic text-xl text-ink/75">{{ $contest->t('prize') }}</p>
+            @endif
 
             @if($runnersUp->isNotEmpty())
                 <div class="mt-8 brush-card bg-bone p-6 md:p-8">

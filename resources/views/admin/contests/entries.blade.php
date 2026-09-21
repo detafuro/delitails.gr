@@ -50,10 +50,10 @@
                     @endif
                 </td>
                 <td class="px-3 py-3">
-                    @if($entry->award_rank === 1)
-                        <span class="inline-block border-2 border-ink bg-fire text-bone px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">★ Winner</span>
+                    @if($contest->isWinningRank($entry->award_rank))
+                        <span class="inline-block border-2 border-ink bg-fire text-bone px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">★ {{ $contest->awardLabel($entry->award_rank, false) }}</span>
                     @elseif($entry->award_rank)
-                        <span class="inline-block border-2 border-ink bg-bone px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Runner-up {{ $entry->award_rank - 1 }}</span>
+                        <span class="inline-block border-2 border-ink bg-bone px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">{{ $contest->awardLabel($entry->award_rank, false) }}</span>
                     @else
                         <span class="text-xs text-ink/40">—</span>
                     @endif

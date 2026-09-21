@@ -27,7 +27,7 @@ class ContestEntry extends Model
 
     public function isWinner(): bool
     {
-        return $this->award_rank === 1;
+        return $this->contest->isWinningRank($this->award_rank);
     }
 
     /**

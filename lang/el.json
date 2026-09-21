@@ -337,5 +337,8 @@
     ":count winners": ":count νικητές",
     "one runner-up": "ένας επιλαχών",
     ":count runners-up": ":count επιλαχόντες",
-    "Shop the treats": "Δείτε τις λιχουδιές"
+    "Shop the treats": "Δείτε τις λιχουδιές",
+    "Winner #:n": "Νικητής #:n",
+    "Runner-up :n": "Επιλαχών :n",
+    "We have our winners": "Έχουμε τους νικητές"
 }

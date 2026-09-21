@@ -60,16 +60,16 @@
             <h4 class="font-display font-extrabold uppercase mb-2">Current result</h4>
             <div class="space-y-2">
                 @foreach($contest->awarded as $entry)
-                    <div class="flex flex-wrap items-center gap-3 border-2 border-ink px-3 py-2 {{ $entry->award_rank === 1 ? 'bg-grass' : 'bg-bone' }}">
+                    <div class="flex flex-wrap items-center gap-3 border-2 border-ink px-3 py-2 {{ $contest->isWinningRank($entry->award_rank) ? 'bg-grass' : 'bg-bone' }}">
                         <span class="font-display font-black uppercase text-sm">
-                            {{ $entry->award_rank === 1 ? '★ Winner' : 'Runner-up '.($entry->award_rank - 1) }}
+                            {{ $contest->isWinningRank($entry->award_rank) ? '★ ' : '' }}{{ $contest->awardLabel($entry->award_rank, false) }}
                         </span>
                         <span class="font-semibold">{{ $entry->name }}</span>
                         <span class="text-sm text-ink/70">{{ $entry->email }}</span>
                         @if($entry->phone)<span class="text-sm text-ink/70">{{ $entry->phone }}</span>@endif
                         <span class="ml-auto text-xs text-ink/55">
                             shown publicly as “{{ $entry->masked_name }}”
-                            @if($entry->award_rank === 1)
+                            @if($contest->isWinningRank($entry->award_rank))
                                 · {{ $entry->notified_at ? 'emailed '.$entry->notified_at->diffForHumans() : 'email not sent' }}
                             @endif
                         </span>
@@ -101,7 +101,7 @@
                                 <td class="px-3 py-2">
                                     @foreach($draw->result ?? [] as $row)
                                         <div>
-                                            <span class="font-bold">{{ $row['rank'] == 1 ? 'Winner' : 'Runner-up '.($row['rank'] - 1) }}:</span>
+                                            <span class="font-bold">{{ $contest->awardLabel((int) $row['rank'], false) }}:</span>
                                             {{ $row['name'] }} — {{ $row['email'] }}
                                         </div>
                                     @endforeach

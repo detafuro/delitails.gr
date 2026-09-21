@@ -35,7 +35,7 @@ class ContestEntryController extends AdminController
         $query = $this->filtered($request, $contest);
         $filename = 'contest-'.$contest->slug.'-entries-'.now()->format('Ymd-His').'.csv';
 
-        return response()->streamDownload(function () use ($query, $fields) {
+        return response()->streamDownload(function () use ($query, $fields, $contest) {
             $out = fopen('php://output', 'w');
             fwrite($out, "\xEF\xBB\xBF"); // BOM so Excel reads the Greek characters
 
@@ -45,7 +45,7 @@ class ContestEntryController extends AdminController
                 ['Accepted terms', 'Newsletter consent', 'Result', 'Entered at'],
             ));
 
-            $query->chunk(500, function ($rows) use ($out, $fields) {
+            $query->chunk(500, function ($rows) use ($out, $fields, $contest) {
                 foreach ($rows as $entry) {
                     fputcsv($out, array_merge(
                         [$entry->name, $entry->email, $entry->phone],
@@ -53,11 +53,7 @@ class ContestEntryController extends AdminController
                         [
                             $entry->accepted_terms ? 'yes' : 'no',
                             $entry->marketing_consent ? 'yes' : 'no',
-                            match (true) {
-                                $entry->award_rank === 1 => 'winner',
-                                $entry->award_rank > 1 => 'runner-up '.($entry->award_rank - 1),
-                                default => '',
-                            },
+                            $entry->award_rank ? $contest->awardLabel($entry->award_rank, false) : '',
                             Dates::local($entry->created_at)?->format('Y-m-d H:i:s'),
                         ],
                     ));
