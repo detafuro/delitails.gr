@@ -98,9 +98,9 @@
         <div class="mx-auto max-w-6xl px-4 md:px-6 py-10 md:py-12">
             <div class="grid sm:grid-cols-3 gap-8 sm:gap-6">
                 @foreach([
-                    ['01', __('Fill in the form'), __('Name and email. Twenty seconds, one entry per person.')],
-                    ['02', __('We draw at random'), __('Automatically, the moment entries close.')],
-                    ['03', __('The winner is announced'), __('By email, and right here on this page.')],
+                    ['01', __('Fill in the form'), __('Twenty seconds, one entry per email.')],
+                    ['02', __('Follow us'), __('On Instagram, so we can find you if you win.')],
+                    ['03', __('Get into the draw!'), __('It runs automatically the moment entries close.')],
                 ] as [$step, $heading, $copy])
                     <div class="flex gap-4">
                         <div class="font-display text-3xl font-black leading-none text-bone/50">{{ $step }}</div>

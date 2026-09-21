@@ -325,7 +325,7 @@
     "Free to enter": "Δωρεάν συμμετοχή",
     "Entries closed": "Οι συμμετοχές έκλεισαν",
     "You could win": "Μπορείτε να κερδίσετε",
-    "Fill in the form": "Συμπληρώστε τη φόρμα",
+    "Fill in the form": "Συμπληρώστε την φόρμα",
     "Name and email. Twenty seconds, one entry per person.": "Όνομα και email. Είκοσι δευτερόλεπτα, μία συμμετοχή ανά άτομο.",
     "We draw at random": "Κληρώνουμε στην τύχη",
     "Automatically, the moment entries close.": "Αυτόματα, μόλις κλείσουν οι συμμετοχές.",
@@ -340,5 +340,10 @@
     "Shop the treats": "Δείτε τις λιχουδιές",
     "Winner #:n": "Νικητής #:n",
     "Runner-up :n": "Επιλαχών :n",
-    "We have our winners": "Έχουμε τους νικητές"
+    "We have our winners": "Έχουμε τους νικητές",
+    "Twenty seconds, one entry per email.": "Είκοσι δευτερόλεπτα, μία συμμετοχή ανά email.",
+    "Follow us": "Κάντε μας follow",
+    "On Instagram, so we can find you if you win.": "Στο Instagram, για να σας βρούμε αν κερδίσετε.",
+    "Get into the draw!": "Μπείτε στην κλήρωση!",
+    "It runs automatically the moment entries close.": "Γίνεται αυτόματα μόλις κλείσουν οι συμμετοχές."
 }
