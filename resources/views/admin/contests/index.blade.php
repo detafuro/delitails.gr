@@ -39,7 +39,11 @@
                 </td>
                 <td class="px-3 py-3"><x-admin.contest-state :contest="$contest"/></td>
                 <td class="px-3 py-3 text-right">
+                    @php $publicUrl = route('contests.show', ['locale' => 'el', 'contest' => $contest->slug]); @endphp
                     <div class="flex justify-end gap-2">
+                        <a href="{{ $publicUrl }}" target="_blank" rel="noopener" class="btn-rough is-bone is-sm"
+                           title="Open the public page (Greek)">View ↗</a>
+                        <x-admin.copy-link :url="$publicUrl"/>
                         <a href="{{ route('admin.contests.entries.index', $contest) }}" class="btn-rough is-bone is-sm">Entries</a>
                         <a href="{{ route('admin.contests.edit', $contest) }}" class="btn-rough is-bone is-sm">Edit</a>
                         <x-admin.confirm-delete :action="route('admin.contests.destroy', $contest)"

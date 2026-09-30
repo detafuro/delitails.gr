@@ -58,6 +58,20 @@ class ContestAdminScreensTest extends TestCase
         $this->assertSame('2026-09-10T10:00', Dates::local($contest->starts_at)->format('Y-m-d\TH:i'));
     }
 
+    public function test_index_offers_the_public_link_for_each_contest(): void
+    {
+        $contest = Contest::create([
+            'title' => 'Linkable', 'slug' => 'linkable', 'starts_at' => now()->subDay(), 'ends_at' => now()->addDay(),
+            'winners_count' => 1, 'runners_up_count' => 2, 'phone_field' => Contest::PHONE_OPTIONAL,
+        ]);
+
+        $this->actingAs($this->admin())->get(route('admin.contests.index'))
+            ->assertOk()
+            ->assertSee('View ↗', escape: false)
+            ->assertSee('Copy link')
+            ->assertSee(route('contests.show', ['locale' => 'el', 'contest' => 'linkable']), escape: false);
+    }
+
     public function test_closing_date_must_follow_the_opening_date(): void
     {
         $this->actingAs($this->admin())
