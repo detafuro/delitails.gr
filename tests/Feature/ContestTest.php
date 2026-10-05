@@ -287,11 +287,18 @@ class ContestTest extends TestCase
         $csv->assertOk();
         $this->assertStringContainsString('maria@example.com', $csv->streamedContent());
 
-        $xml = $this->actingAs($admin)->get(route('admin.contests.entries.export', ['contest' => $contest, 'format' => 'xml']));
-        $xml->assertOk()->assertHeader('Content-Type', 'application/xml; charset=UTF-8');
-        $body = $xml->streamedContent();
-        $this->assertStringContainsString('<email>maria@example.com</email>', $body);
-        $this->assertInstanceOf(\SimpleXMLElement::class, simplexml_load_string($body));
+        $xlsx = $this->actingAs($admin)->get(route('admin.contests.entries.export', ['contest' => $contest, 'format' => 'xlsx']));
+        $xlsx->assertOk()->assertHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        $file = tempnam(sys_get_temp_dir(), 'test').'.xlsx';
+        file_put_contents($file, $xlsx->streamedContent());
+        $zip = new \ZipArchive;
+        $this->assertTrue($zip->open($file) === true, 'the download is a valid zip/xlsx container');
+        $sheet = $zip->getFromName('xl/worksheets/sheet1.xml');
+        $zip->close();
+        unlink($file);
+        $this->assertStringContainsString('maria@example.com', $sheet);
+        $this->assertStringContainsString('Email', $sheet);
 
         $this->actingAs($admin)->post(route('admin.contests.draw', $contest))->assertRedirect();
         $this->assertNotNull($contest->fresh()->drawn_at);

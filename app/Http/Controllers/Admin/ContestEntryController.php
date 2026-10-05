@@ -6,7 +6,9 @@ use App\Models\Contest;
 use App\Models\ContestEntry;
 use App\Support\ContestDrawRunner;
 use App\Support\Dates;
+use App\Support\Xlsx;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ContestEntryController extends AdminController
@@ -27,10 +29,10 @@ class ContestEntryController extends AdminController
     }
 
     /**
-     * Download the current filter as CSV (default) or XML — including the consent
-     * columns, so a newsletter export can be filtered on them.
+     * Download the current filter as CSV (default) or Excel (.xlsx) — including
+     * the consent columns, so a newsletter export can be filtered on them.
      */
-    public function export(Request $request, Contest $contest): StreamedResponse
+    public function export(Request $request, Contest $contest): StreamedResponse|BinaryFileResponse
     {
         $this->authorize('view', $contest);
 
@@ -38,8 +40,8 @@ class ContestEntryController extends AdminController
         $query = $this->filtered($request, $contest);
         $stamp = now()->format('Ymd-His');
 
-        if ($request->string('format')->toString() === 'xml') {
-            return $this->exportXml($contest, $query, $fields, 'contest-'.$contest->slug.'-entries-'.$stamp.'.xml');
+        if ($request->string('format')->toString() === 'xlsx') {
+            return $this->exportXlsx($contest, $query, $fields, 'contest-'.$contest->slug.'-entries-'.$stamp.'.xlsx');
         }
 
         $filename = 'contest-'.$contest->slug.'-entries-'.$stamp.'.csv';
@@ -73,43 +75,35 @@ class ContestEntryController extends AdminController
         }, $filename, ['Content-Type' => 'text/csv; charset=UTF-8']);
     }
 
-    /** Same rows as the CSV, as XML — one <entry> per entrant, extra answers nested. */
-    private function exportXml(Contest $contest, $query, array $fields, string $filename): StreamedResponse
+    /** Same rows and columns as the CSV, as a real .xlsx workbook. */
+    private function exportXlsx(Contest $contest, $query, array $fields, string $filename): BinaryFileResponse
     {
-        return response()->streamDownload(function () use ($query, $fields, $contest) {
-            $out = fopen('php://output', 'w');
-            $tag = fn (string $name, $value) => '    <'.$name.'>'.htmlspecialchars((string) $value, ENT_XML1 | ENT_QUOTES, 'UTF-8').'</'.$name.'>'."\n";
+        $headings = array_merge(
+            ['Name', 'Email', 'Phone'],
+            array_map(fn ($f) => $f['label'], $fields),
+            ['Accepted terms', 'Newsletter consent', 'Result', 'Entered at'],
+        );
 
-            fwrite($out, '<?xml version="1.0" encoding="UTF-8"?>'."\n");
-            fwrite($out, '<entries contest="'.htmlspecialchars($contest->slug, ENT_XML1 | ENT_QUOTES, 'UTF-8').'" exported="'.Dates::local(now())->toIso8601String().'">'."\n");
+        $rows = (function () use ($query, $fields, $contest) {
+            foreach ($query->lazy(500) as $entry) {
+                yield array_merge(
+                    [$entry->name, $entry->email, $entry->phone],
+                    array_map(fn ($f) => $entry->extraValue($f['key']) ?? '', $fields),
+                    [
+                        $entry->accepted_terms ? 'yes' : 'no',
+                        $entry->marketing_consent ? 'yes' : 'no',
+                        $entry->award_rank ? $contest->awardLabel($entry->award_rank, false) : '',
+                        Dates::local($entry->created_at)?->format('Y-m-d H:i:s'),
+                    ],
+                );
+            }
+        })();
 
-            $query->chunk(500, function ($rows) use ($out, $fields, $contest, $tag) {
-                foreach ($rows as $entry) {
-                    fwrite($out, '  <entry id="'.$entry->id.'">'."\n");
-                    fwrite($out, $tag('name', $entry->name));
-                    fwrite($out, $tag('email', $entry->email));
-                    fwrite($out, $tag('phone', $entry->phone));
+        $path = Xlsx::write($headings, $rows, 'Entries');
 
-                    if ($fields) {
-                        fwrite($out, '    <answers>'."\n");
-                        foreach ($fields as $field) {
-                            fwrite($out, '      <answer key="'.htmlspecialchars($field['key'], ENT_XML1 | ENT_QUOTES, 'UTF-8').'" label="'.htmlspecialchars($field['label'], ENT_XML1 | ENT_QUOTES, 'UTF-8').'">'
-                                .htmlspecialchars((string) ($entry->extraValue($field['key']) ?? ''), ENT_XML1 | ENT_QUOTES, 'UTF-8').'</answer>'."\n");
-                        }
-                        fwrite($out, '    </answers>'."\n");
-                    }
-
-                    fwrite($out, $tag('accepted_terms', $entry->accepted_terms ? 'yes' : 'no'));
-                    fwrite($out, $tag('newsletter_consent', $entry->marketing_consent ? 'yes' : 'no'));
-                    fwrite($out, $tag('result', $entry->award_rank ? $contest->awardLabel($entry->award_rank, false) : ''));
-                    fwrite($out, $tag('entered_at', Dates::local($entry->created_at)?->format('Y-m-d H:i:s')));
-                    fwrite($out, '  </entry>'."\n");
-                }
-            });
-
-            fwrite($out, '</entries>'."\n");
-            fclose($out);
-        }, $filename, ['Content-Type' => 'application/xml; charset=UTF-8']);
+        return response()->download($path, $filename, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ])->deleteFileAfterSend(true);
     }
 
     public function destroy(Contest $contest, ContestEntry $entry)

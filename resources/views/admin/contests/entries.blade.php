@@ -4,8 +4,8 @@
         <a href="{{ route('admin.contests.edit', $contest) }}" class="btn-rough is-bone is-sm">Back to contest</a>
         <a href="{{ route('admin.contests.entries.export', ['contest' => $contest] + request()->only('q', 'filter')) }}"
            class="btn-rough is-fire is-sm" title="Download the rows below as CSV">Export CSV</a>
-        <a href="{{ route('admin.contests.entries.export', ['contest' => $contest, 'format' => 'xml'] + request()->only('q', 'filter')) }}"
-           class="btn-rough is-bone is-sm" title="Download the rows below as XML">Export XML</a>
+        <a href="{{ route('admin.contests.entries.export', ['contest' => $contest, 'format' => 'xlsx'] + request()->only('q', 'filter')) }}"
+           class="btn-rough is-bone is-sm" title="Download the rows below as an Excel file">Export Excel</a>
     </x-slot:actions>
 
     <div class="grid sm:grid-cols-3 gap-4 mb-6">
