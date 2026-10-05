@@ -67,9 +67,6 @@
                     @endif
                     <li>{{ __('Method') }}: {{ __('random selection by the site, one entry per email address') }}</li>
                 </ul>
-                <p class="mt-3 text-xs text-ink/55">
-                    {{ __('Winners are shown by first name and last initial to protect their privacy.') }}
-                </p>
             </div>
 
             <div class="mt-10 flex flex-wrap justify-center gap-3">
