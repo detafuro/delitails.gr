@@ -26,14 +26,23 @@ class ContestEntryController extends AdminController
         return view('admin.contests.entries', compact('contest', 'entries', 'stats'));
     }
 
-    /** CSV of the current filter — including the consent columns, so a newsletter export can be filtered on them. */
+    /**
+     * Download the current filter as CSV (default) or XML — including the consent
+     * columns, so a newsletter export can be filtered on them.
+     */
     public function export(Request $request, Contest $contest): StreamedResponse
     {
         $this->authorize('view', $contest);
 
         $fields = $contest->fieldDefinitions();
         $query = $this->filtered($request, $contest);
-        $filename = 'contest-'.$contest->slug.'-entries-'.now()->format('Ymd-His').'.csv';
+        $stamp = now()->format('Ymd-His');
+
+        if ($request->string('format')->toString() === 'xml') {
+            return $this->exportXml($contest, $query, $fields, 'contest-'.$contest->slug.'-entries-'.$stamp.'.xml');
+        }
+
+        $filename = 'contest-'.$contest->slug.'-entries-'.$stamp.'.csv';
 
         return response()->streamDownload(function () use ($query, $fields, $contest) {
             $out = fopen('php://output', 'w');
@@ -62,6 +71,45 @@ class ContestEntryController extends AdminController
 
             fclose($out);
         }, $filename, ['Content-Type' => 'text/csv; charset=UTF-8']);
+    }
+
+    /** Same rows as the CSV, as XML — one <entry> per entrant, extra answers nested. */
+    private function exportXml(Contest $contest, $query, array $fields, string $filename): StreamedResponse
+    {
+        return response()->streamDownload(function () use ($query, $fields, $contest) {
+            $out = fopen('php://output', 'w');
+            $tag = fn (string $name, $value) => '    <'.$name.'>'.htmlspecialchars((string) $value, ENT_XML1 | ENT_QUOTES, 'UTF-8').'</'.$name.'>'."\n";
+
+            fwrite($out, '<?xml version="1.0" encoding="UTF-8"?>'."\n");
+            fwrite($out, '<entries contest="'.htmlspecialchars($contest->slug, ENT_XML1 | ENT_QUOTES, 'UTF-8').'" exported="'.Dates::local(now())->toIso8601String().'">'."\n");
+
+            $query->chunk(500, function ($rows) use ($out, $fields, $contest, $tag) {
+                foreach ($rows as $entry) {
+                    fwrite($out, '  <entry id="'.$entry->id.'">'."\n");
+                    fwrite($out, $tag('name', $entry->name));
+                    fwrite($out, $tag('email', $entry->email));
+                    fwrite($out, $tag('phone', $entry->phone));
+
+                    if ($fields) {
+                        fwrite($out, '    <answers>'."\n");
+                        foreach ($fields as $field) {
+                            fwrite($out, '      <answer key="'.htmlspecialchars($field['key'], ENT_XML1 | ENT_QUOTES, 'UTF-8').'" label="'.htmlspecialchars($field['label'], ENT_XML1 | ENT_QUOTES, 'UTF-8').'">'
+                                .htmlspecialchars((string) ($entry->extraValue($field['key']) ?? ''), ENT_XML1 | ENT_QUOTES, 'UTF-8').'</answer>'."\n");
+                        }
+                        fwrite($out, '    </answers>'."\n");
+                    }
+
+                    fwrite($out, $tag('accepted_terms', $entry->accepted_terms ? 'yes' : 'no'));
+                    fwrite($out, $tag('newsletter_consent', $entry->marketing_consent ? 'yes' : 'no'));
+                    fwrite($out, $tag('result', $entry->award_rank ? $contest->awardLabel($entry->award_rank, false) : ''));
+                    fwrite($out, $tag('entered_at', Dates::local($entry->created_at)?->format('Y-m-d H:i:s')));
+                    fwrite($out, '  </entry>'."\n");
+                }
+            });
+
+            fwrite($out, '</entries>'."\n");
+            fclose($out);
+        }, $filename, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }
 
     public function destroy(Contest $contest, ContestEntry $entry)
