@@ -1,0 +1,279 @@
+/* Delitails email theme — brand palette, hard edges, no rounded corners. */
+
+body, body *:not(html):not(style):not(br):not(tr):not(code) {
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: relative;
+}
+
+body {
+    -webkit-text-size-adjust: none;
+    background-color: #F3F1EF;
+    color: #191818;
+    height: 100%;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+}
+
+p, ul, ol, blockquote {
+    line-height: 1.6;
+    text-align: left;
+}
+
+a {
+    color: #E5603B;
+    font-weight: 600;
+}
+
+a img { border: none; }
+
+/* Typography */
+
+h1 {
+    color: #191818;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    margin-top: 0;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 0;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 0;
+    text-align: left;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6em;
+    margin-top: 0;
+    text-align: left;
+}
+
+p.sub { font-size: 13px; }
+
+img { max-width: 100%; }
+
+/* Layout */
+
+.wrapper {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    background-color: #F3F1EF;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.content {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Header — ink bar with the white wordmark */
+
+.header {
+    background-color: #191818;
+    padding: 26px 0;
+    text-align: center;
+}
+
+.header a {
+    color: #F3F1EF;
+    font-size: 19px;
+    font-weight: 800;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.logo {
+    height: auto;
+    max-height: 46px;
+    width: 190px;
+}
+
+/* Body */
+
+.body {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    background-color: #F3F1EF;
+    border-bottom: 1px solid #F3F1EF;
+    border-top: 1px solid #F3F1EF;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.inner-body {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+    background-color: #ffffff;
+    border: 2px solid #191818;
+    margin: 0 auto;
+    padding: 0;
+    width: 570px;
+}
+
+/* Subcopy */
+
+.subcopy {
+    border-top: 2px dashed #19181833;
+    margin-top: 26px;
+    padding-top: 18px;
+}
+
+.subcopy p {
+    font-size: 13px;
+    color: #191818;
+}
+
+/* Footer */
+
+.footer {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 570px;
+}
+
+.footer p {
+    color: #19181899;
+    font-size: 12px;
+    text-align: center;
+}
+
+.footer a {
+    color: #19181899;
+    text-decoration: underline;
+}
+
+/* Tables */
+
+.table table {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    margin: 30px auto;
+    width: 100%;
+}
+
+.table th {
+    border-bottom: 2px solid #191818;
+    margin: 0;
+    padding-bottom: 8px;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+}
+
+.table td {
+    color: #191818;
+    font-size: 15px;
+    line-height: 18px;
+    margin: 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #1918181a;
+}
+
+.content-cell { max-width: 100vw; padding: 34px; }
+
+/* Buttons — square, bold, brand orange */
+
+.action {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    margin: 30px auto;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.button {
+    -webkit-text-size-adjust: none;
+    border-radius: 0;
+    color: #fff;
+    display: inline-block;
+    overflow: hidden;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border: 2px solid #191818;
+}
+
+.button-blue, .button-primary {
+    background-color: #E5603B;
+    border-color: #191818;
+    color: #ffffff;
+}
+
+.button-green, .button-success {
+    background-color: #6DC497;
+    border-color: #191818;
+    color: #191818;
+}
+
+.button-red, .button-error {
+    background-color: #191818;
+    border-color: #191818;
+    color: #ffffff;
+}
+
+/* Panels */
+
+.panel {
+    border-left: 4px solid #E5603B;
+    margin: 21px 0;
+}
+
+.panel-content {
+    background-color: #F3F1EF;
+    color: #191818;
+    padding: 16px;
+}
+
+.panel-content p { color: #191818; }
+
+.panel-item { padding: 0; }
+
+.panel-item p:last-of-type { margin-bottom: 0; padding-bottom: 0; }
+
+/* Promotions */
+
+.promotion {
+    background-color: #FFFFFF;
+    border: 2px dashed #191818;
+    margin: 0;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    padding: 24px;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
