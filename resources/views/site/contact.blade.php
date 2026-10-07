@@ -27,7 +27,14 @@
                     <div class="mt-4 inline-block border-2 border-ink bg-grass px-4 py-2 font-bold uppercase tracking-wider">{{ session('success') }}</div>
                 @endif
 
-                <form method="POST" action="{{ route('contact.send') }}" class="mt-6 grid sm:grid-cols-2 gap-5">
+                @if(\App\Support\Turnstile::enabled())
+                    @push('head')
+                        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+                    @endpush
+                @endif
+
+                <form method="POST" action="{{ route('contact.send') }}" class="mt-6 grid sm:grid-cols-2 gap-5"
+                      x-data="{ sending: false }" @submit="sending = true">
                     @csrf
                     <input type="text" name="hp_field" class="hidden" tabindex="-1" autocomplete="off">
 
@@ -59,8 +66,20 @@
                         @error('message')<p class="mt-1 text-xs text-fire">{{ $message }}</p>@enderror
                     </div>
 
+                    @if(\App\Support\Turnstile::enabled())
+                        <div class="sm:col-span-2">
+                            <div class="cf-turnstile" data-sitekey="{{ \App\Support\Turnstile::siteKey() }}"
+                                 data-theme="light" data-language="{{ app()->getLocale() }}"></div>
+                            @error('cf-turnstile-response')<p class="mt-1 text-xs text-fire">{{ $message }}</p>@enderror
+                        </div>
+                    @endif
+
                     <div class="sm:col-span-2">
-                        <x-site.rough-button type="submit" variant="fire">{{ __('Send message') }}</x-site.rough-button>
+                        {{-- Disabled after the first click: repeat clicks were filing the same enquiry several times. --}}
+                        <x-site.rough-button type="submit" variant="fire" ::disabled="sending">
+                            <span x-show="!sending">{{ __('Send message') }}</span>
+                            <span x-show="sending" x-cloak>{{ __('Sending…') }}</span>
+                        </x-site.rough-button>
                     </div>
                 </form>
             </div>
