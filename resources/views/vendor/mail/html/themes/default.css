@@ -88,16 +88,16 @@ img { max-width: 100%; }
     width: 100%;
 }
 
-/* Header — ink bar with the white wordmark */
+/* Header — black wordmark on the beige background */
 
 .header {
-    background-color: #191818;
+    background-color: #F3F1EF;
     padding: 26px 0;
     text-align: center;
 }
 
 .header a {
-    color: #F3F1EF;
+    color: #191818;
     font-size: 19px;
     font-weight: 800;
     text-decoration: none;
