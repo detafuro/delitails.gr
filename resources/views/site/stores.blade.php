@@ -31,12 +31,11 @@
                         <div class="brush-card bg-bone p-5">
                             <div class="flex items-center justify-between">
                                 <span class="ribbon bg-ink text-[10px]">{{ $store->city }}</span>
-                                @if($store->postcode)<span class="text-xs uppercase tracking-widest text-ink/50">{{ $store->postcode }}</span>@endif
                             </div>
                             <h3 class="mt-3 font-display text-2xl font-black uppercase">{{ $store->name }}</h3>
                             <p class="mt-2 flex items-start gap-1.5 text-ink/75">
                                 <svg class="mt-0.5 h-4 w-4 shrink-0 text-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c-3.866 0-7 3.134-7 7 0 4.97 7 13 7 13s7-8.03 7-13c0-3.866-3.134-7-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>
-                                <span>{{ $store->address }}</span>
+                                <span>{{ $store->address }}@if($store->postcode), {{ __('P.C.') }} {{ $store->postcode }}@endif</span>
                             </p>
                             @if($store->phone)
                                 <p class="mt-1 flex items-center gap-1.5 text-sm">
