@@ -133,16 +133,15 @@
             <nav aria-label="{{ __('Main') }}" class="hidden lg:flex flex-1 items-center justify-center gap-3">
                 @php
                     $storesPublic = ($site['stores_page_status'] ?? 'draft') === 'public';
-                    $contestsPublic = ($site['contests_page_status'] ?? 'draft') === 'public';
-                    $links = array_values(array_filter([
+                    // Stockists and Contests are reachable from the header CTA and the
+                    // footer; keeping them out of the nav keeps it to one line.
+                    $links = [
                         ['products.index', 'Products'],
                         ['about', 'About'],
                         ['blog.index', 'Blog'],
-                        $contestsPublic ? ['contests.index', 'Contests'] : null,
-                        $storesPublic ? ['stores', 'Stores'] : null,
                         ['faq', 'FAQ'],
                         ['contact', 'Contact'],
-                    ]));
+                    ];
                 @endphp
                 @foreach($links as [$route,$label])
                     @php $active = request()->routeIs($route) || request()->routeIs($route.'.*'); @endphp
@@ -261,6 +260,9 @@
                     @endforeach
                     @if(($site['stores_page_status'] ?? 'draft') === 'public')
                         <li><a class="hover:text-grass" href="{{ route('stores') }}">Find a store</a></li>
+                    @endif
+                    @if(($site['contests_page_status'] ?? 'draft') === 'public')
+                        <li><a class="hover:text-grass" href="{{ route('contests.index') }}">{{ __('Contests') }}</a></li>
                     @endif
                 </ul>
             </div>
