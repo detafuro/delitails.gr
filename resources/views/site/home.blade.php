@@ -35,9 +35,11 @@
                     <x-site.rough-button href="{{ $heroCtaLink }}" variant="ink">
                         {{ $heroCtaText }} <span class="wiggle inline-block">→</span>
                     </x-site.rough-button>
-                    {{-- <x-site.rough-button href="{{ route('stores') }}" variant="fire">
-                        Find a store
-                    </x-site.rough-button> --}}
+                    @if(($site['stores_page_status'] ?? 'draft') === 'public')
+                        <x-site.rough-button href="{{ route('stores') }}" variant="fire">
+                            {{ __('Find a store') }}
+                        </x-site.rough-button>
+                    @endif
                 </div>
 
                 <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-bold uppercase tracking-widest text-ink/70">
