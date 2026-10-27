@@ -303,9 +303,9 @@
 
         <div class="border-t-2 border-bone/20">
             <div class="mx-auto max-w-7xl px-4 md:px-6 py-5 flex flex-col md:flex-row gap-3 items-center justify-between text-center md:text-left text-xs uppercase tracking-widest text-bone/50">
-                <div>&copy; {{ date('Y') }} {{ $siteName }}. {{ __('All rights reserved.') }}</div>
+                <div>&copy; {{ date('Y') }} {{ $siteName }}. All rights reserved.</div>
                 <div class="font-sans text-bone/60 normal-case tracking-normal text-sm">
-                    {{ __('Designed & developed by') }} <a href="https://nifty.gr/" target="_blank" rel="noopener" class="font-semibold text-bone/80 hover:text-fire-light">Nifty</a>.
+                    Designed &amp; developed by <a href="https://nifty.gr/" target="_blank" rel="noopener" class="font-semibold text-bone/80 hover:text-fire-light">Nifty</a>.
                 </div>
             </div>
         </div>
