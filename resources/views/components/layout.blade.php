@@ -122,8 +122,8 @@
             <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0 min-w-0">
                 @if(!empty($site['logo']))
                     <x-site.img :src="$site['logo']" :alt="$siteName" :widths="[320, 480]" loading="eager"
-                                sizes="(min-width: 1280px) 248px, (min-width: 768px) 198px, 149px"
-                                class="h-12 md:h-16 xl:h-20 w-auto max-w-[48vw] md:max-w-none object-contain object-left"/>
+                                sizes="(min-width: 1024px) 248px, (min-width: 768px) 198px, 149px"
+                                class="h-12 md:h-16 lg:h-20 w-auto max-w-[48vw] md:max-w-none object-contain object-left"/>
                 @else
                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-fire text-bone font-black text-lg shadow-[3px_3px_0_0_#191818]">D</span>
                     <span class="font-display text-xl md:text-2xl font-black uppercase tracking-tight">{{ $siteName }}</span>
@@ -133,15 +133,14 @@
             <nav aria-label="{{ __('Main') }}" class="hidden lg:flex flex-1 items-center justify-center gap-1 xl:gap-1.5">
                 @php
                     $storesPublic = ($site['stores_page_status'] ?? 'draft') === 'public';
-                    // Stockists and Contests are reachable from the header CTA and the
-                    // footer; keeping them out of the nav keeps it to one line.
+                    // Stockists, Contests and Contact are reachable from the header CTA
+                    // and the footer; keeping them out of the nav keeps it to one line.
                     $links = [
                         ['products.index', 'Products'],
                         ['display-boxes.index', 'Display Boxes'],
                         ['about', 'About'],
                         ['blog.index', 'Blog'],
                         ['faq', 'FAQ'],
-                        ['contact', 'Contact'],
                     ];
                 @endphp
                 @foreach($links as [$route,$label])
