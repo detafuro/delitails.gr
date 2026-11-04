@@ -34,6 +34,10 @@ class ProductController extends AdminController
             $query->where('type', $type);
         }
 
+        if (($packType = $request->string('pack_type')->toString()) !== '' && isset(Product::PACK_TYPES[$packType])) {
+            $query->where('pack_type', $packType);
+        }
+
         if (($status = $request->string('status')->toString()) !== '') {
             if ($status === 'published') $query->where('is_published', true);
             if ($status === 'draft') $query->where('is_published', false);

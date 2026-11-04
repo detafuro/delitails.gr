@@ -8,11 +8,22 @@ use Illuminate\Http\Request;
 
 class ProductCatalogController extends Controller
 {
-    public function index(Request $request)
+    /** $pack comes from the route default: 'retail' for /products, 'display_box' for /display-boxes. */
+    public function index(Request $request, string $pack = Product::PACK_RETAIL)
     {
-        $categories = ProductCategory::active()->ordered()->get();
+        $pack = isset(Product::PACK_TYPES[$pack]) ? $pack : Product::PACK_RETAIL;
+        $indexRoute = Product::PACK_ROUTES[$pack].'.index';
 
-        $query = Product::published()->with('category', 'images');
+        // Only offer filters that lead somewhere: a pack may not cover every
+        // animal or every type.
+        $categories = ProductCategory::active()->ordered()
+            ->whereHas('products', fn ($q) => $q->published()->pack($pack))
+            ->get();
+
+        $availableTypes = Product::published()->pack($pack)->distinct()->pluck('type')->all();
+        $types = array_intersect_key(Product::TYPES, array_flip($availableTypes));
+
+        $query = Product::published()->pack($pack)->with('category', 'images');
 
         if ($search = $request->string('q')->toString()) {
             $query->where(function ($q) use ($search) {
@@ -25,14 +36,14 @@ class ProductCatalogController extends Controller
 
         $activeCategory = null;
         if ($slug = $request->string('category')->toString()) {
-            $activeCategory = ProductCategory::where('slug', $slug)->first();
+            $activeCategory = $categories->firstWhere('slug', $slug);
             if ($activeCategory) {
                 $query->where('category_id', $activeCategory->id);
             }
         }
 
         $activeType = null;
-        if (($type = $request->string('type')->toString()) !== '' && isset(Product::TYPES[$type])) {
+        if (($type = $request->string('type')->toString()) !== '' && isset($types[$type])) {
             $activeType = $type;
             $query->where('type', $type);
         }
@@ -49,25 +60,30 @@ class ProductCatalogController extends Controller
 
         $products = $query->paginate(12)->withQueryString();
 
-        $types = Product::TYPES;
-
-        return view('site.products.index', compact('products', 'categories', 'activeCategory', 'activeType', 'types', 'sort'));
+        return view('site.products.index', compact(
+            'products', 'categories', 'activeCategory', 'activeType', 'types', 'sort', 'pack', 'indexRoute'
+        ));
     }
 
-    public function show(Product $product)
+    public function show(Product $product, string $pack = Product::PACK_RETAIL)
     {
         abort_unless($product->is_published, 404);
+        // /products/x and /display-boxes/x are separate catalogues: don't serve
+        // one pack's product under the other's URL.
+        abort_unless($product->pack_type === $pack, 404);
         $product->load('category', 'images');
 
-        $related = Product::published()->with('images')
+        $related = Product::published()->pack($pack)->with('images')
             ->where('id', '!=', $product->id)
             ->when($product->category_id, fn ($q) => $q->where('category_id', $product->category_id))
             ->limit(4)->get();
 
         if ($related->count() === 0) {
-            $related = Product::published()->with('images')->where('id', '!=', $product->id)->limit(4)->get();
+            $related = Product::published()->pack($pack)->with('images')->where('id', '!=', $product->id)->limit(4)->get();
         }
 
-        return view('site.products.show', compact('product', 'related'));
+        $indexRoute = $product->routeName('index');
+
+        return view('site.products.show', compact('product', 'related', 'indexRoute'));
     }
 }

@@ -25,10 +25,27 @@ class Product extends Model
         self::TYPE_TRAINING_TREATS => 'Training Treats',
     ];
 
+    // How the treat is packed. The retail pouch and the counter-top display box
+    // hold the same treat, so they share everything but the pack and the listing
+    // they show up in.
+    public const PACK_RETAIL = 'retail';
+    public const PACK_DISPLAY_BOX = 'display_box';
+
+    public const PACK_TYPES = [
+        self::PACK_RETAIL => 'Retail pack',
+        self::PACK_DISPLAY_BOX => 'Display box',
+    ];
+
+    /** Route name prefix for each pack type's own catalogue. */
+    public const PACK_ROUTES = [
+        self::PACK_RETAIL => 'products',
+        self::PACK_DISPLAY_BOX => 'display-boxes',
+    ];
+
     protected $fillable = [
         'title', 'slug', 'sku', 'weight', 'short_description', 'description', 'characteristics',
         'price', 'sale_price', 'stock_status', 'featured_image',
-        'category_id', 'type', 'is_published', 'is_featured', 'sort_order',
+        'category_id', 'type', 'pack_type', 'is_published', 'is_featured', 'sort_order',
         'seo_title', 'seo_description',
     ];
 
@@ -92,5 +109,31 @@ class Product extends Model
     public function scopeOfType($q, ?string $type)
     {
         return $type ? $q->where('type', $type) : $q;
+    }
+
+    public function scopePack($q, string $packType)
+    {
+        return $q->where('pack_type', $packType);
+    }
+
+    public function getPackTypeLabelAttribute(): ?string
+    {
+        return self::PACK_TYPES[$this->pack_type] ?? null;
+    }
+
+    public function isDisplayBox(): bool
+    {
+        return $this->pack_type === self::PACK_DISPLAY_BOX;
+    }
+
+    /** 'products.show' or 'display-boxes.show', depending on how this one is packed. */
+    public function routeName(string $action = 'show'): string
+    {
+        return (self::PACK_ROUTES[$this->pack_type] ?? self::PACK_ROUTES[self::PACK_RETAIL]).'.'.$action;
+    }
+
+    public function url(): string
+    {
+        return route($this->routeName('show'), $this->slug);
     }
 }

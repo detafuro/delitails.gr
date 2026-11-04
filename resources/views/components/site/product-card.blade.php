@@ -7,7 +7,7 @@
     $primary = $gallery[0] ?? null;
     $hover = $gallery[1] ?? null; // 2nd gallery image, revealed on hover
 @endphp
-<a href="{{ route('products.show', $product->slug) }}"
+<a href="{{ $product->url() }}"
    class="group relative flex h-full flex-col brush-card bg-bone text-ink p-3 transition">
     <div class="relative shrink-0 aspect-square overflow-hidden border-2 border-ink/80 bg-bone-dark">
         @if($primary)
@@ -33,13 +33,14 @@
             <div class="text-xs uppercase tracking-wider text-ink/55">{{ $product->category?->t('name') }}</div>
         </div>
         @if($product->weight)
-            <span class="mt-0.5 inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-xs font-bold uppercase tracking-wider text-ink/70" title="{{ __('Net weight') }}">
+            @php $measureLabel = $product->isDisplayBox() ? __('Box contents') : __('Net weight'); @endphp
+            <span class="mt-0.5 inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-xs font-bold uppercase tracking-wider text-ink/70" title="{{ $measureLabel }}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5" aria-hidden="true">
                     <path d="M12 3a4 4 0 0 0-4 4h8a4 4 0 0 0-4-4z"/>
                     <path d="M4 7h16l1.5 12a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2L4 7z"/>
                     <path d="M9 14a3 3 0 0 0 6 0"/>
                 </svg>
-                <span class="sr-only">{{ __('Net weight') }}:</span>{{ $product->t('weight') }}
+                <span class="sr-only">{{ $measureLabel }}:</span>{{ $product->t('weight') }}
             </span>
         @endif
     </div>

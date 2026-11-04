@@ -1,22 +1,27 @@
 @php
+    $isBoxes = ($pack ?? \App\Models\Product::PACK_RETAIL) === \App\Models\Product::PACK_DISPLAY_BOX;
+
     $titleParts = [];
     if ($activeCategory) $titleParts[] = $activeCategory->t('name');
     if (!empty($activeType) && isset($types[$activeType])) $titleParts[] = __($types[$activeType]);
-    if ($activeCategory && $activeCategory->t('seo_title')) {
+    if ($isBoxes) $titleParts[] = __('Display boxes');
+    if ($activeCategory && !$isBoxes && $activeCategory->t('seo_title')) {
         $title = \App\Support\Seo::title($activeCategory->t('seo_title'));
     } elseif (count($titleParts)) {
-        $title = \App\Support\Seo::title(implode(' · ', $titleParts).' — '.__('Treats for dogs'));
+        $title = \App\Support\Seo::title(implode(' · ', $titleParts).' — '.($isBoxes ? __('For pet shops') : __('Treats for dogs')));
     } else {
         $title = \App\Support\Seo::title(__('All treats'), __('Natural chews & training treats for dogs'));
     }
-    $description = $activeCategory?->t('seo_description')
-        ?: ($activeCategory?->t('description') ? __(':category treats for dogs: :desc', ['category' => $activeCategory->t('name'), 'desc' => $activeCategory->t('description')]) : null)
-        ?: __('Browse all Delitails treats: single-protein natural chews and training treats for dogs, hand-prepared in small batches with no additives.');
+    $description = $isBoxes
+        ? __('Delitails display boxes for pet shops: counter-top boxes of single-protein natural chews, ready to put straight on the shelf.')
+        : ($activeCategory?->t('seo_description')
+            ?: ($activeCategory?->t('description') ? __(':category treats for dogs: :desc', ['category' => $activeCategory->t('name'), 'desc' => $activeCategory->t('description')]) : null)
+            ?: __('Browse all Delitails treats: single-protein natural chews and training treats for dogs, hand-prepared in small batches with no additives.'));
     // Search/sort variants are the same content — canonical to the clean listing so they don't get indexed as duplicates.
-    $canonical = route('products.index', array_filter(['category' => $activeCategory?->slug, 'type' => $activeType, 'page' => request('page') > 1 ? request('page') : null]));
+    $canonical = route($indexRoute, array_filter(['category' => $activeCategory?->slug, 'type' => $activeType, 'page' => request('page') > 1 ? request('page') : null]));
     $noindex = request()->filled('q');
 
-    $linkBase = fn(array $extra = []) => route('products.index', array_filter(array_merge(
+    $linkBase = fn(array $extra = []) => route($indexRoute, array_filter(array_merge(
         ['category' => $activeCategory?->slug, 'type' => $activeType, 'q' => request('q'), 'sort' => $sort !== 'featured' ? $sort : null],
         $extra
     ), fn($v) => $v !== null && $v !== ''));
@@ -25,17 +30,21 @@
     {{-- Header --}}
     <section class="bg-fire paper text-bone">
         <div class="mx-auto max-w-7xl px-4 md:px-6 py-10 md:py-14">
-            <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">{{ __('Catalogue') }}</div>
+            <div class="text-bone/80 text-sm font-bold uppercase tracking-[0.3em]">{{ $isBoxes ? __('For pet shops') : __('Catalogue') }}</div>
             <h1 class="mt-3 font-display text-5xl md:text-7xl font-black uppercase leading-[0.9]">
                 @if($activeCategory)
-                    {{ $activeCategory->t('name') }}
+                    {{ $activeCategory->t('name') }}@if($isBoxes) <span class="text-ink">{{ __('Display boxes') }}</span>@endif
                 @elseif($activeType && isset($types[$activeType]))
                     {{ __($types[$activeType]) }}
+                @elseif($isBoxes)
+                    {!! __('Display boxes <span class="text-ink">that sell</span>') !!}
                 @else
                     {!! __('Every treat <span class="text-ink">we got</span>') !!}
                 @endif
             </h1>
-            @if($activeCategory?->t('description'))
+            @if($isBoxes)
+                <p class="mt-4 max-w-2xl font-editorial italic text-xl text-bone/85">{{ __('Counter-top boxes, packed with the same single-protein chews. Open the lid, put it on the counter, watch it empty.') }}</p>
+            @elseif($activeCategory?->t('description'))
                 <p class="mt-4 max-w-2xl font-editorial italic text-xl text-bone/85">{{ $activeCategory->t('description') }}</p>
             @else
                 <p class="mt-4 max-w-2xl font-editorial italic text-xl text-bone/85">{{ __('Real food, loud labels, zero filler. Pick your favourites — or let your pet do it for you.') }}</p>
@@ -56,7 +65,7 @@
                             {{ __('Type') }}: {{ __($types[$activeType]) }} <span class="text-fire-light">✕</span>
                         </a>
                     @endif
-                    <a href="{{ route('products.index') }}"
+                    <a href="{{ route($indexRoute) }}"
                        class="inline-flex items-center gap-2 border-2 border-bone bg-bone text-ink px-3 py-1 font-display text-xs font-bold uppercase tracking-wider">
                         {{ __('Clear all') }}
                     </a>
@@ -83,7 +92,7 @@
                     </form>
                 </div>
 
-                <div class="brush-card bg-bone p-5">
+                <div class="brush-card bg-bone p-5" @if(count($types) < 2) hidden @endif>
                     <h2 class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Type') }}</h2>
                     <ul class="mt-3 space-y-1">
                         <li>
@@ -135,7 +144,7 @@
 
                 {{-- Mobile / tablet: search + quick chips + filter sheet --}}
                 <div class="lg:hidden mb-6 space-y-4" x-data="{ sheet: false }" x-effect="document.documentElement.classList.toggle('overflow-hidden', sheet)">
-                    <div class="text-sm text-ink/60">{{ __('Showing :count treats', ['count' => $products->total()]) }}</div>
+                    <div class="text-sm text-ink/60">{{ $isBoxes ? __('Showing :count display boxes', ['count' => $products->total()]) : __('Showing :count treats', ['count' => $products->total()]) }}</div>
                     <div class="flex items-center gap-2">
                         <button type="button" @click="sheet = true"
                                 class="inline-flex h-11 items-center gap-2 border-2 border-ink bg-bone px-3 font-display text-xs font-black uppercase tracking-wider">
@@ -163,7 +172,7 @@
                     <template x-teleport="body">
                         <div x-show="sheet" x-cloak class="fixed inset-0 z-[110] lg:hidden" @keydown.escape.window="sheet = false">
                             <div class="absolute inset-0 bg-ink/70" x-show="sheet" x-transition.opacity @click="sheet = false"></div>
-                            <form method="GET" action="{{ route('products.index') }}" @submit="$el.querySelectorAll('input').forEach(i => { if (i.value === '') i.disabled = true })"
+                            <form method="GET" action="{{ route($indexRoute) }}" @submit="$el.querySelectorAll('input').forEach(i => { if (i.value === '') i.disabled = true })"
                                   x-show="sheet" x-transition:enter="transition transform ease-out duration-200" x-transition:enter-start="translate-y-full" x-transition:enter-end="translate-y-0"
                                   x-transition:leave="transition transform ease-in duration-150" x-transition:leave-start="translate-y-0" x-transition:leave-end="translate-y-full"
                                   class="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto border-t-2 border-ink bg-bone paper"
@@ -187,7 +196,7 @@
                                         </div>
                                     </div>
 
-                                    <fieldset>
+                                    <fieldset @if(count($types) < 2) hidden @endif>
                                         <legend class="font-display text-xs font-bold uppercase tracking-[0.25em] text-ink/60">{{ __('Type') }}</legend>
                                         <div class="mt-3 flex flex-wrap gap-2">
                                             <label class="cursor-pointer">
@@ -221,7 +230,7 @@
                                 </div>
 
                                 <div class="sticky bottom-0 flex gap-3 border-t-2 border-ink bg-bone px-5 py-4">
-                                    <a href="{{ route('products.index') }}" class="btn-rough is-bone is-sm flex-1 justify-center">{{ __('Clear all') }}</a>
+                                    <a href="{{ route($indexRoute) }}" class="btn-rough is-bone is-sm flex-1 justify-center">{{ __('Clear all') }}</a>
                                     <button type="submit" class="btn-rough is-fire is-sm flex-1 justify-center">{{ __('Apply') }}</button>
                                 </div>
                             </form>
@@ -234,7 +243,7 @@
                     @foreach(request()->except(['sort','page']) as $k => $v)
                         <input type="hidden" name="{{ $k }}" value="{{ $v }}">
                     @endforeach
-                    <span class="text-sm text-ink/60">{{ __('Showing :count treats', ['count' => $products->total()]) }}</span>
+                    <span class="text-sm text-ink/60">{{ $isBoxes ? __('Showing :count display boxes', ['count' => $products->total()]) : __('Showing :count treats', ['count' => $products->total()]) }}</span>
                     <select name="sort" onchange="this.form.submit()" aria-label="{{ __('Sort') }}"
                             class="ml-auto border-2 border-ink bg-bone px-3 py-2 font-display uppercase text-xs">
                         @foreach($sortOptions as $key => $label)
@@ -247,7 +256,7 @@
                     <div class="brush-card bg-bone p-10 text-center">
                         <div class="font-display text-2xl font-black uppercase">{{ __('No treats match.') }}</div>
                         <p class="mt-2 text-ink/60">{{ __('Try clearing your filters and dive back in.') }}</p>
-                        <x-site.rough-button class="mt-5" href="{{ route('products.index') }}" variant="fire">{{ __('Reset') }}</x-site.rough-button>
+                        <x-site.rough-button class="mt-5" href="{{ route($indexRoute) }}" variant="fire">{{ __('Reset') }}</x-site.rough-button>
                     </div>
                 @else
                     <h2 class="sr-only">{{ __('Products') }}</h2>

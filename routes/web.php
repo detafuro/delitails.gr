@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\StoreLocatorController;
 use App\Http\Middleware\SetLocale;
+use App\Models\Product;
 use App\Support\Locale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,12 @@ Route::prefix('{locale}')
         Route::get('/about', AboutController::class)->name('about');
         Route::get('/products', [ProductCatalogController::class, 'index'])->name('products.index');
         Route::get('/products/{product:slug}', [ProductCatalogController::class, 'show'])->name('products.show');
+        // Display boxes are the same catalogue in a different pack, so they reuse
+        // the controller and views with the pack type bound as a route default.
+        Route::get('/display-boxes', [ProductCatalogController::class, 'index'])
+            ->defaults('pack', Product::PACK_DISPLAY_BOX)->name('display-boxes.index');
+        Route::get('/display-boxes/{product:slug}', [ProductCatalogController::class, 'show'])
+            ->defaults('pack', Product::PACK_DISPLAY_BOX)->name('display-boxes.show');
         Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
         Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
         Route::get('/faq', FaqPageController::class)->name('faq');

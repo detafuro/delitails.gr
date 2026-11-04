@@ -36,7 +36,7 @@
         <div class="grid sm:grid-cols-2 gap-4">
             <x-admin.form-input name="sku" label="SKU" :value="$product->sku"/>
             <div>
-                <x-admin.form-input name="weight" label="Net weight / quantity" :value="$product->weight" placeholder="e.g. 200 gr, 2 pcs"/>
+                <x-admin.form-input name="weight" label="Net weight / quantity" :value="$product->weight" placeholder="e.g. 200 gr, 2 pcs — or 100 pcs for a box"/>
                 <p class="mt-1 text-xs text-ink/60">As printed on the label. Greek override: <span class="font-mono">weight (Ελληνικά)</span> in the EL tab.</p>
             </div>
         </div>
@@ -57,6 +57,10 @@
             <h3 class="font-display text-lg font-extrabold uppercase">Classification</h3>
             <x-admin.select name="category_id" label="Animal" :value="$product->category_id" placeholder="— Uncategorised —" :options="$categories->pluck('name','id')->toArray()"/>
             <x-admin.select name="type" label="Type" :value="$product->type" placeholder="— None —" :options="\App\Models\Product::TYPES"/>
+            <div>
+                <x-admin.select name="pack_type" label="Pack" :value="$product->pack_type ?? \App\Models\Product::PACK_RETAIL" :options="\App\Models\Product::PACK_TYPES"/>
+                <p class="mt-1 text-xs text-ink/60">Display boxes get their own listing at /display-boxes and are kept out of the main catalogue.</p>
+            </div>
         </div>
 
         <div class="brush-card p-5 space-y-4">

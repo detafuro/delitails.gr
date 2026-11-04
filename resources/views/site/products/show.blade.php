@@ -18,8 +18,8 @@
             '@context' => 'https://schema.org', '@type' => 'BreadcrumbList',
             'itemListElement' => array_values(array_filter([
                 ['@type' => 'ListItem', 'position' => 1, 'name' => __('Home'), 'item' => route('home')],
-                ['@type' => 'ListItem', 'position' => 2, 'name' => __('Products'), 'item' => route('products.index')],
-                $product->category ? ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->t('name'), 'item' => route('products.index', ['category' => $product->category->slug])] : null,
+                ['@type' => 'ListItem', 'position' => 2, 'name' => $product->isDisplayBox() ? __('Display boxes') : __('Products'), 'item' => route($indexRoute)],
+                $product->category ? ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->t('name'), 'item' => route($indexRoute, ['category' => $product->category->slug])] : null,
                 ['@type' => 'ListItem', 'position' => $product->category ? 4 : 3, 'name' => $product->t('title'), 'item' => url()->current()],
             ])),
         ],
@@ -30,9 +30,9 @@
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <nav aria-label="{{ __('Breadcrumb') }}" class="text-xs uppercase tracking-widest text-ink/60 mb-6">
                 <a class="hover:text-fire" href="{{ route('home') }}">{{ __('Home') }}</a> /
-                <a class="hover:text-fire" href="{{ route('products.index') }}">{{ __('Products') }}</a>
+                <a class="hover:text-fire" href="{{ route($indexRoute) }}">{{ $product->isDisplayBox() ? __('Display boxes') : __('Products') }}</a>
                 @if($product->category)
-                    / <a class="hover:text-fire" href="{{ route('products.index', ['category' => $product->category->slug]) }}">{{ $product->category->t('name') }}</a>
+                    / <a class="hover:text-fire" href="{{ route($indexRoute, ['category' => $product->category->slug]) }}">{{ $product->category->t('name') }}</a>
                 @endif
                 / <span class="text-ink">{{ $product->t('title') }}</span>
             </nav>
@@ -115,20 +115,24 @@
 
                     <div class="mt-4 flex flex-wrap items-center gap-2">
                         @if($product->weight)
-                            <span class="inline-flex items-center gap-1.5 border-2 border-ink bg-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider" title="{{ __('Net weight') }}">
+                            @php $measureLabel = $product->isDisplayBox() ? __('Box contents') : __('Net weight'); @endphp
+                            <span class="inline-flex items-center gap-1.5 border-2 border-ink bg-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider" title="{{ $measureLabel }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5" aria-hidden="true">
                                     <path d="M12 3a4 4 0 0 0-4 4h8a4 4 0 0 0-4-4z"/>
                                     <path d="M4 7h16l1.5 12a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2L4 7z"/>
                                     <path d="M9 14a3 3 0 0 0 6 0"/>
                                 </svg>
-                                <span class="sr-only">{{ __('Net weight') }}:</span>{{ $product->t('weight') }}
+                                <span class="sr-only">{{ $measureLabel }}:</span>{{ $product->t('weight') }}
                             </span>
                         @endif
                         @if($product->type_label)
                             <span class="inline-flex items-center gap-1.5 border-2 border-ink bg-fire text-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider">{{ __($product->type_label) }}</span>
                         @endif
+                        @if($product->isDisplayBox())
+                            <span class="inline-flex items-center gap-1.5 border-2 border-ink bg-ink text-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider">{{ __('Display box') }}</span>
+                        @endif
                         @if($product->category)
-                            <a href="{{ route('products.index', ['category' => $product->category->slug]) }}"
+                            <a href="{{ route($indexRoute, ['category' => $product->category->slug]) }}"
                                class="inline-flex items-center gap-1.5 border-2 border-ink bg-bone px-2 py-1 text-[11px] font-bold uppercase tracking-wider hover:bg-grass">
                                 {{ $product->category->t('name') }}
                             </a>

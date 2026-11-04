@@ -188,17 +188,19 @@
     .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
 
-    /* Main-nav sticker buttons */
+    /* Main-nav sticker buttons. Sized so six of them, the logo and the stockist
+       CTA all fit one line inside max-w-7xl. */
     .nav-btn {
         display: inline-flex;
         align-items: center;
-        padding: 0.55rem 0.9rem;
+        padding: 0.5rem 0.55rem;
         font-family: var(--font-display);
         font-weight: 800;
-        font-size: 0.8rem;
+        font-size: 0.72rem;
         line-height: 1;
+        white-space: nowrap;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.05em;
         color: var(--color-ink);
         background: var(--color-bone);
         border: 2px solid var(--color-ink);

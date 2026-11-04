@@ -28,6 +28,7 @@ class StoreProductRequest extends FormRequest
             'stock_status' => ['required', Rule::in(['in_stock', 'out_of_stock', 'preorder'])],
             'category_id' => ['nullable', 'exists:product_categories,id'],
             'type' => ['nullable', Rule::in(array_keys(\App\Models\Product::TYPES))],
+            'pack_type' => ['required', Rule::in(array_keys(\App\Models\Product::PACK_TYPES))],
             'featured_image' => ['nullable', 'image', 'max:5120'],
             'gallery' => ['nullable', 'array'],
             'gallery.*' => ['image', 'max:5120'],

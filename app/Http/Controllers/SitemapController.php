@@ -58,8 +58,11 @@ class SitemapController extends Controller
         foreach (array_keys(Product::TYPES) as $type) {
             $add('products.index', ['type' => $type], null, 'weekly', '0.8');
         }
+        if (Product::published()->pack(Product::PACK_DISPLAY_BOX)->exists()) {
+            $add('display-boxes.index', [], null, 'weekly', '0.8');
+        }
         foreach (Product::published()->get() as $p) {
-            $add('products.show', ['product' => $p->slug], $p->updated_at?->toDateString(), 'weekly', '0.8');
+            $add($p->routeName('show'), ['product' => $p->slug], $p->updated_at?->toDateString(), 'weekly', '0.8');
         }
         foreach (Post::published()->get() as $post) {
             $add('blog.show', ['post' => $post->slug], ($post->updated_at ?? $post->published_at)?->toDateString(), 'monthly', '0.6');
