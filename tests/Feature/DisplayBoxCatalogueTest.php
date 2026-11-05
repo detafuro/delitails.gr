@@ -92,7 +92,9 @@ class DisplayBoxCatalogueTest extends TestCase
             ->assertDontSee('No additives')
             ->assertDontSee('Air-dried')
             ->assertDontSee('air-dried')
-            ->assertDontSee('single-ingredient');
+            ->assertDontSee('single-ingredient')
+            // ...but they do say what is in them instead of going quiet about it.
+            ->assertSee('additives and natural preservatives');
 
         // The air-dried boxes the client signed off on keep theirs.
         $this->get('/en/display-boxes/horse-skin-display-box')

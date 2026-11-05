@@ -134,8 +134,8 @@ class DisplayBoxSeeder extends Seeder
             'el' => '<ul><li>Μίας πρωτεΐνης &amp; χωρίς δημητριακά</li><li>Μαλακή υφή, σπάει εύκολα στα δύο</li><li>Στο σωστό μέγεθος για εκπαίδευση και επιβραβεύσεις</li><li>Κατάλληλα για σκύλους όλων των μεγεθών</li></ul>',
         ];
         $sausageCharacteristics = [
-            'en' => '<ul><li>Single-protein &amp; grain-free</li><li>Long and soft, easy to break in half</li><li>Keeps them busy without the hard work</li><li>Suitable for dogs of all sizes</li></ul>',
-            'el' => '<ul><li>Μίας πρωτεΐνης &amp; χωρίς δημητριακά</li><li>Μακρύ και μαλακό, σπάει εύκολα στα δύο</li><li>Τους απασχολεί χωρίς κόπο</li><li>Κατάλληλο για σκύλους όλων των μεγεθών</li></ul>',
+            'en' => '<ul><li>Single-protein &amp; grain-free</li><li>Long and soft, easy to break in half</li><li>Made with an edible collagen casing</li><li>Suitable for dogs of all sizes</li></ul>',
+            'el' => '<ul><li>Μίας πρωτεΐνης &amp; χωρίς δημητριακά</li><li>Μακρύ και μαλακό, σπάει εύκολα στα δύο</li><li>Σε βρώσιμο έντερο κολλαγόνου</li><li>Κατάλληλο για σκύλους όλων των μεγεθών</li></ul>',
         ];
 
         return [
@@ -254,8 +254,8 @@ class DisplayBoxSeeder extends Seeder
                 'made' => 'sticks',
                 'image' => 'products/display-box-turkey-sausage-sticks.jpg',
                 'line' => [
-                    'en' => 'Long, soft turkey sausage sticks — one of these is a whole session on the rug.',
-                    'el' => 'Μακριά, μαλακά λουκάνικα γαλοπούλας — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
+                    'en' => 'Long, soft turkey sausage sticks in an edible collagen casing — one of these is a whole session on the rug.',
+                    'el' => 'Μακριά, μαλακά λουκάνικα γαλοπούλας σε βρώσιμο έντερο κολλαγόνου — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
                 ],
                 'characteristics' => $sausageCharacteristics,
             ],
@@ -269,8 +269,8 @@ class DisplayBoxSeeder extends Seeder
                 'made' => 'sticks',
                 'image' => 'products/display-box-chicken-sausage-sticks.jpg',
                 'line' => [
-                    'en' => 'Long, soft chicken sausage sticks — one of these is a whole session on the rug.',
-                    'el' => 'Μακριά, μαλακά λουκάνικα κοτόπουλου — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
+                    'en' => 'Long, soft chicken sausage sticks in an edible collagen casing — one of these is a whole session on the rug.',
+                    'el' => 'Μακριά, μαλακά λουκάνικα κοτόπουλου σε βρώσιμο έντερο κολλαγόνου — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
                 ],
                 'characteristics' => $sausageCharacteristics,
             ],
