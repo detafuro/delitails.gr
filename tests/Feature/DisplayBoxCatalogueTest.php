@@ -77,6 +77,29 @@ class DisplayBoxCatalogueTest extends TestCase
         $this->get('/en/display-boxes')->assertOk()->assertSee('Horse')->assertDontSee('Fish');
     }
 
+    /** The sticks are pressed, so the air-dried, single-ingredient, additive-free copy must not follow them. */
+    public function test_pressed_sticks_drop_the_air_dried_claims(): void
+    {
+        $this->product([
+            'title' => 'Turkey Sticks',
+            'slug' => 'turkey-sticks-display-box',
+            'pack_type' => Product::PACK_DISPLAY_BOX,
+        ]);
+        $this->product(['slug' => 'horse-skin-display-box', 'pack_type' => Product::PACK_DISPLAY_BOX]);
+
+        $this->get('/en/display-boxes/turkey-sticks-display-box')
+            ->assertOk()
+            ->assertDontSee('No additives')
+            ->assertDontSee('Air-dried')
+            ->assertDontSee('air-dried')
+            ->assertDontSee('single-ingredient');
+
+        // The air-dried boxes the client signed off on keep theirs.
+        $this->get('/en/display-boxes/horse-skin-display-box')
+            ->assertOk()
+            ->assertSee('No additives, no preservatives, no apologies.');
+    }
+
     public function test_display_boxes_stay_off_the_home_page_grid(): void
     {
         $this->product(['title' => 'Horse Skin Box', 'slug' => 'horse-skin-display-box', 'pack_type' => Product::PACK_DISPLAY_BOX]);

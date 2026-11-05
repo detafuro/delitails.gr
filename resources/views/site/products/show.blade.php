@@ -178,18 +178,30 @@
 
                 <div class="mt-8 space-y-3" x-data="{ open: 0 }">
                     @php
+                        // Sticks and sausages are pressed rather than dried whole: the
+                        // first two cards and the additive-free line don't hold for them.
+                        $pressed = $product->isPressed();
+
                         $accordion = [
-                            [
+                            $pressed ? [
+                                'title' => __('Single protein, grain-free'),
+                                'body' => '<p>'.__('One animal, one protein, and nothing padded out with grain. Minced, shaped and kept soft enough to break in half, so you always know what you are handing over.').'</p>',
+                            ] : [
                                 'title' => __('Natural & single-ingredient'),
                                 'body' => '<p>'.__('Real food, full stop. One animal, one cut, air-dried to lock in nutrients. No fillers, no shortcuts, no surprises in the bag — just the kind of chew a dog would pick for themselves if they were running the kitchen.').'</p>',
                             ],
-                            [
+                            $pressed ? [
+                                'title' => __('Made in small batches'),
+                                'body' => '<p>'.__('Every batch comes from meat we buy from suppliers we know personally, in runs small enough to keep an eye on. That is what keeps the texture soft and the smell worth begging for.').'</p>',
+                            ] : [
                                 'title' => __('Air-dried, never rushed'),
                                 'body' => '<p>'.__('Every batch is dried low-and-slow under controlled conditions. That keeps the protein, the smell and the satisfying chew exactly where they belong — and lets your dog get the most out of every bite.').'</p>',
                             ],
                             [
                                 'title' => __('Respect the dog'),
-                                'body' => '<p>'.__("Single-protein means easier digestion, fewer surprises and a treat that respects your dog's instinctive diet. No additives, no preservatives, no apologies.").'</p>',
+                                'body' => '<p>'.($pressed
+                                    ? __("Single-protein means easier digestion, fewer surprises and a treat that respects your dog's instinctive diet.")
+                                    : __("Single-protein means easier digestion, fewer surprises and a treat that respects your dog's instinctive diet. No additives, no preservatives, no apologies.")).'</p>',
                             ],
                             [
                                 'title' => __("Don't forget"),

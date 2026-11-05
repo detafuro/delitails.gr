@@ -126,6 +126,24 @@ class Product extends Model
         return $this->pack_type === self::PACK_DISPLAY_BOX;
     }
 
+    /**
+     * The sticks and sausages are minced and shaped, not dried whole, so the
+     * single-ingredient / air-dried / additive-free copy is not true of them.
+     * Listed by slug, the same handle DisplayBoxSeeder keys on; if the range
+     * grows beyond these, this wants to become a column on the product.
+     */
+    public const PRESSED_SLUGS = [
+        'turkey-sticks-display-box',
+        'chicken-sticks-display-box',
+        'turkey-sausage-sticks-display-box',
+        'chicken-sausage-sticks-display-box',
+    ];
+
+    public function isPressed(): bool
+    {
+        return in_array($this->slug, self::PRESSED_SLUGS, true);
+    }
+
     /** 'products.show' or 'display-boxes.show', depending on how this one is packed. */
     public function routeName(string $action = 'show'): string
     {

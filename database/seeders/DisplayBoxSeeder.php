@@ -79,8 +79,8 @@ class DisplayBoxSeeder extends Seeder
 
         $sourcing = $box['made'] === 'sticks'
             ? ($locale === 'el'
-                ? 'Μία πρωτεΐνη, χωρίς δημητριακά. Παρασκευή σε μικρές παρτίδες, από κρέας προμηθευτών που γνωρίζουμε προσωπικά. Χωρίς πρόσθετα, χωρίς συντηρητικά, χωρίς δικαιολογίες.'
-                : 'Single protein, grain-free. Made in small batches from meat we source from suppliers we know personally. No additives, no preservatives, no apologies.')
+                ? 'Μία πρωτεΐνη, χωρίς δημητριακά. Παρασκευή σε μικρές παρτίδες, από κρέας προμηθευτών που γνωρίζουμε προσωπικά.'
+                : 'Single protein, grain-free. Made in small batches from meat we source from suppliers we know personally.')
             : ($locale === 'el'
                 ? 'Ένα μόνο συστατικό. Φυσική αποξήρανση στον αέρα. Πρώτες ύλες από προμηθευτές που γνωρίζουμε προσωπικά, παρασκευή σε μικρές παρτίδες. Χωρίς πρόσθετα, χωρίς συντηρητικά, χωρίς δικαιολογίες.'
                 : 'Single-ingredient. Naturally air-dried. Sourced from suppliers we know personally and prepared in small batches. No additives, no preservatives, no apologies.');
@@ -112,9 +112,10 @@ class DisplayBoxSeeder extends Seeder
     /** @return array<int, array<string, mixed>> */
     private function boxes(): array
     {
-        $chewCharacteristics = [
-            'en' => '<ul><li>Single-ingredient &amp; high in protein</li><li>Promotes strong jaws and clean teeth</li><li>Long-lasting chew for serious chewers</li><li>Ideal for medium to large breeds</li></ul>',
-            'el' => '<ul><li>Ενός συστατικού &amp; πλούσιο σε πρωτεΐνη</li><li>Ενισχύει τη γνάθο και καθαρίζει τα δόντια</li><li>Μάσημα μεγάλης διάρκειας για σοβαρούς μασουλητές</li><li>Ιδανικό για μεσαίες έως μεγάλες φυλές</li></ul>',
+        // The lamb pizzle is the small one — medium breeds, not the big dogs.
+        $pizzleCharacteristics = [
+            'en' => '<ul><li>Single-ingredient &amp; high in protein</li><li>Promotes strong jaws and clean teeth</li><li>Long-lasting chew for serious chewers</li><li>Ideal for medium breeds</li></ul>',
+            'el' => '<ul><li>Ενός συστατικού &amp; πλούσιο σε πρωτεΐνη</li><li>Ενισχύει τη γνάθο και καθαρίζει τα δόντια</li><li>Μάσημα μεγάλης διάρκειας για σοβαρούς μασουλητές</li><li>Ιδανικό για μεσαίες φυλές</li></ul>',
         ];
         $tracheaCharacteristics = [
             'en' => '<ul><li>Single-ingredient &amp; joint-supportive</li><li>Natural source of glucosamine and chondroitin</li><li>Crunchy texture promotes dental health</li><li>Suitable for dogs of all sizes</li></ul>',
@@ -133,8 +134,8 @@ class DisplayBoxSeeder extends Seeder
             'el' => '<ul><li>Μίας πρωτεΐνης &amp; χωρίς δημητριακά</li><li>Μαλακή υφή, σπάει εύκολα στα δύο</li><li>Στο σωστό μέγεθος για εκπαίδευση και επιβραβεύσεις</li><li>Κατάλληλα για σκύλους όλων των μεγεθών</li></ul>',
         ];
         $sausageCharacteristics = [
-            'en' => '<ul><li>Single-protein &amp; grain-free</li><li>Long, chewy stick that keeps them busy</li><li>No additives, no preservatives</li><li>Ideal for medium to large breeds</li></ul>',
-            'el' => '<ul><li>Μίας πρωτεΐνης &amp; χωρίς δημητριακά</li><li>Μακρύ, μασητικό στικ που τους απασχολεί</li><li>Χωρίς πρόσθετα, χωρίς συντηρητικά</li><li>Ιδανικό για μεσαίες έως μεγάλες φυλές</li></ul>',
+            'en' => '<ul><li>Single-protein &amp; grain-free</li><li>Long and soft, easy to break in half</li><li>Keeps them busy without the hard work</li><li>Suitable for dogs of all sizes</li></ul>',
+            'el' => '<ul><li>Μίας πρωτεΐνης &amp; χωρίς δημητριακά</li><li>Μακρύ και μαλακό, σπάει εύκολα στα δύο</li><li>Τους απασχολεί χωρίς κόπο</li><li>Κατάλληλο για σκύλους όλων των μεγεθών</li></ul>',
         ];
 
         return [
@@ -151,7 +152,7 @@ class DisplayBoxSeeder extends Seeder
                     'en' => 'A loud little chew for serious chewers — lean lamb pizzle, dried hard and gone slowly.',
                     'el' => 'Μια δυνατή μικρή λιχουδιά για σοβαρούς μασουλητές — άπαχο αρνίσιο μόριο, καλά αποξηραμένο, που κρατάει.',
                 ],
-                'characteristics' => $chewCharacteristics,
+                'characteristics' => $pizzleCharacteristics,
             ],
             [
                 'slug' => 'lamb-trachea-display-box',
@@ -253,8 +254,8 @@ class DisplayBoxSeeder extends Seeder
                 'made' => 'sticks',
                 'image' => 'products/display-box-turkey-sausage-sticks.jpg',
                 'line' => [
-                    'en' => 'Long, chewy turkey sausage sticks — one of these is a whole session on the rug.',
-                    'el' => 'Μακριά, μασητικά λουκάνικα γαλοπούλας — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
+                    'en' => 'Long, soft turkey sausage sticks — one of these is a whole session on the rug.',
+                    'el' => 'Μακριά, μαλακά λουκάνικα γαλοπούλας — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
                 ],
                 'characteristics' => $sausageCharacteristics,
             ],
@@ -268,8 +269,8 @@ class DisplayBoxSeeder extends Seeder
                 'made' => 'sticks',
                 'image' => 'products/display-box-chicken-sausage-sticks.jpg',
                 'line' => [
-                    'en' => 'Long, chewy chicken sausage sticks — one of these is a whole session on the rug.',
-                    'el' => 'Μακριά, μασητικά λουκάνικα κοτόπουλου — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
+                    'en' => 'Long, soft chicken sausage sticks — one of these is a whole session on the rug.',
+                    'el' => 'Μακριά, μαλακά λουκάνικα κοτόπουλου — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
                 ],
                 'characteristics' => $sausageCharacteristics,
             ],
