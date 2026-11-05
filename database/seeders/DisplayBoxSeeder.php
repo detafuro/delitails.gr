@@ -254,8 +254,8 @@ class DisplayBoxSeeder extends Seeder
                 'made' => 'sticks',
                 'image' => 'products/display-box-turkey-sausage-sticks.jpg',
                 'line' => [
-                    'en' => 'Long, soft turkey sausage sticks in an edible collagen casing — one of these is a whole session on the rug.',
-                    'el' => 'Μακριά, μαλακά λουκάνικα γαλοπούλας σε βρώσιμο έντερο κολλαγόνου — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
+                    'en' => 'Long, soft turkey sausage sticks in an edible collagen casing.',
+                    'el' => 'Μακριά, μαλακά λουκάνικα γαλοπούλας σε βρώσιμο έντερο κολλαγόνου.',
                 ],
                 'characteristics' => $sausageCharacteristics,
             ],
@@ -269,8 +269,8 @@ class DisplayBoxSeeder extends Seeder
                 'made' => 'sticks',
                 'image' => 'products/display-box-chicken-sausage-sticks.jpg',
                 'line' => [
-                    'en' => 'Long, soft chicken sausage sticks in an edible collagen casing — one of these is a whole session on the rug.',
-                    'el' => 'Μακριά, μαλακά λουκάνικα κοτόπουλου σε βρώσιμο έντερο κολλαγόνου — το ένα είναι ολόκληρη απασχόληση στο χαλί.',
+                    'en' => 'Long, soft chicken sausage sticks in an edible collagen casing.',
+                    'el' => 'Μακριά, μαλακά λουκάνικα κοτόπουλου σε βρώσιμο έντερο κολλαγόνου.',
                 ],
                 'characteristics' => $sausageCharacteristics,
             ],
