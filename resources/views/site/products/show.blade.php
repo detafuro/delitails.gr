@@ -192,7 +192,7 @@
                             ],
                             $pressed ? [
                                 'title' => __('Made in small batches'),
-                                'body' => '<p>'.__('Every batch comes from meat we buy from suppliers we know personally, in runs small enough to keep an eye on. Minced meat does not keep the way a dried whole cut does, so these carry additives and natural preservatives — in the smallest proportion we can work with, well under what is usual on the shelf.').'</p>',
+                                'body' => '<p>'.__('Every batch comes from meat we buy from suppliers we know personally, in runs small enough to keep an eye on. That is what keeps the texture soft and the smell worth begging for.').'</p>',
                             ] : [
                                 'title' => __('Air-dried, never rushed'),
                                 'body' => '<p>'.__('Every batch is dried low-and-slow under controlled conditions. That keeps the protein, the smell and the satisfying chew exactly where they belong — and lets your dog get the most out of every bite.').'</p>',
