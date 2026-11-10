@@ -87,6 +87,9 @@
                     <x-admin.image-upload name="lineup_treats_image" label="Treats image"
                         :currentPath="$settings['lineup_treats_image'] ?? null"
                         hint="Replaces the TREATS placeholder. Landscape 4:3 — 1200×900 recommended."/>
+                    <x-admin.image-upload name="lineup_sausages_image" label="Sausages image"
+                        :currentPath="$settings['lineup_sausages_image'] ?? null"
+                        hint="Replaces the SAUSAGES placeholder. Landscape 4:3 — 1200×900 recommended."/>
                 </div>
             </div>
             <div class="border-t-2 border-dashed border-ink/30 pt-5 mt-2 space-y-5">

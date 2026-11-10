@@ -76,7 +76,7 @@
     <x-site.torn-section bg="bone" :top="true">
         <div class="mx-auto max-w-7xl px-4 md:px-6">
             <div class="text-center mb-16 md:mb-24">
-                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">{{ __('Two ways to treat') }}</div>
+                <div class="text-fire text-sm font-bold uppercase tracking-[0.3em]">{{ __('Three ways to treat') }}</div>
                 <h2 class="mt-2 font-display text-4xl md:text-6xl font-black uppercase">{{ __('Choose your chew') }}</h2>
             </div>
 
@@ -103,16 +103,17 @@
                         'cta' => __('Explore treats'),
                         'image' => $site['lineup_treats_image'] ?? null,
                     ],
-                    // Natural Sausages hidden until the category is available — restore this entry when it is.
-                    // [
-                    //     'number' => '03',
-                    //     'badge' => __('Sausages'),
-                    //     'word' => __('SAUSAGES'),
-                    //     'title' => __('Natural Sausages'),
-                    //     'text' => __('Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.'),
-                    //     'link' => route('products.index'),
-                    //     'cta' => __('Explore sausages'),
-                    // ],
+                    [
+                        'number' => '03',
+                        'badge' => __('Sausages'),
+                        'badge_class' => 'bg-ink text-bone',
+                        'word' => __('SAUSAGES'),
+                        'title' => __('Natural Sausages'),
+                        'text' => __('Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.'),
+                        'link' => route('products.index'),
+                        'cta' => __('Explore sausages'),
+                        'image' => $site['lineup_sausages_image'] ?? null,
+                    ],
                 ];
             @endphp
 
