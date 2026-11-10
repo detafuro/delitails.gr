@@ -112,6 +112,10 @@ class DisplayBoxSeeder extends Seeder
     /** @return array<int, array<string, mixed>> */
     private function boxes(): array
     {
+        $beefPizzleCharacteristics = [
+            'en' => '<ul><li>Single-ingredient &amp; high in protein</li><li>Promotes strong jaws and clean teeth</li><li>Long-lasting chew for serious chewers</li><li>Ideal for medium to large breeds</li></ul>',
+            'el' => '<ul><li>Ενός συστατικού &amp; πλούσιο σε πρωτεΐνη</li><li>Ενισχύει τη γνάθο και καθαρίζει τα δόντια</li><li>Μάσημα μεγάλης διάρκειας για σοβαρούς μασουλητές</li><li>Ιδανικό για μεσαίες έως μεγάλες φυλές</li></ul>',
+        ];
         // The lamb pizzle is the small one — medium breeds, not the big dogs.
         $pizzleCharacteristics = [
             'en' => '<ul><li>Single-ingredient &amp; high in protein</li><li>Promotes strong jaws and clean teeth</li><li>Long-lasting chew for serious chewers</li><li>Ideal for medium breeds</li></ul>',
@@ -273,6 +277,21 @@ class DisplayBoxSeeder extends Seeder
                     'el' => 'Μακριά, μαλακά λουκάνικα κοτόπουλου σε βρώσιμο έντερο κολλαγόνου.',
                 ],
                 'characteristics' => $sausageCharacteristics,
+            ],
+            [
+                'slug' => 'beef-pizzle-display-box',
+                'sku' => 'SKU-DB-10',
+                'title' => 'Beef Pizzle',
+                'el_title' => 'Μοσχαρίσιο Μόριο',
+                'qty' => 70,
+                'category' => 'beef',
+                'made' => 'air-dried',
+                'image' => 'products/display-box-beef-pizzle.jpg',
+                'line' => [
+                    'en' => 'Beef pizzle, dried hard and gone slowly — the long chew serious chewers settle in with.',
+                    'el' => 'Μοσχαρίσιο μόριο, καλά αποξηραμένο, που κρατάει — το μάσημα με το οποίο στρώνονται και οι σοβαροί μασουλητές.',
+                ],
+                'characteristics' => $beefPizzleCharacteristics,
             ],
         ];
     }

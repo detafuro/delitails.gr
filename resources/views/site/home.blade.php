@@ -110,7 +110,8 @@
                         'word' => __('SAUSAGES'),
                         'title' => __('Natural Sausages'),
                         'text' => __('Made with real meat and collagen casing, our natural sausages deliver flavor, nutrition, and added benefits for your dog\'s joints, skin, and coat. The difference from ordinary sausages is noticeable in every bite — wholesome, delicious, and crafted with care by us, the producers.'),
-                        'link' => route('products.index'),
+                        // The sausages are only sold by the display box for now.
+                        'link' => route('display-boxes.index'),
                         'cta' => __('Explore sausages'),
                         'image' => $site['lineup_sausages_image'] ?? null,
                     ],
