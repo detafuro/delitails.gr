@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -39,6 +40,12 @@ class Post extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(BlogCategory::class, 'category_id');
+    }
+
+    /** Photo gallery shown under the body — event recaps, mostly. */
+    public function images(): HasMany
+    {
+        return $this->hasMany(PostImage::class)->orderBy('sort_order');
     }
 
     public function scopePublished($q)

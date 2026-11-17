@@ -40,6 +40,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Blog
     Route::resource('posts', PostController::class)->except(['show']);
+    Route::delete('posts/{post}/images/{image}', [PostController::class, 'destroyImage'])
+        ->name('posts.images.destroy');
     Route::resource('blog-categories', BlogCategoryController::class)
         ->except(['show'])
         ->parameters(['blog-categories' => 'blog_category']);

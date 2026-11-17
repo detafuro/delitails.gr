@@ -22,6 +22,8 @@ class StorePostRequest extends FormRequest
             'excerpt' => ['nullable', 'string', 'max:500'],
             'body' => ['nullable', 'string'],
             'featured_image' => ['nullable', 'image', 'max:8192'],
+            'gallery' => ['nullable', 'array'],
+            'gallery.*' => ['image', 'max:8192'],
             'category_id' => ['nullable', 'exists:blog_categories,id'],
             'author' => ['nullable', 'string', 'max:120'],
             'tags' => ['nullable', 'string', 'max:255'],

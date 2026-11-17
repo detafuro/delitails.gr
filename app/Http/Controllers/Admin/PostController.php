@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Admin\StorePostRequest;
 use App\Models\BlogCategory;
 use App\Models\Post;
+use App\Models\PostImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -40,14 +41,17 @@ class PostController extends AdminController
         if ($request->hasFile('featured_image')) {
             $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
         }
+        unset($data['gallery']);
         $post = Post::create($data);
         $post->saveTranslations($request->input('el'));
+        $this->storeGallery($request, $post);
         return redirect()->route('admin.posts.index')->with('success', 'Post created.');
     }
 
     public function edit(Post $post)
     {
         $this->authorize('update', $post);
+        $post->load('images');
         $categories = BlogCategory::orderBy('name')->get();
         return view('admin.posts.edit', compact('post', 'categories'));
     }
@@ -63,16 +67,47 @@ class PostController extends AdminController
             if ($post->featured_image) Storage::disk('public')->delete($post->featured_image);
             $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
         }
+        unset($data['gallery']);
         $post->update($data);
         $post->saveTranslations($request->input('el'));
+        $this->storeGallery($request, $post);
         return redirect()->route('admin.posts.edit', $post)->with('success', 'Post updated.');
     }
 
     public function destroy(Post $post)
     {
         $this->authorize('delete', $post);
+        foreach ($post->images as $img) {
+            Storage::disk('public')->delete($img->path);
+        }
         if ($post->featured_image) Storage::disk('public')->delete($post->featured_image);
         $post->delete();
         return redirect()->route('admin.posts.index')->with('success', 'Post deleted.');
+    }
+
+    public function destroyImage(Post $post, PostImage $image)
+    {
+        $this->authorize('update', $post);
+        abort_unless($image->post_id === $post->id, 404);
+        Storage::disk('public')->delete($image->path);
+        $image->delete();
+        return back()->with('success', 'Image removed.');
+    }
+
+    /** New gallery uploads go after the ones already there. */
+    private function storeGallery(StorePostRequest $request, Post $post): void
+    {
+        if (! $request->hasFile('gallery')) {
+            return;
+        }
+
+        $start = $post->images()->max('sort_order') ?? 0;
+        foreach ($request->file('gallery') as $i => $file) {
+            PostImage::create([
+                'post_id' => $post->id,
+                'path' => $file->store('posts', 'public'),
+                'sort_order' => $start + $i + 1,
+            ]);
+        }
     }
 }

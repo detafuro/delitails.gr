@@ -41,6 +41,21 @@
             <h3 class="font-display text-lg font-extrabold uppercase">Featured image</h3>
             <x-admin.image-upload name="featured_image" :currentPath="$post->featured_image"/>
         </div>
+
+        <div class="brush-card p-5 space-y-4">
+            <h3 class="font-display text-lg font-extrabold uppercase">Photo gallery</h3>
+            @if($post->exists && $post->images->count())
+                <div class="grid grid-cols-3 gap-2 mb-3">
+                    @foreach($post->images as $img)
+                        <div class="relative group border border-ink/30">
+                            <img src="{{ asset('storage/'.$img->path) }}" class="h-24 w-full object-cover">
+                            <button type="button" onclick="if(confirm('Remove this photo?')) { fetch('{{ route('admin.posts.images.destroy', [$post, $img]) }}', { method: 'DELETE', headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' } }).then(() => location.reload()); }" class="absolute inset-0 hidden group-hover:flex items-center justify-center bg-ink/70 text-bone text-xs font-bold uppercase">Remove</button>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+            <x-admin.image-upload name="gallery" :multiple="true" hint="Shown as a grid under the article. Pick several at once."/>
+        </div>
     </div>
 </div>
 <div class="mt-6 flex gap-3">

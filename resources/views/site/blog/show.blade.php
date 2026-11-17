@@ -63,6 +63,58 @@
                 {!! $post->t('body') !!}
             </div>
 
+            @if($post->images->count())
+                @php
+                    // The lightbox only needs the big version and a label per shot.
+                    $shots = $post->images->map(fn ($img) => [
+                        'src' => \App\Support\Media::url($img->path, 1400),
+                        'alt' => $img->alt ?: $post->t('title'),
+                    ])->values();
+                @endphp
+                <section class="mt-12 md:mt-16"
+                         x-data="{ open: false, i: 0, shots: {{ \Illuminate\Support\Js::from($shots) }} }"
+                         @keydown.escape.window="open = false"
+                         @keydown.arrow-right.window="if (open) i = (i + 1) % shots.length"
+                         @keydown.arrow-left.window="if (open) i = (i - 1 + shots.length) % shots.length">
+                    <h2 class="font-display text-2xl md:text-4xl font-black uppercase">{{ __('From the floor') }}</h2>
+
+                    <div class="mt-6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+                        @foreach($post->images as $k => $img)
+                            <button type="button" @click="i = {{ $k }}; open = true"
+                                    class="group relative block aspect-[4/5] border-2 border-ink bg-bone overflow-hidden sticker-shadow"
+                                    aria-label="{{ __('Open photo') }} {{ $k + 1 }}">
+                                <x-site.img :src="$img->path" :alt="$img->alt ?: $post->t('title')"
+                                            sizes="(min-width: 1280px) 290px, (min-width: 768px) 31vw, 47vw"
+                                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+                            </button>
+                        @endforeach
+                    </div>
+
+                    {{-- Lightbox --}}
+                    <div x-cloak x-show="open" x-transition.opacity
+                         class="fixed inset-0 z-50 flex items-center justify-center bg-ink/95 p-4 md:p-8"
+                         @click.self="open = false" role="dialog" aria-modal="true">
+                        <img :src="shots[i].src" :alt="shots[i].alt"
+                             class="max-h-full max-w-full border-2 border-bone object-contain">
+
+                        <button type="button" @click="open = false" aria-label="{{ __('Close') }}"
+                                class="absolute top-4 right-4 border-2 border-bone bg-ink px-3 py-1.5 font-display text-lg font-black leading-none text-bone hover:bg-fire">&times;</button>
+
+                        <template x-if="shots.length > 1">
+                            <div>
+                                <button type="button" @click.stop="i = (i - 1 + shots.length) % shots.length" aria-label="{{ __('Previous') }}"
+                                        class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 border-2 border-bone bg-ink px-3 py-2 font-display font-black text-bone hover:bg-fire">&larr;</button>
+                                <button type="button" @click.stop="i = (i + 1) % shots.length" aria-label="{{ __('Next') }}"
+                                        class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 border-2 border-bone bg-ink px-3 py-2 font-display font-black text-bone hover:bg-fire">&rarr;</button>
+                                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 font-display text-sm font-bold uppercase tracking-widest text-bone/80">
+                                    <span x-text="i + 1"></span> / <span x-text="shots.length"></span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </section>
+            @endif
+
             @if(is_array($post->tags) && count($post->tags))
                 <div class="mt-10 flex flex-wrap gap-2">
                     @foreach($post->tags as $tag)
